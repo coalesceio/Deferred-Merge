@@ -38,7 +38,7 @@ steps:
                 stepCounter: 961162e7-8f14-4493-9341-f0ca2de18f62
         predTask: ""
         recordVersioning: Datetime Column
-        redeploymentBehavior: Create or Replace
+        redeploymentBehavior: Create If Not Exists
         retainLastNonDeleteFlag: false
         rootTask: ""
         scheduleCRON: 5 0-23 * * * America/Los_Angeles
