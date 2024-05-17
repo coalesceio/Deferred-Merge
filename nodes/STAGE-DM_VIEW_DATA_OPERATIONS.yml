@@ -12,7 +12,7 @@ steps:
             - columnNameExpressions: null
               sqlExpression: ex. trunc(<column_name>, -5)
         clusterKeyExpressions: false
-        devMode: true
+        devMode: false
         dmlCol:
           columnCounter: b1cbef82-e3e2-40de-8320-bfa26ae20146
           stepCounter: 961162e7-8f14-4493-9341-f0ca2de18f62
