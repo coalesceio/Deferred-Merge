@@ -37,7 +37,7 @@ steps:
                 stepCounter: 77fd436a-0a2f-4d07-bdc6-0670050eda51
         predTask: ""
         recordVersioning: Datetime Column
-        redeploymentBehavior: Create At Existing Stream
+        redeploymentBehavior: Create or Replace
         retainLastNonDeleteFlag: false
         rootTask: ""
         scheduleCRON: 5 0-23 * * * America/Los_Angeles
