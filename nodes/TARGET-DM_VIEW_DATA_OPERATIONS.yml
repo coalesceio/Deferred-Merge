@@ -52,7 +52,7 @@ steps:
       deployEnabled: true
       description: ""
       isMultisource: false
-      locationName: SOURCE
+      locationName: TARGET
       materializationType: table
       metadata:
         appliedNodeTests: []
