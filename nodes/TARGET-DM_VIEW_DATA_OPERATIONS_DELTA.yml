@@ -13,7 +13,7 @@ steps:
           items:
             - {}
         clusterKeyExpressions: false
-        devMode: false
+        devMode: true
         dmlCol:
           columnCounter: 47cbfa39-762c-49e7-b16d-384899af4adf
           stepCounter: e4cc2fb6-93c7-4ad2-aced-2085d464659e
