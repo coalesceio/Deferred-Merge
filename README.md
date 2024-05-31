@@ -41,6 +41,7 @@ The Stream has multiple configuration groups.
 ### Stream Options
 
 There are two configs within the Stream Options group.
+[Missing Content]
 
 * **Source Object**: The type of object the stream will be created on. One of two options is required to be selected and this selection drives what other configs are available:
   * Table
