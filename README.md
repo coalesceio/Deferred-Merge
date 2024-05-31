@@ -6,28 +6,6 @@ A hybrid view is established to provide access to the most current data by combi
 
 Finally, a scheduled task manages ongoing updates by merging changes into the target table. This process ensures that the target table remains synchronized with the source data  maintaining accuracy and timeliness.
 
-* [Deferred Merge Append Stream](#deferred-merge-append-stream)
-  * [Node Configuration](#node-configuration)
-    * [General Options](#general-options)
-    * [Stream Options](#stream-options)
-      * [Table](#table)
-    * [Target Loading Options](#target-loading-options)
-    * [Target Row DML Operations](#target-row-dml-operations)
-    * [Target Delete Options](#target-delete-options)
-    * [Target Clustering Options](#target-clustering-options)
-    * [Scheduling Options](#scheduling-options)
-  * [Limitations](#limitations)
-  * [Deployment](#deployment)
-    * [Initial Deployment](#initial-deployment)
-      * [Predecessor Task](#predecessor-task)
-    * [Redeployment](#redeployment)
-      * [Create Stream If Not Exists](#create-stream-if-not-exists)
-      * [Create or Replace](#create-or-replace)
-      * [Create at Existing Stream](#create-at-existing-stream)
-    * [Undeployment](#undeployment)
-  * [Code](#code)
-    * [Deffered Merge - Append Stream](#deffered-merge---append-stream)
-
 ## Node Configuration
 
 The Stream has multiple configuration groups.
