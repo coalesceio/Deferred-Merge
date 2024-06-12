@@ -19,20 +19,18 @@ The Stream has multiple configuration groups.
 ### Stream Options
 
 There are two configs within the Stream Options group.
-[Missing Content]
+
 
 * **Source Object**: The type of object the stream will be created on. One of two options is required to be selected and this selection drives what other configs are available:
   * Table
   * View
-
+* **Redeployment Behavior**: 
 #### Table
 
 * **Show Initial Rows**: True / False Toggle to specify the records to return the first time the stream is consumed.
   * True - The stream returns only the rows that existed in the source object at the moment when the stream was created. Subsequently, the stream returns any DML changes to the source object since the most recent offset; that is, the normal stream behavior.
   * False - The stream returns any DML changes to the source object since the most recent offset.
-* **Show Initial Rows**: True / False Toggle to specify the records to return the first time the stream is consumed.
-  * True - The stream returns only the rows that existed in the source object at the moment when the stream was created. Subsequently, the stream returns any DML changes to the source object since the most recent offset; that is, the normal stream behavior.
-  * False - The stream returns any DML changes to the source object since the most recent offset.
+
 
 ### Target Loading Options
 
