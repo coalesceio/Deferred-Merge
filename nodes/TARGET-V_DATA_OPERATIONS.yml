@@ -1,0 +1,148 @@
+fileVersion: 1
+id: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+name: V_DATA_OPERATIONS
+operation:
+  config:
+    insertStrategy: UNION
+    selectDistinct: false
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2c2b6cc5-787d-4347-b75e-f0e1957c6ba3
+          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 196b0b29-e283-47fc-b27a-76491225a17b
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: eece7b6c-5005-4ce3-867b-414e1ebe9d77
+          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: RECORD_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 99c049e2-2a21-4b97-baf2-b2425b16ff2e
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 220876fe-0231-42cc-a36b-98ad5e242e1d
+          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+        config: {}
+        dataType: VARCHAR(255)
+        description: ""
+        name: NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7ce71781-2c2b-44b3-9153-b262d1aceb22
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f1e2b56e-6dfb-4e99-8220-a4a856b121b4
+          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AGE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 4715f0f7-939e-4913-b3d4-e795f9e4f115
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 91bc1d1a-8afc-48fb-bee5-1e4e69f709f2
+          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+        config: {}
+        dataType: VARCHAR(255)
+        description: ""
+        name: CITY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: bfae9002-ad0f-4466-80bb-24accfc38a9e
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c2a6798d-f7af-419d-9f92-9b016f2e7430
+          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+        config: {}
+        dataType: VARCHAR(10)
+        description: ""
+        name: OPERATION_TYPE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 60b15c72-45bf-4181-9144-569518174d5a
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 67dfbfad-6ee5-44ae-9028-c7aededa6c57
+          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+        config: {}
+        dataType: VARCHAR(10)
+        description: ""
+        name: SOURCE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 0c6d4c34-e9ad-4741-97e0-20eff75bb7ce
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: af5c4da2-de55-46f1-98d4-97e0755e973f
+          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: DML_IDENTIFIER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e1bbf0a2-2a0e-4fa7-b4f5-fcae83fd125e
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: DATA_OPERATIONS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'DATA_OPERATIONS') }} "DATA_OPERATIONS"
+        name: V_DATA_OPERATIONS
+        noLinkRefs: []
+  name: V_DATA_OPERATIONS
+  overrideSQL: false
+  schema: ""
+  sqlType: View
+  type: sql
+  version: 1
+type: Node
