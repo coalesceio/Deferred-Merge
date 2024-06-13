@@ -46,7 +46,7 @@ operation:
     schedulePeriod: "60"
     schedulePeriodOption: Predecessor
     schedulingMode: Serverless Task
-    serverlessSize: MEDIUM
+    serverlessSize: XSMALL
     softDeleteFlag: false
     sourceType: Table
     whName: <WAREHOUSE_NAME>
