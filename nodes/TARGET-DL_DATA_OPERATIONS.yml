@@ -148,7 +148,7 @@ operation:
           columnCounter: 5b511c8d-c131-4fa6-9aee-58329e23a92c
           stepCounter: d4f00a1b-e957-4362-b576-ddde8337e5a8
         config: {}
-        dataType: VARCHAR(10)
+        dataType: VARCHAR(11)
         description: ""
         name: SOURCE
         nullable: true
