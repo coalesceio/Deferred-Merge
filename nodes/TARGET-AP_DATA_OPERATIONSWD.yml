@@ -37,14 +37,14 @@ operation:
         - partColName:
             columnCounter: 048c0a02-e14d-4197-a05a-6c4b3d4048fe
             stepCounter: 16341d7e-6684-4f2d-afbc-f0c63f863abe
-    predTask: ""
+    predTask: DM_TASK_AP_DATA_OPERATIONS
     recordVersioning: Datetime Column
     redeploymentBehavior: Create At Existing Stream
     retainLastNonDeleteFlag: false
-    rootTask: ""
+    rootTask: DM_TASK_AP_DATA_OPERATIONS
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
     schedulePeriod: "60"
-    schedulePeriodOption: Minutes
+    schedulePeriodOption: Predecessor
     schedulingMode: Serverless Task
     serverlessSize: MEDIUM
     softDeleteFlag: false

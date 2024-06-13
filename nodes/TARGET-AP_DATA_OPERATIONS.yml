@@ -13,22 +13,30 @@ operation:
         - {}
     clusterKeyExpressions: false
     createas: table
-    devMode: true
-    dmlDelete: D
-    dmlInsert: I
+    devMode: false
+    dmlCol:
+      columnCounter: 66aebe9a-7bef-4b0a-baeb-fe51f62f2c1d
+      stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
+    dmlDelete: "0"
+    dmlInsert: "1"
     dmlUpdate: U
     flagSrcStream: false
     initialRows: true
     insertOnly: false
     orderBy:
       items:
-        - {}
+        - colName:
+            columnCounter: 43a9b350-d507-4aa8-a59c-8ed2f6503783
+            stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
+          sortOrd: asc
     orderByDateTime:
       items:
         - {}
     partitionBy:
       items:
-        - {}
+        - partColName:
+            columnCounter: 5ef3a7c1-c6a0-4eba-a1e6-98413ecab0e0
+            stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
     predTask: ""
     recordVersioning: Datetime Column
     redeploymentBehavior: Create At Existing Stream
@@ -37,8 +45,8 @@ operation:
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
     schedulePeriod: "60"
     schedulePeriodOption: Minutes
-    schedulingMode: Warehouse Task
-    serverlessSize: MEDIUM
+    schedulingMode: Serverless Task
+    serverlessSize: XSMALL
     softDeleteFlag: false
     sourceType: Table
     whName: <WAREHOUSE_NAME>
@@ -46,7 +54,7 @@ operation:
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: SOURCE
+  locationName: TARGET
   materializationType: table
   metadata:
     appliedNodeTests: []
