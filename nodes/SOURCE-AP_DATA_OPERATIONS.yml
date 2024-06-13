@@ -1,23 +1,60 @@
 fileVersion: 1
-id: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
-name: V_DATA_OPERATIONS
+id: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
+name: AP_DATA_OPERATIONS
 operation:
   config:
-    insertStrategy: UNION
-    selectDistinct: false
+    capUpdate: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    createas: table
+    devMode: true
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: false
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - {}
+    orderByDateTime:
+      items:
+        - {}
+    partitionBy:
+      items:
+        - {}
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create At Existing Stream
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: TARGET
-  materializationType: view
+  locationName: SOURCE
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 2c2b6cc5-787d-4347-b75e-f0e1957c6ba3
-          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+          columnCounter: 43a9b350-d507-4aa8-a59c-8ed2f6503783
+          stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -30,8 +67,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: eece7b6c-5005-4ce3-867b-414e1ebe9d77
-          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+          columnCounter: 5ef3a7c1-c6a0-4eba-a1e6-98413ecab0e0
+          stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -44,8 +81,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 220876fe-0231-42cc-a36b-98ad5e242e1d
-          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+          columnCounter: d745808d-e1cd-45b3-a293-24f85ea8be22
+          stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
         config: {}
         dataType: VARCHAR(255)
         description: ""
@@ -58,8 +95,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: f1e2b56e-6dfb-4e99-8220-a4a856b121b4
-          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+          columnCounter: 2e27ac77-3582-42ca-8d30-1855c8552f55
+          stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -72,8 +109,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 91bc1d1a-8afc-48fb-bee5-1e4e69f709f2
-          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+          columnCounter: c1a3e714-9e05-46f4-8864-05eeef7a4b7e
+          stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
         config: {}
         dataType: VARCHAR(255)
         description: ""
@@ -86,8 +123,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: c2a6798d-f7af-419d-9f92-9b016f2e7430
-          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+          columnCounter: 55e15fc6-bc8b-488c-989d-27d763c33fa2
+          stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
         config: {}
         dataType: VARCHAR(10)
         description: ""
@@ -100,8 +137,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 67dfbfad-6ee5-44ae-9028-c7aededa6c57
-          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+          columnCounter: 87dc31d3-1a00-43b6-a23a-5f3b1a707232
+          stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
         config: {}
         dataType: VARCHAR(10)
         description: ""
@@ -114,8 +151,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: af5c4da2-de55-46f1-98d4-97e0755e973f
-          stepCounter: f35fbb0c-3b14-489f-90c0-1d2af2b00c52
+          columnCounter: 66aebe9a-7bef-4b0a-baeb-fe51f62f2c1d
+          stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -126,6 +163,23 @@ operation:
               - columnCounter: e1bbf0a2-2a0e-4fa7-b4f5-fcae83fd125e
                 stepCounter: efebc506-4755-4538-baf3-b2da9808f210
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8d644345-b2bc-4d5b-a968-69626314d316
+          stepCounter: 61797aa2-d76a-4ad5-a2f1-6f8fca5a47ea
+        config: {}
+        dataType: timestamp
+        defaultValue: ""
+        description: ""
+        hmUpdTs: true
+        name: DM_UPDATE_TIMESTAMP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: current_timestamp::timestamp_ntz
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -137,12 +191,12 @@ operation:
             nodeName: DATA_OPERATIONS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'DATA_OPERATIONS') }} "DATA_OPERATIONS"
-        name: V_DATA_OPERATIONS
+        name: AP_DATA_OPERATIONS
         noLinkRefs: []
-  name: V_DATA_OPERATIONS
+  name: AP_DATA_OPERATIONS
   overrideSQL: false
   schema: ""
-  sqlType: View
+  sqlType: "300"
   type: sql
   version: 1
 type: Node

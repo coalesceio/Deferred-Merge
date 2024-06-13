@@ -1,0 +1,191 @@
+fileVersion: 1
+id: b3ddb3b4-9def-4837-94e1-79d144947e83
+name: DATA_OPERATIONSWD
+operation:
+  database: ""
+  dataset: ""
+  deployEnabled: true
+  description: ""
+  locationName: SOURCE
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: b8e5b2da-50cd-46ea-b9ec-4754af9ed159
+          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+        config: {}
+        dataType: TIME(9)
+        defaultValue: ""
+        description: ""
+        name: TIMESTAMP
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1197999f-2fc1-4025-9903-82bbf75b20d1
+          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: RECORD_ID
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6ae5a432-ad7b-4e2c-90ae-9e3a8f9ca93b
+          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+        config: {}
+        dataType: VARCHAR(255)
+        defaultValue: ""
+        description: ""
+        name: NAME
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3d11f97e-5aca-4a2e-8f8b-3a037a39111d
+          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: AGE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 29282fd6-a1ee-4fea-8469-9e6a43f70621
+          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+        config: {}
+        dataType: VARCHAR(255)
+        defaultValue: ""
+        description: ""
+        name: CITY
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: d2fd58e4-4635-43e5-9156-3575a218c4b2
+          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+        config: {}
+        dataType: VARCHAR(10)
+        defaultValue: ""
+        description: ""
+        name: OPERATION_TYPE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8db00896-a856-4eb5-b038-c3ee2d751c5a
+          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+        config: {}
+        dataType: VARCHAR(10)
+        defaultValue: ""
+        description: ""
+        name: SOURCE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9fb2031c-4b56-4654-b5e6-cd27e19710b9
+          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: DML_IDENTIFIER
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: d3ed4a01-d64a-4e7e-a5c4-d9823847ba21
+          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+        config: {}
+        dataType: DATE
+        defaultValue: ""
+        description: ""
+        name: BOOK_AT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    join:
+      joinCondition: FROM {{ ref('SOURCE', 'DATA_OPERATIONSWD') }}
+  name: DATA_OPERATIONSWD
+  schema: ""
+  sqlType: Source
+  table: DATA_OPERATIONSWD
+  type: sourceInput
+  version: 1
+type: Node
