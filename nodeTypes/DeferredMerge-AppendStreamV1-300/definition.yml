@@ -92,7 +92,6 @@ metadata:
         options:
           - Datetime Column
           - Date Column and Time Column
-          - Numeric Column
         isRequired: true
 
       - type: tabular
