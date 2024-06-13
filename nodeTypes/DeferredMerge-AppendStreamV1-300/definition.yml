@@ -1,0 +1,332 @@
+fileVersion: 1
+id: "300"
+isDisabled: false
+metadata:
+  defaultStorageLocation: null
+  error: null
+  nodeMetadataSpec: |-
+    capitalized: Deferred Merge - Append Stream
+    short: AP
+    tagColor: black
+    plural: Deferred Merge
+
+    deployStrategy: advanced
+
+
+    config:
+    - groupName: General Options
+      items:
+      - displayName: Development Mode
+        attributeName: devMode
+        type: toggleButton
+        isRequired: true
+        default: true
+     
+      - displayName: Create Target As
+        type: dropdownSelector
+        attributeName: createas
+        default: table
+        options:
+        - table
+        - transient table
+        isRequired: true
+
+    - groupName: Stream Options
+      items:
+      - displayName: Source Object
+        attributeName: sourceType
+        type: dropdownSelector
+        default: Table
+        options:
+          - Table
+          - View
+        isRequired: false
+
+
+
+      - displayName: Show Initial Rows
+        attributeName: initialRows
+        type: toggleButton
+        default: true
+        isRequired: true
+        enableIf: "{% if config.sourceType == 'Table' or config.sourceType == 'View' %} true {% else %} false {% endif %}"
+
+      - displayName: Redeployment Behavior
+        attributeName: redeploymentBehavior
+        type: dropdownSelector
+        default: Create At Existing Stream
+        options:
+           - Create or Replace
+           - Create If Not Exists
+           - Create At Existing Stream
+        isRequired: true
+
+
+      
+
+      - displayName: Insert Only
+        attributeName: insertOnly
+        type: toggleButton
+        default: false
+        isRequired: true
+        enableIf: "{% if config.sourceType == 'External Table' %} true {% else %} false {% endif %}"
+
+    - groupName: Target Loading Options
+      items:
+      - type: tabular
+        displayName: 'Table Key(s)'
+        attributeName: partitionBy
+        columns:
+      
+        -  type: columnDropdownSelector
+           displayName: Column Name
+           attributeName: partColName
+           isRequired: true
+            
+        isRequired: false
+
+      - displayName: Record Versioning
+        attributeName: recordVersioning
+        type: dropdownSelector
+        default: Datetime Column
+        options:
+          - Datetime Column
+          - Date Column and Time Column
+          - Numeric Column
+        isRequired: true
+
+      - type: tabular
+        displayName: 'Timestamp or Sequence'
+        attributeName: orderBy
+        columns:
+      
+        -  type: columnDropdownSelector
+           displayName: Column Name
+           attributeName: colName
+           isRequired: true
+           enableIf: "{% if config.recordVersioning in ('Datetime Column','Numeric Column') %} true {% else %} false {% endif %}"
+        
+        -  type: dropdownSelector
+           displayName: Sort Order
+           attributeName: sortOrd
+           default: desc
+           options:
+           - desc
+           - asc
+           isRequired: true
+           enableIf: "{% if config.recordVersioning in ('Datetime Column','Numeric Column') %} true {% else %} false {% endif %}"
+        
+        isRequired: false
+        enableIf: "{% if config.recordVersioning in ('Datetime Column','Numeric Column') %} true {% else %} false {% endif %}"
+
+      - type: tabular
+        displayName: 'Date / Timestamp Columns'
+        attributeName: orderByDateTime
+        columns:
+      
+        -  type: columnDropdownSelector
+           displayName: Date Column
+           attributeName: colNameDate
+           isRequired: true
+           enableIf: "{% if config.recordVersioning in ('Date Column and Time Column') %} true {% else %} false {% endif %}"
+        
+        -  type: columnDropdownSelector
+           displayName: Timestamp Column
+           attributeName: colNameTimestamp
+           isRequired: true
+           enableIf: "{% if config.recordVersioning in ('Date Column and Time Column') %} true {% else %} false {% endif %}"
+        
+        -  type: dropdownSelector
+           displayName: Sort Order
+           attributeName: sortOrdDateTimestamp
+           default: desc
+           options:
+           - desc
+           - asc
+           isRequired: true
+           enableIf: "{% if config.recordVersioning in ('Date Column and Time Column') %} true {% else %} false {% endif %}"
+        
+        isRequired: false
+        enableIf: "{% if config.recordVersioning in ('Date Column and Time Column') %} true {% else %} false {% endif %}"
+
+    - groupName: Target Row DML Operations
+      items:
+      - displayName: Column that Identifies DML Operations
+        attributeName: dmlCol
+        type: columnDropdownSelector
+        isRequired: false
+
+      - displayName: Include Value for Update
+        attributeName: capUpdate
+        type: toggleButton
+        default: false
+        isRequired: false
+     
+      - displayName: Insert Value
+        attributeName: dmlInsert
+        type: textBox
+        default: I
+        isRequired: true
+     
+      - displayName: Update Value
+        attributeName: dmlUpdate
+        type: textBox
+        default: U
+        isRequired: true
+        enableIf: "{% if config.capUpdate == true %} true {% else %} false {% endif %}"
+     
+      - displayName: Delete Value
+        attributeName: dmlDelete
+        type: textBox
+        default: D
+        isRequired: true
+     
+    - groupName: Target Delete Options
+      items:
+      - displayName: Soft Delete
+        attributeName: softDeleteFlag
+        type: toggleButton
+        default: false
+        isRequired: false
+
+      - displayName: Retain Last Non-Deleted Values
+        attributeName: retainLastNonDeleteFlag
+        type: toggleButton
+        default: false
+        isRequired: false
+     
+    - groupName: Target Clustering Options
+      items:
+
+        # Cluster Key-Determine if a node is to be clustered or not #
+      
+      - type: toggleButton
+        attributeName: clusterKey
+        displayName: Cluster Key
+        default: false
+        isRequired: false
+
+      - type: toggleButton
+        attributeName: clusterKeyExpressions
+        displayName: Allow Expressions in Cluster Key
+        default: false
+        isRequired: true
+        enableIf: "{% if config.clusterKey %} true {% else %} false {% endif %}"
+
+      - type: tabular
+        displayName: 'Cluster Key'
+        attributeName: clusterKeyConfig
+        columns:
+
+        -  type: columnDropdownSelector
+           displayName: Column Name
+           attributeName: columnName
+           isRequired: false
+      
+        isRequired: false
+        enableIf: "{% if (config.clusterKey and not config.clusterKeyExpressions) %} true {% else %} false {% endif %}"
+
+      - type: tabular
+        displayName: 'Cluster Key'
+        attributeName: clusterKeyConfigExpressions
+        columns:
+
+        -  type: columnDropdownSelector
+           displayName: Column Name
+           attributeName: columnNameExpressions
+           isRequired: false
+      
+        -  type: textBox
+           displayName: Expression
+           attributeName: sqlExpression
+           default: "ex. trunc(<column_name>, -5)"
+           isRequired: false
+      
+        isRequired: false
+        enableIf: "{% if (config.clusterKey and config.clusterKeyExpressions) %} true {% else %} false {% endif %}"
+
+     
+    - groupName: Scheduling Options
+      items:
+      - displayName: Scheduling Options
+        attributeName: schedulingMode
+        type: dropdownSelector
+        default: Warehouse Task
+        options:
+          - Warehouse Task
+          - Serverless Task
+        isRequired: true
+
+      - displayName: When Source Stream has Data Flag
+        attributeName: flagSrcStream
+        type: toggleButton
+        isRequired: true
+
+      - displayName: Select Warehouse on which to run task
+        attributeName: whName
+        type: textBox
+        default: '<WAREHOUSE_NAME>'
+        isRequired: false
+        enableIf: "{% if config.schedulingMode == 'Warehouse Task' %} true {% else %} false {% endif %}"
+
+      - displayName: Select initial serverless Warehouse size
+        attributeName: serverlessSize
+        type: dropdownSelector
+        default: 'MEDIUM'
+        options:
+          - XSMALL
+          - SMALL
+          - MEDIUM
+          - LARGE
+          - XLARGE
+          - XXLARGE
+        isRequired: false
+        enableIf: "{% if config.schedulingMode == 'Serverless Task' %} true {% else %} false {% endif %}"
+
+      - displayName: Task Schedule
+        attributeName: schedulePeriodOption
+        type: dropdownSelector
+        default: Minutes
+        options:
+          - Minutes
+          - CRON
+          - Predecessor
+        isRequired: TRUE
+
+      - displayName: Enter task schedule using minutes
+        attributeName: schedulePeriod
+        type: textBox
+        default: '60'
+        isRequired: false
+        enableIf: "{% if config.schedulePeriodOption == 'Minutes' %} true {% else %} false {% endif %}"
+
+      - displayName: Enter task schedule using CRON
+        attributeName: scheduleCRON
+        type: textBox
+        default: '5 0-23 * * * America/Los_Angeles'
+        isRequired: false
+        enableIf: "{% if config.schedulePeriodOption == 'CRON' %} true {% else %} false {% endif %}"
+
+      - displayName: Enter predecessor task(s) seperated by a comma 
+        attributeName: predTask
+        type: textBox
+        default: ""
+        isRequired: false
+        enableIf: "{% if config.schedulePeriodOption == 'Predecessor' %} true {% else %} false {% endif %}"
+
+      - displayName: Enter root task name
+        attributeName: rootTask
+        type: textBox
+        default: ""
+        isRequired: false
+        enableIf: "{% if config.schedulePeriodOption == 'Predecessor' %} true {% else %} false {% endif %}"
+
+
+    systemColumns:
+    - displayName: 'DM_UPDATE_TIMESTAMP'
+      transform: "current_timestamp::timestamp_ntz"
+      dataType: timestamp
+      placement: end
+      attributeName: hmUpdTs
+name: Deferred Merge - Append Stream V1
+type: NodeType
