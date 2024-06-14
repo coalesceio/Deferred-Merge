@@ -1,16 +1,17 @@
 fileVersion: 1
-id: "301"
+id: "300"
 isDisabled: false
 metadata:
   defaultStorageLocation: null
   error: null
   nodeMetadataSpec: |-
-    capitalized: Deferred Merge - Delta Stream
-    short: DL
+    capitalized: Deferred Merge - Append Stream
+    short: AP
     tagColor: black
     plural: Deferred Merge
 
     deployStrategy: advanced
+
 
     config:
     - groupName: General Options
@@ -20,8 +21,7 @@ metadata:
         type: toggleButton
         isRequired: true
         default: true
-        
-      
+     
       - displayName: Create Target As
         type: dropdownSelector
         attributeName: createas
@@ -30,7 +30,6 @@ metadata:
         - table
         - transient table
         isRequired: true
-
 
     - groupName: Stream Options
       items:
@@ -244,6 +243,7 @@ metadata:
       
         isRequired: false
         enableIf: "{% if (config.clusterKey and config.clusterKeyExpressions) %} true {% else %} false {% endif %}"
+
      
     - groupName: Scheduling Options
       items:
@@ -327,5 +327,5 @@ metadata:
       dataType: timestamp
       placement: end
       attributeName: hmUpdTs
-name: Deferred Merge - Delta Stream V1
+name: Deferred Merge - Append Stream
 type: NodeType

@@ -25,26 +25,29 @@ operation:
     insertOnly: false
     orderBy:
       items:
-        - colName:
-            columnCounter: 265781a7-92d1-49e7-b40a-f026a56d6bfe
-            stepCounter: 16341d7e-6684-4f2d-afbc-f0c63f863abe
-          sortOrd: asc
+        - {}
     orderByDateTime:
       items:
-        - {}
+        - colNameDate:
+            columnCounter: 6db16b59-2002-4e64-836a-c4f88a94a0b4
+            stepCounter: 16341d7e-6684-4f2d-afbc-f0c63f863abe
+          colNameTimestamp:
+            columnCounter: 265781a7-92d1-49e7-b40a-f026a56d6bfe
+            stepCounter: 16341d7e-6684-4f2d-afbc-f0c63f863abe
+          sortOrdDateTimestamp: asc
     partitionBy:
       items:
         - partColName:
             columnCounter: 048c0a02-e14d-4197-a05a-6c4b3d4048fe
             stepCounter: 16341d7e-6684-4f2d-afbc-f0c63f863abe
     predTask: DM_TASK_AP_DATA_OPERATIONS
-    recordVersioning: Datetime Column
+    recordVersioning: Date Column and Time Column
     redeploymentBehavior: Create At Existing Stream
     retainLastNonDeleteFlag: false
     rootTask: DM_TASK_AP_DATA_OPERATIONS
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
     schedulePeriod: "60"
-    schedulePeriodOption: Predecessor
+    schedulePeriodOption: Minutes
     schedulingMode: Serverless Task
     serverlessSize: XSMALL
     softDeleteFlag: false

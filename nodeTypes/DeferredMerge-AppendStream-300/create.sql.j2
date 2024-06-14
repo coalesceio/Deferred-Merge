@@ -685,11 +685,12 @@ select 1 = 0
 
     {% if desiredState.config.initialRows == true %}           
         {{ stage('Target Table Initial Load',true,"sql","alter") }}
-        {% if currentState == undefined or desiredState.config.redeploymentBehavior == 'Create or Replace' %}      
+		{% if currentState == undefined and desiredState.config.redeploymentBehavior == 'Create or Replace' %} 
+		    INSERT  INTO {{ fullyQualifiedTargetTableName }}		
+        {% elif desiredState.config.redeploymentBehavior == 'Create or Replace' %}      
             INSERT  OVERWRITE INTO {{ fullyQualifiedTargetTableName }}
         {% else %}       
             INSERT  INTO {{ fullyQualifiedTargetTableName }}
-
         {% endif %}
 
         SELECT
