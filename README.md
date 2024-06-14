@@ -158,14 +158,14 @@ The following stages are executed:
 * **Rename Table| Alter Column | Delete Column | Add Column | Edit table description**: Alter table statement is executed to perform the alter operation.
 * **Target Inital Load** :If the initial load toggle is enabled and the redeployment behavior of the stream is "Create or Replace," it loads the table with "INSERT OVERWRITE INTO." For all other scenarios, it uses "INSERT INTO."
 
-####View
+#### View
 Redeployment with changes in stream or table will result in creation of Hybrid View.
 
-####TASK
+#### Task
 Redeployment with changes in the stream or table will result in the creation and resumption of the task.
 
 
-#### Note
+#### NOTE
 
 > 🚧 **Redeployment Behavior**
 >
