@@ -153,7 +153,7 @@ metadata:
       - displayName: Column that Identifies DML Operations
         attributeName: dmlCol
         type: columnDropdownSelector
-        isRequired: false
+        isRequired: true
 
       - displayName: Include Value for Update
         attributeName: capUpdate
