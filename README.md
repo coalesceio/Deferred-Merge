@@ -17,15 +17,13 @@ A hybrid view is established to provide access to the most current data by combi
 Finally, a scheduled task manages ongoing updates by merging changes into the target table. This process ensures that the target table remains synchronized with the source data  maintaining accuracy and timeliness.
 
 ## Deferred Merge Append Node Configuration
-
-
-    * [General Options](#append-general-options)
-    * [Stream Options](#append-stream-options)
-    * [Target Loading Options](#append-target-loading-options)
-    * [Target Row DML Operations](#append-target-row-dml-operations)
-    * [Target Delete Options](#append-target-delete-options)
-    * [Target Clustering Options](#append-target-clustering-options)
-    * [Scheduling Options](#append-scheduling-options)
+ * [General Options](#append-general-options)
+ * [Stream Options](#append-stream-options)
+ * [Target Loading Options](#append-target-loading-options)
+ * [Target Row DML Operations](#append-target-row-dml-operations)
+ * [Target Delete Options](#append-target-delete-options)
+ * [Target Clustering Options](#append-target-clustering-options)
+ * [Scheduling Options](#append-scheduling-options)
 
 
 
