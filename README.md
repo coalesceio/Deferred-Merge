@@ -128,6 +128,18 @@ There are multiple options that can be selected depending on combinations of con
 
 
 ## Deployment
+### Parameters
+It includes an environment parameter that allows you to specify a different warehouse used to run a task in different environments.
+The parameter name is `targetTaskWarehouse` and the default value is `DEV ENVIRONMENT`.
+When set to `DEV ENVIRONMENT` the value entered in the Scheduling Options config Select Warehouse on which to run the task will be used when creating the task.
+```json
+{"targetTaskWarehouse": "DEV ENVIRONMENT"}
+```
+When set to any value other than `DEV ENVIRONMENT` the node will attempt to create the task using a Snowflake warehouse with the specified value.
+For example, with the below setting for the parameter in a QA environment, the task will execute using a warehouse named `compute_wh`.
+```json
+{"targetTaskWarehouse": "compute_wh"}
+```
 
 ### Initial Deployment
 
@@ -311,6 +323,18 @@ There are multiple options that can be selected depending on combinations of con
 > This node can't apply transformations to the columns for this node type.
 
 ## Deployment
+### Parameters
+It includes an environment parameter that allows you to specify a different warehouse used to run a task in different environments.
+The parameter name is `targetTaskWarehouse` and the default value is `DEV ENVIRONMENT`.
+When set to `DEV ENVIRONMENT` the value entered in the Scheduling Options config Select Warehouse on which to run the task will be used when creating the task.
+```json
+{"targetTaskWarehouse": "DEV ENVIRONMENT"}
+```
+When set to any value other than `DEV ENVIRONMENT` the node will attempt to create the task using a Snowflake warehouse with the specified value.
+For example, with the below setting for the parameter in a QA environment, the task will execute using a warehouse named `compute_wh`.
+```json
+{"targetTaskWarehouse": "compute_wh"}
+```
 
 ### Initial Deployment
 
