@@ -1,4 +1,4 @@
-# DEFERRED MERGE PACKAGE
+# Deferred Merge Package
  
 The Coalesce Deferred Merge Package includes:
  
