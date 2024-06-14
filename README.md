@@ -28,7 +28,8 @@ Finally, a scheduled task manages ongoing updates by merging changes into the ta
 
 
 ### Append General Options
-![Append General Options](https://github.com/coalesceio/Deferred-Merge/assets/169126315/aae1098e-1cf3-48cb-91cd-59c32c5e3975)
+![Append General Options](https://github.com/coalesceio/Deferred-Merge/assets/169126315/e6a7d6a5-da3b-4001-b84f-24e2a85708e7)
+
 
 
 * **Development Mode**: True / False toggle that determines whether a task will be created or if the SQL to be used in the task will execute as DML as a Run action. Prior to creating a task, it is helpful to test the SQL the task will execute to make sure it runs without errors and returns the expected data.
@@ -40,17 +41,18 @@ Finally, a scheduled task manages ongoing updates by merging changes into the ta
   *Transient Table - This Creates the Target object as Transient Table.
 
 ### Append Stream Options
+![Append Stream Options](https://github.com/coalesceio/Deferred-Merge/assets/169126315/c4daf590-5a13-49bd-b389-3b3cdc8f40af)
 
-* **Source Object**
+* **Source Object**:
 The type of object the stream will be created on. One of two options is required to be selected and this selection drives what other configs are available:
   * Table
   * View
   
-* **Show Initial Rows** True / False Toggle to specify the records to return the first time the stream is consumed.
+* **Show Initial Rows**: True / False Toggle to specify the records to return the first time the stream is consumed.
   * True - The stream returns only the rows that existed in the source object at the moment when the stream was created.
   * False - The stream returns any DML changes to the source object since the most recent offset.
 
-* **Redeployment Behavior**
+* **Redeployment Behavior**:
 After the Stream has deployed for the first time into a target environment, subsequent deployments will result in a new stream creation based on redeployment behavior chosen.
 
 | Redeployment Behavior | Stage Executed |
@@ -62,11 +64,14 @@ After the Stream has deployed for the first time into a target environment, subs
 
 
 ### Append Target Loading Options
+![Append Target Loading Options](https://github.com/coalesceio/Deferred-Merge/assets/169126315/77856b16-3bd6-47f5-a8ad-ffc2f73888dd)
+
 
 * **Table keys**: The business keys columns based on which the data is merged into Target table
 * **Record Versioning** : Allows to add Date Time or Date and Timestamp column based on which latest record is merged into Target table.
 
 ### Append Target Row DML Operations
+![Append Target Row DML Operations](https://github.com/coalesceio/Deferred-Merge/assets/169126315/507731aa-d5a1-49b9-9b14-bc7dbf335cab)
 
 * **Column Identifier**: Allows to add the column that identifies DML Operations.
 * **Include Value for Update**: For records flagged under Update, the existing records in the target table are updated with the corresponding values from the source table.
@@ -75,11 +80,15 @@ After the Stream has deployed for the first time into a target environment, subs
 * **Delete Value**: This value indicates that the corresponding record should either be soft-deleted (if the condition is met by enabling the soft delete toggle) or hard-deleted from the target table.
 
 ### Append Target Delete Options
+![Append Target Delete Options](https://github.com/coalesceio/Deferred-Merge/assets/169126315/6fe8d21b-80ea-41b0-a56a-5f9ccb7b3874)
+
 
 * **Soft Delete**: Enabling this toggle maintains a record of deleted data for auditing purposes.
 * **Retain Last Non-Deleted Values**: Preserves the most recent non-deleted record in a dataset, even as other records are marked as deleted or become inactive.
 
 ### Append Target Clustering Options
+![Append Target Clustering Options](https://github.com/coalesceio/Deferred-Merge/assets/169126315/6b168402-3bec-47d9-9870-be72e871f404)
+
 
 * **Cluster key**: True/False to determine whether the target table is to be clustered or not
   * True - Allows you to specify the column based on which clustering is to be done.
@@ -87,9 +96,9 @@ After the Stream has deployed for the first time into a target environment, subs
   * False – No clustering done.
 
 ### Append Scheduling Options
-
 If development mode is set to false then Scheduling Options can be used to configure how and when the task will run.
 There are multiple options that can be selected depending on combinations of configs that are selected:
+![image](https://github.com/coalesceio/Deferred-Merge/assets/169126315/08023b93-9506-447b-87e8-088696e356ba)
 
 * **Scheduling Mode**: Specifies whether a warehouse or serverless compute is used to run the task.
   * Warehouse Task - User managed warehouse will execute tasks.
@@ -110,11 +119,13 @@ There are multiple options that can be selected depending on combinations of con
 * **Enter predecessor tasks separated by a comma**: Only visible when Task Schedule is set to Predecessor. One or more task names that precede the task being created in the current node. Task names are case sensitive, should not be quoted and must exist in the same schema in which the current task is being created. If there are multiple predecessor tasks separate the task names using a comma and no spaces.
 * **Enter root task name**: Name of the root task that controls scheduling for the DAG of tasks. Task names are case sensitive, should not be quoted and must exist in the same schema in which the current task is being created. If there are multiple predecessor tasks separate the task names using a comma and no spaces.
 
-## Limitations
+### Limitations
 
 > 🚧 **Appyling Transformation**
->
 > This node can't apply transformations to the columns for this node type.
+
+
+
 
 ## Deployment
 
@@ -140,7 +151,7 @@ When deployed for the first time into an environment, the following stages will 
 
 ### Redeployment
 
-####Stream
+#### Stream
 
 | Redeployment Behavior | Stage Executed |
 |---|---|
@@ -148,7 +159,7 @@ When deployed for the first time into an environment, the following stages will 
 | Create or Replace | Create Stream|
 | Create at existing stream |  Re-Create Stream at existing offset |
 
-####Table
+#### Table
 
 There are few column or table changes like Change in table name,Dropping existing column, Alter Column data type,Adding a new column if made in isolation or all-together will result in an ALTER statement to modify the Work Table in the target environment.
 The following stages are executed:
@@ -195,18 +206,18 @@ Finally, a scheduled task manages ongoing updates by merging changes into the ta
 
 ## Deferred Merge Delta Node Configuration
 
-
-    * [General Options](#delta-general-options)
-    * [Stream Options](#delta-stream-options)
-    * [Target Loading Options](#delta-target-loading-options)
-    * [Target Row DML Operations](#delta-target-row-dml-operations)
-    * [Target Delete Options](#delta-target-delete-options)
-    * [Target Clustering Options](#delta-target-clustering-options)
-    * [Scheduling Options](#delta-scheduling-options)
+ * [General Options](#delta-general-options)
+ * [Stream Options](#delta-stream-options)
+ * [Target Loading Options](#delta-target-loading-options)
+ * [Target Row DML Operations](#delta-target-row-dml-operations)
+ * [Target Delete Options](#delta-target-delete-options)
+ * [Target Clustering Options](#delta-target-clustering-options)
+ * [Scheduling Options](#delta-scheduling-options)
 
 
 
 ### Delta General Options
+![Append General Options](https://github.com/coalesceio/Deferred-Merge/assets/169126315/e6a7d6a5-da3b-4001-b84f-24e2a85708e7)
 
 * **Development Mode**: True / False toggle that determines whether a task will be created or if the SQL to be used in the task will execute as DML as a Run action. Prior to creating a task, it is helpful to test the SQL the task will execute to make sure it runs without errors and returns the expected data.
   * True - A table will be created and SQL will execute as a Run action.
@@ -217,6 +228,7 @@ Finally, a scheduled task manages ongoing updates by merging changes into the ta
   *Transient Table - This Creates the Target object as Transient Table.
 
 ### Delta Stream Options
+![Append Stream Options](https://github.com/coalesceio/Deferred-Merge/assets/169126315/c4daf590-5a13-49bd-b389-3b3cdc8f40af)
 
 * ** Source Object**
 The type of object the stream will be created on. One of two options is required to be selected and this selection drives what other configs are available:
@@ -239,11 +251,13 @@ After the Stream has deployed for the first time into a target environment, subs
 
 
 ### Delta Target Loading Options
+![Append Target Loading Options](https://github.com/coalesceio/Deferred-Merge/assets/169126315/77856b16-3bd6-47f5-a8ad-ffc2f73888dd)
 
 * **Table keys**: The business keys columns based on which the data is merged into Target table
 * **Record Versioning** : Allows to add Date Time or Date and Timestamp column based on which latest record is merged into Target table.
 
 ### Delta Target Row DML Operations
+![Append Target Row DML Operations](https://github.com/coalesceio/Deferred-Merge/assets/169126315/507731aa-d5a1-49b9-9b14-bc7dbf335cab)
 
 * **Column Identifier**: Allows to add the column that identifies DML Operations.
 * **Include Value for Update**: For records flagged under Update, the existing records in the target table are updated with the corresponding values from the source table.
@@ -252,11 +266,14 @@ After the Stream has deployed for the first time into a target environment, subs
 * **Delete Value**: This value indicates that the corresponding record should either be soft-deleted (if the condition is met by enabling the soft delete toggle) or hard-deleted from the target table.
 
 ### Delta Target Delete Options
+![Append Target Delete Options](https://github.com/coalesceio/Deferred-Merge/assets/169126315/6fe8d21b-80ea-41b0-a56a-5f9ccb7b3874)
+
 
 * **Soft Delete**: Enabling this toggle maintains a record of deleted data for auditing purposes.
 * **Retain Last Non-Deleted Values**: Preserves the most recent non-deleted record in a dataset, even as other records are marked as deleted or become inactive.
 
 ### Delta Target Clustering Options
+![Append Target Clustering Options](https://github.com/coalesceio/Deferred-Merge/assets/169126315/6b168402-3bec-47d9-9870-be72e871f404)
 
 * **Cluster key**: True/False to determine whether the target table is to be clustered or not
   * True - Allows you to specify the column based on which clustering is to be done.
@@ -317,7 +334,7 @@ When deployed for the first time into an environment, the following stages will 
 
 ### Redeployment
 
-####Stream
+#### Stream
 
 | Redeployment Behavior | Stage Executed |
 |---|---|
@@ -325,25 +342,24 @@ When deployed for the first time into an environment, the following stages will 
 | Create or Replace | Create Stream|
 | Create at existing stream |  Re-Create Stream at existing offset |
 
-####Table
+#### Table
 
 There are few column or table changes like Change in table name,Dropping existing column, Alter Column data type,Adding a new column if made in isolation or all-together will result in an ALTER statement to modify the Work Table in the target environment.
 The following stages are executed:
 
 * **Rename Table| Alter Column | Delete Column | Add Column | Edit table description**: Alter table statement is executed to perform the alter operation.
-* **Target Inital Load :If the initial load toggle is enabled and the redeployment behavior of the stream is "Create or Replace," it loads the table with "INSERT OVERWRITE INTO." For all other scenarios, it uses "INSERT INTO."
+* **Target Inital Load** :If the initial load toggle is enabled and the redeployment behavior of the stream is "Create or Replace," it loads the table with "INSERT OVERWRITE INTO." For all other scenarios, it uses "INSERT INTO."
 
-####View
+#### View
 Redeployment with changes in stream or table will result in creation of Hybrid View.
 
-####TASK
+#### Task
 Redeployment with changes in the stream or table will result in the creation and resumption of the task.
 
 
 #### Note
 
 > 🚧 **Redeployment Behavior**
->
 > Redeployment with changes in Stream/Table/Task properties will result in execution of all steps mentioned in inital deployment.
 
 
