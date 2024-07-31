@@ -410,4 +410,4 @@ This is executed in following stages:
 * [Node definition](https://github.com/coalesceio/Deferred-Merge/blob/main/nodeTypes/DeferredMerge-DeltaStream-301/definition.yml)
 * [Create Template](https://github.com/coalesceio/Deferred-Merge/blob/main/nodeTypes/DeferredMerge-DeltaStream-301/create.sql.j2)
 
-[<img src="https://github.com/coalesceio/Deferred-Merge/assets/7216836/352cf505-cd1c-4b25-b61c-6e028c7df3ee" alt="Git Logo" height="40">](https://github.com/coalesceio/Deferred-Merge)
+
