@@ -56,6 +56,7 @@ A hybrid view is established to provide access to the most current data by combi
     {% if desiredState.config.sourceType == 'Table' %}
         {% set streamType = 'TABLE' %}
         {% set streamSourceObjectName = fullyQualifiedSourceTableName %}
+
     {% else %}
         {% set streamType = 'VIEW' %}
         {% set streamSourceObjectName = fullyQualifiedSourceTableName %}
@@ -78,7 +79,7 @@ A hybrid view is established to provide access to the most current data by combi
  
  
     {# Stream Append Behavior #}
-    {% if streamType == 'TABLE' or streamType == 'VIEW' %} 
+    {% if streamType == 'TABLE'  or streamType == 'VIEW' %} 
         {% set streamAppendMode = 'APPEND_ONLY = FALSE' %}
         {% set changesClauseMode = 'CHANGES(information => default)' %}
         {% set updateStreamFilter = '' %}
@@ -110,7 +111,7 @@ A hybrid view is established to provide access to the most current data by combi
     {% endif %}
  
     {# Stream Initial Row Behavior #}
-    {% if streamType == 'TABLE' or streamType == 'VIEW' %}
+    {% if streamType == 'TABLE'  or streamType == 'VIEW' %}
         {% if desiredState.config.initialRows == true %}
             {% set streamInitialRowsMode = 'SHOW_INITIAL_ROWS = TRUE' %}
         {% else %}
@@ -121,7 +122,7 @@ A hybrid view is established to provide access to the most current data by combi
     {% endif %}
  
     {# Stream Insert Only Behavior #}
-    {% if streamType == 'EXTERNAL TABLE' %}
+    {% if sstreamType == 'EXTERNAL TABLE'  %}
         {% if desiredState.config.insertOnly == true %}
             {% set streamInsertOnlyMode = 'INSERT_ONLY = TRUE' %}
         {% else %}
@@ -178,7 +179,7 @@ A hybrid view is established to provide access to the most current data by combi
     {% endif %}
 
 
-{% elif desiredState == undefined %}
+{% elif desiredState == undefined and currentState.storageLocations | length > 0 %}
 
     {# Source Stream Location and Name #}
     {% set streamTargetLocationName = currentState.node.location.name %}
@@ -279,7 +280,7 @@ select 1 = 0
                 
         {% endif %}
 
-        {% if currentState == undefined %}
+        {% if currentState == undefined or currentState.storageLocations | length == 0 %}
             {{ stage('Create  '+ ' {{desiredState.config.createas}}' , true, "sql", "alter") }}
             CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
             (
