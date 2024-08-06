@@ -50,6 +50,9 @@ does not permit copying or modification for any other purpose.
     {% if desiredState.config.sourceType == 'Table' %}
         {% set streamType = 'TABLE' %}
         {% set streamSourceObjectName = fullyQualifiedSourceTableName %}
+    {% elif desiredState.config.sourceType == 'External Iceberg Table' %} 
+        {% set streamType = 'TABLE' %}
+        {% set streamSourceObjectName = fullyQualifiedSourceTableName %}
     {% else %}
         {% set streamType = 'VIEW' %}
         {% set streamSourceObjectName = fullyQualifiedSourceTableName %}
@@ -72,7 +75,7 @@ does not permit copying or modification for any other purpose.
  
  
     {# Stream Append Behavior #}
-    {% if streamType == 'TABLE' or streamType == 'VIEW' %}
+    {% if (streamType == 'TABLE' and desiredState.config.sourceType != 'External Iceberg Table') or streamType == 'VIEW' %}
             {% set streamAppendMode = 'APPEND_ONLY = TRUE' %}
             {% set changesClauseMode = 'CHANGES(information => append_only)' %}
     {% else %}
@@ -80,7 +83,7 @@ does not permit copying or modification for any other purpose.
     {% endif %}
  
     {# Stream Initial Row Behavior #}
-    {% if streamType == 'TABLE' or streamType == 'VIEW' %}
+    {% if (streamType == 'TABLE' and desiredState.config.sourceType != 'External Iceberg Table') or streamType == 'VIEW' %}
         {% if desiredState.config.initialRows == true %}
             {% set streamInitialRowsMode = 'SHOW_INITIAL_ROWS = TRUE' %}
         {% else %}
@@ -91,7 +94,7 @@ does not permit copying or modification for any other purpose.
     {% endif %}
  
     {# Stream Insert Only Behavior #}
-    {% if streamType == 'EXTERNAL TABLE' %}
+    {% if streamType == 'EXTERNAL TABLE'  or desiredState.config.sourceType == 'External Iceberg Table'  %}
         {% if desiredState.config.insertOnly == true %}
             {% set streamInsertOnlyMode = 'INSERT_ONLY = TRUE' %}
         {% else %}
@@ -149,7 +152,7 @@ does not permit copying or modification for any other purpose.
     {% endif %}
 
 
-{% elif desiredState == undefined %}
+{% elif desiredState == undefined and currentState.storageLocations | length > 0 %}
 
     {# Source Stream Location and Name #}
     {% set streamTargetLocationName = currentState.node.location.name %}
@@ -245,7 +248,7 @@ select 1 = 0
                {% endif %}
         {% endif %}
 
-        {% if currentState == undefined %}
+        {% if currentState == undefined or currentState.storageLocations | length == 0 %}
             {{ stage('Create  '+ ' {{desiredState.config.createas}}' , true, "sql", "alter") }}
             CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
             (
