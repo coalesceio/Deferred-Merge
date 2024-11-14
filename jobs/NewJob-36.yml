@@ -1,0 +1,6 @@
+excludeSelector: ""
+fileVersion: 1
+id: "36"
+includeSelector: "{ location: SOURCE name: DATA_OPERATIONS } OR { location: SOURCE name: DATA_OPERATIONSWD }"
+name: New Job
+type: Job

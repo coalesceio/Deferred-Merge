@@ -494,7 +494,7 @@ select 1 = 0
                     {% if descriptionTest == false %}
                         {% if nsVariables.colchanges > 1 %},{% endif %}
                         COLUMN "{{ desiredColumnName }}"
-                        COMMENT '{{ desiredDescription }}'
+                        COMMENT '{{ desiredDescription |escape }}'
                         {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
                     {% endif %}
                     {% if defaultValueTest == false %}
