@@ -1,6 +1,6 @@
 fileVersion: 1
-id: e4d53a08-8481-4169-8acd-d408e7a22722
-name: DL_CUSTOMER1
+id: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
+name: AP_CUSTOMER_NEW
 operation:
   config:
     capUpdate: false
@@ -15,8 +15,8 @@ operation:
     createas: table
     devMode: false
     dmlCol:
-      columnCounter: 93e45754-3276-4941-81d1-641abf2d9965
-      stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+      columnCounter: 1b11f8da-76ed-49ba-bf32-f4b50c22eb1d
+      stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
     dmlDelete: D
     dmlInsert: I
     dmlUpdate: U
@@ -26,8 +26,8 @@ operation:
     orderBy:
       items:
         - colName:
-            columnCounter: 575742c0-948e-464f-bb96-20c4d779069d
-            stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+            columnCounter: 6bede1f2-a23e-4cf1-b587-f9d0fd7d952c
+            stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
           sortOrd: desc
     orderByDateTime:
       items:
@@ -35,8 +35,8 @@ operation:
     partitionBy:
       items:
         - partColName:
-            columnCounter: 08538fdf-a5c1-4e47-9fc3-8ff3f1c0641e
-            stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+            columnCounter: 0e237639-bb55-48ae-8a1b-b04b875ee25f
+            stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
     predTask: ""
     recordVersioning: Datetime Column
     redeploymentBehavior: Create At Existing Stream
@@ -52,7 +52,7 @@ operation:
     whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
-  description: This is DM
+  description: This is DF
   isMultisource: false
   locationName: TARGET
   materializationType: table
@@ -61,8 +61,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 08538fdf-a5c1-4e47-9fc3-8ff3f1c0641e
-          stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+          columnCounter: 22a87a06-3bd3-4d5e-81a1-d0ec4cc05c14
+          stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -75,10 +75,10 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 81b0cb4c-df98-4824-8432-779e6dd335ad
-          stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+          columnCounter: e5255680-5a6e-4489-973e-e1897b6571e7
+          stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
         config: {}
-        dataType: VARCHAR(20)
+        dataType: VARCHAR(30)
         description: ""
         name: C_NAME
         nullable: true
@@ -89,11 +89,11 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 93e45754-3276-4941-81d1-641abf2d9965
-          stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+          columnCounter: 1b11f8da-76ed-49ba-bf32-f4b50c22eb1d
+          stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
         config: {}
-        dataType: VARCHAR(40)
-        description: This is address
+        dataType: VARCHAR(45)
+        description: This is Address
         name: C_ADDRESS
         nullable: true
         sourceColumnReferences:
@@ -103,8 +103,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 9cffbf43-6dfd-4a5c-bf10-0b16d9a5c551
-          stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+          columnCounter: 0e237639-bb55-48ae-8a1b-b04b875ee25f
+          stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
         config: {}
         dataType: VARCHAR(15)
         description: ""
@@ -117,8 +117,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 2483621c-bd1c-4e11-94a3-ab2e71b269b2
-          stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+          columnCounter: 23217b4a-c26f-4681-a6c3-b15b30e4345d
+          stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
         config: {}
         dataType: NUMBER(11,2)
         description: ""
@@ -131,8 +131,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 6260926e-a8aa-41db-b53a-7d19c6f14b1a
-          stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+          columnCounter: 9741b8cb-539e-43ad-ac68-af31c25dcc50
+          stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
         config: {}
         dataType: VARCHAR(10)
         description: ""
@@ -145,8 +145,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: d7447123-c976-42e1-9464-e7320f232dc0
-          stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+          columnCounter: 18b927e3-0b9b-44cd-ad8c-878eea30aec4
+          stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
         config: {}
         dataType: VARCHAR(117)
         description: ""
@@ -156,11 +156,11 @@ operation:
           - columnReferences:
               - columnCounter: 2b5c6e80-4773-439a-91a4-b458ac613b7d
                 stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
-            transform: ""
+            transform: "'test'"
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 1ff5c7b8-b652-4a43-9761-780c56d3dcc7
-          stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+          columnCounter: 01f9ca44-3300-458b-b1cf-20031bf3d6b7
+          stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
         config: {}
         dataType: TIMESTAMP_LTZ(9)
         description: ""
@@ -176,8 +176,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 575742c0-948e-464f-bb96-20c4d779069d
-          stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
+          columnCounter: 6bede1f2-a23e-4cf1-b587-f9d0fd7d952c
+          stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
         config: {}
         dataType: timestamp
         defaultValue: ""
@@ -204,12 +204,12 @@ operation:
             FROM {{ ref('SOURCE', 'CUSTOMER') }} "CUSTOMER"
             INNER JOIN  {{ ref('SOURCE', 'ORDERS') }} "ORDERS"
             ON "CUSTOMER"."C_CUSTKEY"= "ORDERS"."O_CUSTKEY"
-        name: DL_CUSTOMER1
+        name: AP_CUSTOMER_NEW
         noLinkRefs: []
-  name: DL_CUSTOMER1
+  name: AP_CUSTOMER_NEW
   overrideSQL: false
   schema: ""
-  sqlType: "301"
+  sqlType: "300"
   type: sql
   version: 1
 type: Node
