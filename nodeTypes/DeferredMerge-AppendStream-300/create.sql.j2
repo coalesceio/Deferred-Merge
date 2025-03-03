@@ -107,16 +107,9 @@ does not permit copying or modification for any other purpose.
 
 
 {# Create Stream first #}
-{% if desiredState == currentState %}
-
-    {{ stage('No Stream Created') }}
-    select 1 = 0
-
-
-{% elif desiredState %}
-
+{% if desiredState and desiredState != currentState %}
     {% if currentState == undefined %}
-        {{ stage('Create Stream', true, "sql", "alter") }}
+        {{ stage('Create Stream', true, "sql", "create") }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
@@ -125,7 +118,7 @@ does not permit copying or modification for any other purpose.
 
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create If Not Exists'%}
-        {{ stage('Create Stream If Not Exists', true, "sql", "alter") }}
+        {{ stage('Create Stream If Not Exists', true, "sql", "create") }}
         CREATE STREAM IF NOT EXISTS {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
@@ -133,22 +126,18 @@ does not permit copying or modification for any other purpose.
             {{ streamInsertOnlyMode }}
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create At Existing Stream'%}
-        {{ stage('Re-Create Stream at existing offset', true, "sql", "alter") }}
+        {{ stage('Re-Create Stream at existing offset', true, "sql", "create") }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             AT(STREAM => '{{ fullyQualifiedStreamName }}');
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create or Replace'%}
-        {{ stage('Create Stream', true, "sql", "alter") }}
+        {{ stage('Create Stream', true, "sql", "create") }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
             {{ streamInitialRowsMode }}
             {{ streamInsertOnlyMode }}
-            
-    {% else %}
-        {{ stage('Unknown state.', true, "sql", "alter") }}
-        select 1 = 0
     {% endif %}
 
 
@@ -164,20 +153,11 @@ does not permit copying or modification for any other purpose.
     {{ stage('Drop Stream', true, "sql", "drop") }}
     DROP STREAM IF EXISTS {{ fullyQualifiedStreamName }}
 
-{%- else -%}
-
-    {{ stage('Unknown state.  Nothing to do.') }}
-      select 1 = 0
-
 {% endif %}
 
 {# Create / Alter Table Second #}
-{% if desiredState == currentState %}
 
-{{ stage('Nothing to do.') }}
-select 1 = 0
-
-{% elif desiredState %}
+{% if desiredState and desiredState != currentState%}
 
 
     {% if desiredState.config.createas == 'table' or desiredState.config.createas == 'transient table'  %}
@@ -225,7 +205,7 @@ select 1 = 0
 
                       DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
                  
-                {{ stage('Create '+ ' {{desiredState.config.createas}}' , true, "sql", "alter") }}
+                {{ stage('Create '+ ' {{desiredState.config.createas}}' , true, "sql", "create") }}
                CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 (
                 {% for col in desiredState.columns %}
@@ -249,7 +229,7 @@ select 1 = 0
         {% endif %}
 
         {% if currentState == undefined or currentState.storageLocations | length == 0 %}
-            {{ stage('Create  '+ ' {{desiredState.config.createas}}' , true, "sql", "alter") }}
+            {{ stage('Create  '+ ' {{desiredState.config.createas}}' , true, "sql", "create") }}
             CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
             (
                 {% for col in desiredState.columns %}
@@ -425,7 +405,7 @@ select 1 = 0
                     {%- if not addDesCol.nullable %} NOT NULL
                         {%- if addDesCol.defaultValue | length > 0 %} DEFAULT {{ addDesCol.defaultValue }}{% endif %}
                     {% endif %}
-                    {%- if addDesCol.description | length > 0 %} COMMENT '{{ addDescol.description | escape }}'{% endif %}
+                    {%- if addDesCol.description | length > 0 %} COMMENT '{{ addDesCol.description | escape }}'{% endif %}
             {% endif %}
         {% endfor %}
 
@@ -566,30 +546,13 @@ select 1 = 0
     {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %} 
     {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
-    
 
-     
        {{ stage('Drop ' + currentState.config.createas , true, "sql", "drop") }}
        DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
 
-
-{%- else -%}
-    {{ stage('No table edits.  Unknown state.') }}
-    select 1 = 0
 {%- endif -%}
 
-
-
-
-
-
-    
-{% if desiredState == currentState %}
-
-    {{ stage('No Initial Load') }}
-    select 1 = 0
-
-{% elif desiredState  %}
+{% if desiredState and desiredState != currentState %}
 
 {% set nsVariables = namespace(taskWhenRun="",tableKey=[],orderBy="", partition="",
  rowNumber="", hybridMergeSortFilter=[], sortKey=[],tableKeySort=[]) %}
@@ -617,11 +580,6 @@ select 1 = 0
             {%- else -%}
                 {%- set taskType = 'USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = ' + desiredState.config.serverlessSize -%} 
             {%- endif -%}
-
- 
-  
-    
-
             {# Schedule Type #}
             {%- if desiredState.config.schedulePeriodOption == 'Minutes' -%} 
                 {%- set nsVariables.taskWhenRun = 'SCHEDULE = ' + "'" + desiredState.config.schedulePeriod + ' MINUTE' + "'" -%} 
@@ -718,23 +676,9 @@ select 1 = 0
                 WHERE load_flag = 1
             {% endif %}
     {% endif %}   
-
-{% elif currentState != undefined and desiredState == undefined %}
-
-
-    {{ stage('Undeployment.  Unknown state.') }}
-    select 1 = 0
-{%- else -%}
-    {{ stage('No edits.  Unknown state.') }}
-    select 1 = 0
 {%- endif -%}
 
-{% if desiredState == currentState %}
-
-    {{ stage('No View Created') }}
-    select 1 = 0
-
-{% elif desiredState   %}   
+{% if desiredState and desiredState != currentState   %}   
 
 {{ stage('Create Hybrid View') }}
     CREATE OR REPLACE VIEW {{ fullyQualifiedHybridViewName }} (
@@ -1055,28 +999,13 @@ select 1 = 0
     {{ stage('No edits.  Unknown state.') }}
     select 1 = 0
 {%- endif -%}
-
-
-
  
 {# Create Task Third #}
-{% if desiredState == currentState %}
-
-    {{ stage('No task edits.') }}
-    select 1 = 0
-
-{% elif desiredState %}
-
-         
+{% if desiredState and desiredState != currentState %}
     {# Task Info #}
     {% set taskName = 'DM_TASK_' +  desiredState.node.name  %}
     {%- set fullyQualifiedTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + taskName + '"' -%}
-
         {% if desiredState.config.devMode == false %}
- 
-     
-   
- 
     {%- if desiredState.config.schedulePeriodOption == 'Predecessor' -%}
         {%- set fullyQualifiedRootTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + desiredState.config.rootTask + '"' -%}
                 {{ stage('Suspend Root Task', true, "sql", "alter") }}
@@ -1091,7 +1020,7 @@ select 1 = 0
             {%- endif -%}
     {% endif -%}  
    
-    {{ stage('Create Task', true, "sql", "alter") }}
+    {{ stage('Create Task', true, "sql", "create") }}
     CREATE OR REPLACE TASK
                 {{ fullyQualifiedTaskName }}
                 {{ taskType}}
@@ -1189,32 +1118,19 @@ select 1 = 0
                 {{ stage('Resume Task', true, "sql", "alter") }}
                 ALTER TASK {{ fullyQualifiedTaskName }} RESUME;
             {%- endif -%}
-
-        {% else %}
-            {{ stage('Development Mode - No Task.') }}
-            select 1 = 0
             
         {%- endif -%}
 {% elif currentState != undefined and desiredState == undefined %}
- 
-
- 
     {# Target Table Info #}
     {% set targetTableDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %}
     {% set targetTableSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %}
     {% set fullyQualifiedTargetTableName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
-
- 
     {% if currentState.config.devMode == false %}
         {# FQ Root Task name #}
         {% set fullyQualifiedRootTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + currentState.config.rootTask + '"'%}
-
-    
     {# Task Info #}
     {% set taskName = 'DM_TASK_' +  currentState.node.name  %}
     {%- set fullyQualifiedTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + taskName + '"' -%}
-
- 
     {%- if currentState.config.schedulingPeriodOption == 'Predecessor' -%}
         {{ stage('Suspend Root Task', true, "sql", "alter") }}
             ALTER TASK IF EXISTS {{ fullyQualifiedRootTaskName }} SUSPEND
@@ -1225,10 +1141,4 @@ select 1 = 0
             DROP TASK IF EXISTS {{ fullyQualifiedTaskName }} 
         {%- endif -%}
     {%- endif -%}
- 
-{%- else -%}
-
-    {{ stage('Nothing to do.') }}
-    select 1 = 0
- 
 {% endif %}

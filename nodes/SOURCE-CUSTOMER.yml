@@ -1,6 +1,6 @@
 fileVersion: 1
-id: b3ddb3b4-9def-4837-94e1-79d144947e83
-name: DATA_OPERATIONSWD
+id: be67a68c-5bbf-4286-9c47-b3b67ef8950e
+name: CUSTOMER
 operation:
   database: ""
   dataset: ""
@@ -14,32 +14,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: b8e5b2da-50cd-46ea-b9ec-4754af9ed159
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
-        config: {}
-        dataType: TIME(9)
-        defaultValue: ""
-        description: ""
-        name: TIMESTAMP
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 1197999f-2fc1-4025-9903-82bbf75b20d1
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: 5ea45835-5d34-4c9f-9ecc-6836a4732ec8
+          stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: RECORD_ID
+        name: C_CUSTKEY
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -52,13 +33,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 6ae5a432-ad7b-4e2c-90ae-9e3a8f9ca93b
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: 7a595f76-07a6-4050-8530-d7bcf66b2d71
+          stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
         config: {}
-        dataType: VARCHAR(255)
+        dataType: VARCHAR(25)
         defaultValue: ""
         description: ""
-        name: NAME
+        name: C_NAME
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -71,13 +52,32 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 3d11f97e-5aca-4a2e-8f8b-3a037a39111d
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: 877ed2b1-6e1c-4682-a514-ac89450e4393
+          stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
+        config: {}
+        dataType: VARCHAR(40)
+        defaultValue: ""
+        description: ""
+        name: C_ADDRESS
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 51ad3a9e-8e40-4632-bce5-c52dc45ba2d2
+          stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: AGE
+        name: C_NATIONKEY
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -90,13 +90,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 29282fd6-a1ee-4fea-8469-9e6a43f70621
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: ffbeceb3-489b-42f1-9121-4870c83ce25d
+          stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
         config: {}
-        dataType: VARCHAR(255)
+        dataType: VARCHAR(15)
         defaultValue: ""
         description: ""
-        name: CITY
+        name: C_PHONE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -109,13 +109,32 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: d2fd58e4-4635-43e5-9156-3575a218c4b2
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: 142fe97f-45fa-4137-9f14-47cf98a33b67
+          stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
+        config: {}
+        dataType: NUMBER(12,2)
+        defaultValue: ""
+        description: ""
+        name: C_ACCTBAL
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: cab16052-2a2e-480f-8ad7-3cdde2ae2b4c
+          stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
         config: {}
         dataType: VARCHAR(10)
         defaultValue: ""
         description: ""
-        name: OPERATION_TYPE
+        name: C_MKTSEGMENT
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -128,13 +147,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 8db00896-a856-4eb5-b038-c3ee2d751c5a
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: 2b5c6e80-4773-439a-91a4-b458ac613b7d
+          stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
         config: {}
-        dataType: VARCHAR(10)
+        dataType: VARCHAR(117)
         defaultValue: ""
         description: ""
-        name: SOURCE
+        name: C_COMMENT
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -147,32 +166,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 9fb2031c-4b56-4654-b5e6-cd27e19710b9
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: 49c431cb-7ae7-41cd-b680-8f547c7bc471
+          stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
         config: {}
-        dataType: VARCHAR(16777216)
+        dataType: TIMESTAMP_LTZ(9)
         defaultValue: ""
         description: ""
-        name: DML_IDENTIFIER
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: d3ed4a01-d64a-4e7e-a5c4-d9823847ba21
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
-        config: {}
-        dataType: DATE
-        defaultValue: ""
-        description: ""
-        name: BOOK_AT
+        name: C_LOAD_TIMESTAMP
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -181,11 +181,11 @@ operation:
         transform: ""
         uniqueKey: false
     join:
-      joinCondition: FROM {{ ref('SOURCE', 'DATA_OPERATIONSWD') }}
-  name: DATA_OPERATIONSWD
+      joinCondition: FROM {{ ref('SOURCE', 'CUSTOMER') }}
+  name: CUSTOMER
   schema: ""
   sqlType: Source
-  table: DATA_OPERATIONSWD
+  table: CUSTOMER
   type: sourceInput
   version: 1
 type: Node

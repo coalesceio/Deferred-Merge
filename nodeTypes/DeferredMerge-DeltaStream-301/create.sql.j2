@@ -134,16 +134,12 @@ A hybrid view is established to provide access to the most current data by combi
 {% endif %}
 
 {# Create Stream first #}
-{% if desiredState == currentState %}
-
-    {{ stage('No Stream Created') }}
-    select 1 = 0
 
 
-{% elif desiredState %}
+{% if desiredState and desiredState != currentState  %}
 
     {% if currentState == undefined %}
-        {{ stage('Create Stream', true, "sql", "alter") }}
+        {{ stage('Create Stream', true, "sql", "create") }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
@@ -152,7 +148,7 @@ A hybrid view is established to provide access to the most current data by combi
 
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create If Not Exists'%}
-        {{ stage('Create Stream If Not Exists', true, "sql", "alter") }}
+        {{ stage('Create Stream If Not Exists', true, "sql", "create") }}
         CREATE STREAM IF NOT EXISTS {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
@@ -166,16 +162,13 @@ A hybrid view is established to provide access to the most current data by combi
             AT(STREAM => '{{ fullyQualifiedStreamName }}');
 
         {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create or Replace'%}
-        {{ stage('Create Stream', true, "sql", "alter") }}
+        {{ stage('Create Stream', true, "sql", "create") }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
             {{ streamInitialRowsMode }}
             {{ streamInsertOnlyMode }}
             
-    {% else %}
-        {{ stage('Unknown state.', true, "sql", "alter") }}
-        select 1 = 0
     {% endif %}
 
 
@@ -191,24 +184,12 @@ A hybrid view is established to provide access to the most current data by combi
     {{ stage('Drop Stream', true, "sql", "drop") }}
     DROP STREAM IF EXISTS {{ fullyQualifiedStreamName }}
 
-{%- else -%}
-
-    {{ stage('Unknown state.  Nothing to do.') }}
-      select 1 = 0
-
 {% endif %}
 
 
 {# Create / Alter Table Second #}
 
-
-
-{% if desiredState == currentState %}
-
-{{ stage('Nothing to do.') }}
-select 1 = 0
-
-{% elif desiredState %}
+{% if desiredState and desiredState != currentState  %}
 
 
     {% if desiredState.config.createas == 'table' or desiredState.config.createas == 'transient table'  %}
@@ -459,7 +440,7 @@ select 1 = 0
                         {%- if not addDesCol.nullable %} NOT NULL
                             {%- if addDesCol.defaultValue | length > 0 %} DEFAULT {{ addDesCol.defaultValue }}{% endif %}
                         {% endif %}
-                        {%- if addDesCol.description | length > 0 %} COMMENT '{{ addDescol.description | escape }}'{% endif %}
+                        {%- if addDesCol.description | length > 0 %} COMMENT '{{ addDesCol.description | escape }}'{% endif %}
                 {% endif %}
             {% endfor %}
 
@@ -546,15 +527,12 @@ select 1 = 0
                     {% endif %}
                 {% endif %}
             {% endfor %}
-            
             {# Figure out cluster key #}
             {% set nsVariables = namespace(finalClusterKey="") %}
             {% if clusterTest == false %}
                 {% if desiredState.config.clusterKeyExpressions == true %}
                     {% set column, expression = desiredState.config.clusterKeyConfigExpressions.get('items') | map(attribute='columnNameExpressions.name') | list, desiredState.config.clusterKeyConfigExpressions.get('items') | map(attribute='sqlExpression') | list %}
-
                     {%- set nsVariables = namespace(clusterValues=[]) %}
-
                     {% for r in column %}
                         {% if expression[loop.index0] == "" %}
                             {% set nsVariables.clusterValues = nsVariables.clusterValues + [r] %}
@@ -562,82 +540,44 @@ select 1 = 0
                             {% set nsVariables.clusterValues = nsVariables.clusterValues + [expression[loop.index0]] %}
                         {% endif %}
                     {% endfor %}
-
                     {% set nsVariables.finalClusterKey = 'CLUSTER BY (' + nsVariables.clusterValues | join(',') + ')' %}
-
                 {% elif desiredState.config.clusterKey == true %}
-
                     {% set column = desiredState.config.clusterKeyConfig.get('items') | map(attribute='columnName.name') | list %}
-
                     {%- set nsVariables = namespace(clusterValues=[]) %}
-
                     {% for r in column %}
                         {% set nsVariables.clusterValues = nsVariables.clusterValues + [r] %}
                     {% endfor %}
-
                     {% set nsVariables.finalClusterKey = 'CLUSTER BY (' + nsVariables.clusterValues | join(',') + ')' %}
-                
                 {% else %}
-
                     {% set nsVariables.finalClusterKey = 'DROP CLUSTERING KEY' %}
-
                 {% endif %}
-
             {{ stage('Recluster TABLE', true, "sql", "alter") }}
             ALTER TABLE {{ fullyQualifiedTargetTableName }}
             {{ nsVariables.finalClusterKey }}
-
             {% endif %}
-
         {% endif %}
-
-
     {% endif %}
 
 {% elif currentState != undefined and desiredState == undefined %}
-
     {# Table or View Name #}
     {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %} 
     {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
-
-     
        {{ stage('Drop ' + currentState.config.createas , true, "sql", "drop") }}
        DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
 
-
-{%- else -%}
-
-{{ stage('Nothing to do.') }}
-select 1 = 0
-
 {% endif %}
 
-
-
-
-    
-{% if desiredState == currentState %}
-
-    {{ stage('No Initial Load') }}
-    select 1 = 0
-
-{% elif desiredState  %}
-
+{% if desiredState  and desiredState != currentState%}
 {% set nsVariables = namespace(taskWhenRun="",tableKey=[],orderBy="", partition="",
  rowNumber="", hybridMergeSortFilter=[], sortKey=[],tableKeySort=[]) %}
-
-
-
-        {# Hybrid View Info #}
+    {# Hybrid View Info #}
     {# View created in same schema as Target Table #}
     {% set targetHybridViewDatabase = targetTableDatabase %}
     {% set targetHybridViewSchema = targetTableSchema %}
     {% set targetHybridViewName = 'DM_VIEW_' + desiredState.node.name  %}
-
     {% set fullyQualifiedHybridViewName = targetHybridViewDatabase + '.' + targetHybridViewSchema + '."' + targetHybridViewName + '"' %}
         {% set nsVariables = namespace(poll="WHEN ") %}
-
             {# Task Type #}
             {%- if desiredState.config.schedulingMode == 'Warehouse Task' -%} 
                 {# Can be updated during deployment via a parameter to account for different warehouse names in different deployments #}
@@ -649,11 +589,6 @@ select 1 = 0
             {%- else -%}
                 {%- set taskType = 'USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = ' + desiredState.config.serverlessSize -%} 
             {%- endif -%}
-
- 
-  
-    
-
             {# Schedule Type #}
             {%- if desiredState.config.schedulePeriodOption == 'Minutes' -%} 
                 {%- set nsVariables.taskWhenRun = 'SCHEDULE = ' + "'" + desiredState.config.schedulePeriod + ' MINUTE' + "'" -%} 
@@ -671,16 +606,10 @@ select 1 = 0
                 {% endfor %}    
             {%- endif -%}
 
-            {# When Stream has data logic #}
-            {# Source Stream Location and Name #}
-            
-
-
-{%- set nsVariables.tableKey = desiredState.config.partitionBy.get('items') %}
+    {# When Stream has data logic #}
+    {# Source Stream Location and Name #}
+    {%- set nsVariables.tableKey = desiredState.config.partitionBy.get('items') %}
     {% set nsVariables.tableKey = nsVariables.tableKey | map(attribute='partColName.name') | list %}
-
-    
-
     {# Merge partition by and order by #}
     {% set targetTableColumnNamesUpdate = targetTableColumnNames | reject('in', desiredState.config.partitionBy.get('items') | map(attribute='partColName.name')) | list %}
  
@@ -697,7 +626,6 @@ select 1 = 0
 
 
     {% if desiredState.config.recordVersioning in ('Datetime Column','Numeric Column') %}
-
         {% set datetimeNumericColSort = desiredState.config.orderBy.get('items') %}
         {% set nsVariables.orderBy = '"' + datetimeNumericColSort  | map(attribute='colName.name') | first + '" ' + datetimeNumericColSort  | map(attribute='sortOrd') | first %}
         {% set nsVariables.rowNumber = 'ROW_NUMBER() OVER (PARTITION BY ' + nsVariables.partition + ' ORDER BY ' + nsVariables.orderBy + ')' %}
@@ -712,12 +640,10 @@ select 1 = 0
         {% set nsVariables.orderBy = 'to_timestamp("' + dateCol + '" || ' + '\'T\'' + ' ||"' + timeCol + '") ' + sortOrdDateTimestamp %}
         {% set nsVariables.rowNumber = 'ROW_NUMBER() OVER (PARTITION BY ' + nsVariables.partition + ' ORDER BY ' + nsVariables.orderBy + ')' %}
         {% set nsVariables.hybridMergeSortFilter = 'to_timestamp(alias."' + dateCol + '" || ' + '\'T\'' + ' || alias."' + timeCol + '")' %}
- 
         {%- set nsVariables.sortKey = desiredState.config.orderByDateTime.get('items') %}
         {% set nsVariables.sortKey = nsVariables.sortKey | map(attribute='colNameDate.name') | list + nsVariables.sortKey | map(attribute='colNameTimestamp.name') | list %}
     {% endif %}
     {%- set nsVariables.tableKeySort = nsVariables.tableKey + nsVariables.sortKey %}
-
     {% if desiredState.config.initialRows == true %}           
         {{ stage('Target Table Initial Load',true,"sql","alter") }}
 		{% if currentState == undefined and desiredState.config.redeploymentBehavior == 'Create or Replace' %} 
@@ -751,19 +677,9 @@ select 1 = 0
             {% endif %}
     {% endif %}   
 
-{% elif currentState != undefined and desiredState == undefined %}
-
-    {{ stage('No edits.  Unknown state.') }}
-    select 1 = 0
 {%- endif -%}
 
-{% if desiredState == currentState %}
-
-    {{ stage('No View Created') }}
-    select 1 = 0
-
-{% elif desiredState   %}   
-
+{% if desiredState  and desiredState != currentState  %}   
     {{ stage('Create Hybrid View') }}
     CREATE OR REPLACE VIEW {{ fullyQualifiedHybridViewName }} (
         {%- for col in desiredState.columns %}
@@ -1096,32 +1012,16 @@ select 1 = 0
 
     {{ stage('Drop VIEW', true, "sql", "drop") }}
     DROP VIEW IF EXISTS {{ fullyQualifiedHybridViewName1 }}
-{%- else -%}
-    {{ stage('No edits.  Unknown state.') }}
-    select 1 = 0
+
 {%- endif -%}
- 
-
-
 
 {# Create Task Third #}
-{% if desiredState == currentState %}
+{% if desiredState and desiredState != currentState %}
 
-    {{ stage('No task edits.') }}
-    select 1 = 0
-
-{% elif desiredState %}
-
-         
     {# Task Info #}
     {% set taskName = 'DM_TASK_' +  desiredState.node.name  %}
     {%- set fullyQualifiedTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + taskName + '"' -%}
-
-        {% if desiredState.config.devMode == false %}
- 
-     
-   
- 
+    {% if desiredState.config.devMode == false %}
     {%- if desiredState.config.schedulePeriodOption == 'Predecessor' -%}
         {%- set fullyQualifiedRootTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + desiredState.config.rootTask + '"' -%}
                 {{ stage('Suspend Root Task', true, "sql", "alter") }}
@@ -1231,41 +1131,25 @@ select 1 = 0
         WHEN MATCHED AND d.{{ targetTableDmlIdentifierColumnQuotes }} = {{ deleteValue }} 
 	{% if desiredState.config.retainLastNonDeleteFlag == false %}
           OR (d.{{syscol1}}='DELETE' AND D.{{syscol2}} = false)
-	
 	{% endif %}
         THEN DELETE
     {% endif %}
- 
             {%- if desiredState.config.schedulePeriodOption != 'Predecessor' -%} 
                 {{ stage('Resume Task', true, "sql", "alter") }}
                 ALTER TASK {{ fullyQualifiedTaskName }} RESUME;
             {%- endif -%}
-
-        {% else %}
-            {{ stage('Development Mode - No Task.') }}
-            select 1 = 0
-            
         {%- endif -%}
 {% elif currentState != undefined and desiredState == undefined %}
- 
-
- 
     {# Target Table Info #}
     {% set targetTableDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %}
     {% set targetTableSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %}
     {% set fullyQualifiedTargetTableName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
-
- 
     {% if currentState.config.devMode == false %}
-        {# FQ Root Task name #}
-        {% set fullyQualifiedRootTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + currentState.config.rootTask + '"'%}
-
-    
+    {# FQ Root Task name #}
+    {% set fullyQualifiedRootTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + currentState.config.rootTask + '"'%}
     {# Task Info #}
     {% set taskName = 'DM_TASK_' +  currentState.node.name  %}
     {%- set fullyQualifiedTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + taskName + '"' -%}
-
- 
     {%- if currentState.config.schedulingPeriodOption == 'Predecessor' -%}
         {{ stage('Suspend Root Task', true, "sql", "alter") }}
             ALTER TASK IF EXISTS {{ fullyQualifiedRootTaskName }} SUSPEND
@@ -1276,10 +1160,4 @@ select 1 = 0
             DROP TASK IF EXISTS {{ fullyQualifiedTaskName }} 
         {%- endif -%}
     {%- endif -%}
- 
-{%- else -%}
-
-    {{ stage('Nothing to do.') }}
-    select 1 = 0
- 
 {% endif %}
