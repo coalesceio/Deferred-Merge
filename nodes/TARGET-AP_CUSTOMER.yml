@@ -52,7 +52,7 @@ operation:
     whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
-  description: ""
+  description: This is DF
   isMultisource: false
   locationName: TARGET
   materializationType: table
@@ -67,7 +67,7 @@ operation:
         dataType: NUMBER(38,0)
         description: ""
         name: C_CUSTKEY
-        nullable: true
+        nullable: false
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 5ea45835-5d34-4c9f-9ecc-6836a4732ec8
@@ -92,27 +92,13 @@ operation:
           columnCounter: fc8af02d-b2a6-4db7-b078-9573affddfa7
           stepCounter: 64bd7fb4-7c22-4399-8bc4-d48d5d01fbdb
         config: {}
-        dataType: VARCHAR(40)
-        description: ""
+        dataType: VARCHAR(45)
+        description: This is Address
         name: C_ADDRESS
         nullable: true
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 877ed2b1-6e1c-4682-a514-ac89450e4393
-                stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 7932efe2-3675-4dd3-b4c6-cd908c3bfb0a
-          stepCounter: 64bd7fb4-7c22-4399-8bc4-d48d5d01fbdb
-        config: {}
-        dataType: NUMBER(38,0)
-        description: This is Nation Key
-        name: C_NATIONKEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 51ad3a9e-8e40-4632-bce5-c52dc45ba2d2
                 stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
             transform: ""
       - appliedColumnTests: {}
@@ -134,7 +120,7 @@ operation:
           columnCounter: e3aace14-9816-4cdc-a381-278137a627e5
           stepCounter: 64bd7fb4-7c22-4399-8bc4-d48d5d01fbdb
         config: {}
-        dataType: NUMBER(12,2)
+        dataType: NUMBER(11,2)
         description: ""
         name: C_ACCTBAL
         nullable: true
@@ -170,7 +156,7 @@ operation:
           - columnReferences:
               - columnCounter: 2b5c6e80-4773-439a-91a4-b458ac613b7d
                 stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
-            transform: ""
+            transform: "'test'"
       - appliedColumnTests: {}
         columnReference:
           columnCounter: 3da91b9d-4708-47b5-8cbc-f0ae1b4001f0

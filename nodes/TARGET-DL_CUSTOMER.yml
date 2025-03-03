@@ -52,7 +52,7 @@ operation:
     whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
-  description: ""
+  description: This is DM
   isMultisource: false
   locationName: TARGET
   materializationType: table
@@ -67,7 +67,7 @@ operation:
         dataType: NUMBER(38,0)
         description: ""
         name: C_CUSTKEY
-        nullable: true
+        nullable: false
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 5ea45835-5d34-4c9f-9ecc-6836a4732ec8
@@ -78,7 +78,7 @@ operation:
           columnCounter: 62a1187c-d28c-47c3-bb16-2bd46dbf5fd1
           stepCounter: b68db5b4-b971-4c0e-9daf-64d851d675e6
         config: {}
-        dataType: VARCHAR(25)
+        dataType: VARCHAR(30)
         description: ""
         name: C_NAME
         nullable: true
@@ -93,26 +93,12 @@ operation:
           stepCounter: b68db5b4-b971-4c0e-9daf-64d851d675e6
         config: {}
         dataType: VARCHAR(40)
-        description: ""
+        description: This is address
         name: C_ADDRESS
         nullable: true
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 877ed2b1-6e1c-4682-a514-ac89450e4393
-                stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 1705df30-dc75-494d-8e76-2f83c9e53a37
-          stepCounter: b68db5b4-b971-4c0e-9daf-64d851d675e6
-        config: {}
-        dataType: NUMBER(38,0)
-        description: This is Nation Key
-        name: C_NATIONKEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 51ad3a9e-8e40-4632-bce5-c52dc45ba2d2
                 stepCounter: be67a68c-5bbf-4286-9c47-b3b67ef8950e
             transform: ""
       - appliedColumnTests: {}
@@ -134,7 +120,7 @@ operation:
           columnCounter: 262194e7-78c0-4fdd-a103-9961bfba0b42
           stepCounter: b68db5b4-b971-4c0e-9daf-64d851d675e6
         config: {}
-        dataType: NUMBER(12,2)
+        dataType: NUMBER(11,2)
         description: ""
         name: C_ACCTBAL
         nullable: true
