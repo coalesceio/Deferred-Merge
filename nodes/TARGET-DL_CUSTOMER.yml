@@ -78,7 +78,7 @@ operation:
           columnCounter: 62a1187c-d28c-47c3-bb16-2bd46dbf5fd1
           stepCounter: b68db5b4-b971-4c0e-9daf-64d851d675e6
         config: {}
-        dataType: VARCHAR(30)
+        dataType: VARCHAR(20)
         description: ""
         name: C_NAME
         nullable: true
@@ -197,8 +197,13 @@ operation:
         dependencies:
           - locationName: SOURCE
             nodeName: CUSTOMER
+          - locationName: SOURCE
+            nodeName: ORDERS
         join:
-          joinCondition: FROM {{ ref('SOURCE', 'CUSTOMER') }} "CUSTOMER"
+          joinCondition: |-
+            FROM {{ ref('SOURCE', 'CUSTOMER') }} "CUSTOMER"
+            INNER JOIN  {{ ref('SOURCE', 'ORDERS') }} "ORDERS"
+            ON "CUSTOMER"."C_CUSTKEY"= "ORDERS"."O_CUSTKEY"
         name: DL_CUSTOMER
         noLinkRefs: []
   name: DL_CUSTOMER
