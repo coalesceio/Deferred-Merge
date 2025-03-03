@@ -156,7 +156,7 @@ A hybrid view is established to provide access to the most current data by combi
             {{ streamInsertOnlyMode }}
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create At Existing Stream'%}
-        {{ stage('Re-Create Stream at existing offset', true, "sql", "alter") }}
+        {{ stage('Re-Create Stream at existing offset', true, "sql", "create") }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             AT(STREAM => '{{ fullyQualifiedStreamName }}');
@@ -237,7 +237,7 @@ A hybrid view is established to provide access to the most current data by combi
 
                       DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
                  
-                {{ stage('Create '+ ' {{desiredState.config.createas}}' , true, "sql", "alter") }}
+                {{ stage('Create '+ ' {{desiredState.config.createas}}' , true, "sql", "create") }}
                CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 (
                 {% for col in desiredState.columns %}
@@ -262,7 +262,7 @@ A hybrid view is established to provide access to the most current data by combi
         {% endif %}
 
         {% if currentState == undefined or currentState.storageLocations | length == 0 %}
-            {{ stage('Create  '+ ' {{desiredState.config.createas}}' , true, "sql", "alter") }}
+            {{ stage('Create  '+ ' {{desiredState.config.createas}}' , true, "sql", "create") }}
             CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
             (
                 {% for col in desiredState.columns %}
@@ -1036,7 +1036,7 @@ A hybrid view is established to provide access to the most current data by combi
             {%- endif -%}
     {% endif -%}  
    
-    {{ stage('Create Task', true, "sql", "alter") }}
+    {{ stage('Create Task', true, "sql", "create") }}
     CREATE OR REPLACE TASK
                 {{ fullyQualifiedTaskName }}
                 {{ taskType}}
