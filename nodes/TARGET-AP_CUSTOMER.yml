@@ -51,7 +51,7 @@ operation:
     sourceType: Table
     whName: <WAREHOUSE_NAME>
   database: ""
-  deployEnabled: true
+  deployEnabled: false
   description: ""
   isMultisource: false
   locationName: TARGET

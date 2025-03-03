@@ -4,7 +4,7 @@ name: CUSTOMER
 operation:
   database: ""
   dataset: ""
-  deployEnabled: true
+  deployEnabled: false
   description: ""
   locationName: SOURCE
   metadata:
