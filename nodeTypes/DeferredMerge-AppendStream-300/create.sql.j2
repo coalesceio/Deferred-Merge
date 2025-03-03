@@ -995,9 +995,7 @@ does not permit copying or modification for any other purpose.
 
     {{ stage('Drop VIEW', true, "sql", "drop") }}
     DROP VIEW IF EXISTS {{ fullyQualifiedHybridViewName1 }}
-{%- else -%}
-    {{ stage('No edits.  Unknown state.') }}
-    select 1 = 0
+
 {%- endif -%}
  
 {# Create Task Third #}
