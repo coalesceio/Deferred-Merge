@@ -13,7 +13,7 @@ operation:
         - {}
     clusterKeyExpressions: false
     createas: table
-    devMode: false
+    devMode: true
     dmlCol:
       columnCounter: 93e45754-3276-4941-81d1-641abf2d9965
       stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
@@ -35,7 +35,7 @@ operation:
     partitionBy:
       items:
         - partColName:
-            columnCounter: 9cffbf43-6dfd-4a5c-bf10-0b16d9a5c551
+            columnCounter: 08538fdf-a5c1-4e47-9fc3-8ff3f1c0641e
             stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
     predTask: ""
     recordVersioning: Datetime Column

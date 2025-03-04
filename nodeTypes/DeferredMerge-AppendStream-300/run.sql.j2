@@ -17,7 +17,7 @@ does not permit copying or modification for any other purpose.
     {%- set nsVariables.tableKey = config.partitionBy.get('items') %}
     {% set nsVariables.tableKey = nsVariables.tableKey | map(attribute='partColName.name') | list %}
 
-    
+    {% set targetTableColumnNames = columns | map(attribute='name') | list %}   
 
     {# Merge partition by and order by #}
     {% set targetTableColumnNamesUpdate = targetTableColumnNames | reject('in', config.partitionBy.get('items') | map(attribute='partColName.name')) | list %}
@@ -158,21 +158,21 @@ does not permit copying or modification for any other purpose.
     
     {% if config.capUpdate == true %}
         WHEN MATCHED AND source_table.{{ targetTableDmlIdentifierColumnQuotes }} = {{ updateValue }} THEN UPDATE SET
-            {% for col in targetTableColumnNames %}
+            {% for col in targetTableColumnNamesUpdate %}
                 target_table."{{ col }}" = source_table."{{ col }}"
                 {% if not loop.last %}, {% endif -%}
             {%- endfor -%}
     {% endif %}
 
     WHEN MATCHED AND source_table.{{ targetTableDmlIdentifierColumnQuotes }} = {{ insertValue }} THEN UPDATE SET
-        {% for col in targetTableColumnNames %}
+        {% for col in targetTableColumnNamesUpdate %}
             target_table."{{ col }}" = source_table."{{ col }}"
             {% if not loop.last %}, {% endif -%}
         {%- endfor -%}
 
     {% if config.softDeleteFlag == true %}
         WHEN MATCHED AND source_table.{{ targetTableDmlIdentifierColumnQuotes }} = {{ deleteValue }} THEN UPDATE SET
-            {% for col in targetTableColumnNames %}
+            {% for col in targetTableColumnNamesUpdate %}
                 {% if col in (targetTableMergeUpdateColumn, targetTableDmlIdentifierColumn) or col in nsVariables.sortKey %}
                     target_table."{{ col }}" = source_table."{{ col }}"
                     {% if not loop.last %}, {% endif %}

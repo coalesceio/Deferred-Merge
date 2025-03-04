@@ -13,7 +13,7 @@ operation:
         - {}
     clusterKeyExpressions: false
     createas: table
-    devMode: false
+    devMode: true
     dmlCol:
       columnCounter: 960bdf4f-c332-4e28-b314-09a6943eff91
       stepCounter: b68db5b4-b971-4c0e-9daf-64d851d675e6

@@ -15,7 +15,7 @@ operation:
     createas: table
     devMode: false
     dmlCol:
-      columnCounter: 1b11f8da-76ed-49ba-bf32-f4b50c22eb1d
+      columnCounter: 9741b8cb-539e-43ad-ac68-af31c25dcc50
       stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
     dmlDelete: D
     dmlInsert: I
@@ -35,7 +35,7 @@ operation:
     partitionBy:
       items:
         - partColName:
-            columnCounter: 0e237639-bb55-48ae-8a1b-b04b875ee25f
+            columnCounter: 23217b4a-c26f-4681-a6c3-b15b30e4345d
             stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
     predTask: ""
     recordVersioning: Datetime Column
