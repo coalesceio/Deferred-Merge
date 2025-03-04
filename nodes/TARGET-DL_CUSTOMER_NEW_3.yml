@@ -1,6 +1,6 @@
 fileVersion: 1
 id: e4d53a08-8481-4169-8acd-d408e7a22722
-name: DL_CUSTOMER_NEW_2
+name: DL_CUSTOMER_NEW_3
 operation:
   config:
     capUpdate: false
@@ -204,9 +204,9 @@ operation:
             FROM {{ ref('SOURCE', 'CUSTOMER') }} "CUSTOMER"
             INNER JOIN  {{ ref('SOURCE', 'ORDERS') }} "ORDERS"
             ON "CUSTOMER"."C_CUSTKEY"= "ORDERS"."O_CUSTKEY"
-        name: DL_CUSTOMER_NEW_2
+        name: DL_CUSTOMER_NEW_3
         noLinkRefs: []
-  name: DL_CUSTOMER_NEW_2
+  name: DL_CUSTOMER_NEW_3
   overrideSQL: false
   schema: ""
   sqlType: "301"
