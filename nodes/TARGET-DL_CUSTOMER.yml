@@ -4,16 +4,18 @@ name: DL_CUSTOMER
 operation:
   config:
     capUpdate: false
-    clusterKey: false
+    clusterKey: true
     clusterKeyConfig:
       items:
-        - {}
+        - columnName:
+            columnCounter: 960bdf4f-c332-4e28-b314-09a6943eff91
+            stepCounter: b68db5b4-b971-4c0e-9daf-64d851d675e6
     clusterKeyConfigExpressions:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: table
-    devMode: true
+    createas: transient table
+    devMode: false
     dmlCol:
       columnCounter: 960bdf4f-c332-4e28-b314-09a6943eff91
       stepCounter: b68db5b4-b971-4c0e-9daf-64d851d675e6
@@ -26,7 +28,7 @@ operation:
     orderBy:
       items:
         - colName:
-            columnCounter: bb4b5988-af02-4570-9f7d-69254e5e4166
+            columnCounter: f0a19e11-31fc-42d7-8a23-403cf78e1a60
             stepCounter: b68db5b4-b971-4c0e-9daf-64d851d675e6
           sortOrd: desc
     orderByDateTime:
@@ -40,7 +42,7 @@ operation:
     predTask: ""
     recordVersioning: Datetime Column
     redeploymentBehavior: Create At Existing Stream
-    retainLastNonDeleteFlag: false
+    retainLastNonDeleteFlag: true
     rootTask: ""
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
     schedulePeriod: "60"

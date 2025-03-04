@@ -4,16 +4,18 @@ name: AP_CUSTOMER
 operation:
   config:
     capUpdate: false
-    clusterKey: false
+    clusterKey: true
     clusterKeyConfig:
       items:
-        - {}
+        - columnName:
+            columnCounter: e8aaa8ff-1fce-473e-9d6c-2b1ba17b53d6
+            stepCounter: 64bd7fb4-7c22-4399-8bc4-d48d5d01fbdb
     clusterKeyConfigExpressions:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: table
-    devMode: true
+    createas: transient table
+    devMode: false
     dmlCol:
       columnCounter: fc8af02d-b2a6-4db7-b078-9573affddfa7
       stepCounter: 64bd7fb4-7c22-4399-8bc4-d48d5d01fbdb
@@ -26,7 +28,7 @@ operation:
     orderBy:
       items:
         - colName:
-            columnCounter: 8465097c-9c32-4e9e-acbd-692cf54b2eb1
+            columnCounter: 3da91b9d-4708-47b5-8cbc-f0ae1b4001f0
             stepCounter: 64bd7fb4-7c22-4399-8bc4-d48d5d01fbdb
           sortOrd: desc
     orderByDateTime:
@@ -40,14 +42,14 @@ operation:
     predTask: ""
     recordVersioning: Datetime Column
     redeploymentBehavior: Create At Existing Stream
-    retainLastNonDeleteFlag: false
+    retainLastNonDeleteFlag: true
     rootTask: ""
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
     schedulePeriod: "60"
     schedulePeriodOption: Minutes
     schedulingMode: Serverless Task
     serverlessSize: MEDIUM
-    softDeleteFlag: false
+    softDeleteFlag: true
     sourceType: Table
     whName: <WAREHOUSE_NAME>
   database: ""
