@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 64bd7fb4-7c22-4399-8bc4-d48d5d01fbdb
-name: AP_CUSTOMER
+name: AP_CUSTOMER_1
 operation:
   config:
     capUpdate: false
@@ -14,7 +14,7 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: transient table
+    createas: table
     devMode: false
     dmlCol:
       columnCounter: fc8af02d-b2a6-4db7-b078-9573affddfa7
@@ -206,9 +206,9 @@ operation:
             FROM {{ ref('SOURCE', 'CUSTOMER') }} "CUSTOMER"
             INNER JOIN  {{ ref('SOURCE', 'ORDERS') }} "ORDERS"
             ON "CUSTOMER"."C_CUSTKEY"= "ORDERS"."O_CUSTKEY"
-        name: AP_CUSTOMER
+        name: AP_CUSTOMER_1
         noLinkRefs: []
-  name: AP_CUSTOMER
+  name: AP_CUSTOMER_1
   overrideSQL: false
   schema: ""
   sqlType: "300"
