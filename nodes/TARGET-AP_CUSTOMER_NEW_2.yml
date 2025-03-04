@@ -1,6 +1,6 @@
 fileVersion: 1
 id: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
-name: AP_CUSTOMER_NEW_1
+name: AP_CUSTOMER_NEW_2
 operation:
   config:
     capUpdate: false
@@ -26,7 +26,7 @@ operation:
     orderBy:
       items:
         - colName:
-            columnCounter: 6bede1f2-a23e-4cf1-b587-f9d0fd7d952c
+            columnCounter: 01f9ca44-3300-458b-b1cf-20031bf3d6b7
             stepCounter: c58dd12f-f8fc-48a8-aa9c-2393c009e5c0
           sortOrd: desc
     orderByDateTime:
@@ -204,9 +204,9 @@ operation:
             FROM {{ ref('SOURCE', 'CUSTOMER') }} "CUSTOMER"
             INNER JOIN  {{ ref('SOURCE', 'ORDERS') }} "ORDERS"
             ON "CUSTOMER"."C_CUSTKEY"= "ORDERS"."O_CUSTKEY"
-        name: AP_CUSTOMER_NEW_1
+        name: AP_CUSTOMER_NEW_2
         noLinkRefs: []
-  name: AP_CUSTOMER_NEW_1
+  name: AP_CUSTOMER_NEW_2
   overrideSQL: false
   schema: ""
   sqlType: "300"

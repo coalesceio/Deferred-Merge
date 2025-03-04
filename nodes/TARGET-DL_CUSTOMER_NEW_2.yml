@@ -1,6 +1,6 @@
 fileVersion: 1
 id: e4d53a08-8481-4169-8acd-d408e7a22722
-name: DL_CUSTOMER_NEW_1
+name: DL_CUSTOMER_NEW_2
 operation:
   config:
     capUpdate: false
@@ -26,7 +26,7 @@ operation:
     orderBy:
       items:
         - colName:
-            columnCounter: 575742c0-948e-464f-bb96-20c4d779069d
+            columnCounter: 1ff5c7b8-b652-4a43-9761-780c56d3dcc7
             stepCounter: e4d53a08-8481-4169-8acd-d408e7a22722
           sortOrd: desc
     orderByDateTime:
@@ -204,9 +204,9 @@ operation:
             FROM {{ ref('SOURCE', 'CUSTOMER') }} "CUSTOMER"
             INNER JOIN  {{ ref('SOURCE', 'ORDERS') }} "ORDERS"
             ON "CUSTOMER"."C_CUSTKEY"= "ORDERS"."O_CUSTKEY"
-        name: DL_CUSTOMER_NEW_1
+        name: DL_CUSTOMER_NEW_2
         noLinkRefs: []
-  name: DL_CUSTOMER_NEW_1
+  name: DL_CUSTOMER_NEW_2
   overrideSQL: false
   schema: ""
   sqlType: "301"
