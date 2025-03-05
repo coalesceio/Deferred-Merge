@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 7225a089-57b1-47d5-8305-45f226015487
-name: DL_CUSTOMER_ST
+name: DL_CUSTOMER_ST_1
 operation:
   config:
     capUpdate: false
@@ -213,9 +213,9 @@ operation:
             nodeName: CUSTOMER
         join:
           joinCondition: FROM {{ ref('SOURCE', 'CUSTOMER') }} "CUSTOMER"
-        name: DL_CUSTOMER_ST
+        name: DL_CUSTOMER_ST_1
         noLinkRefs: []
-  name: DL_CUSTOMER_ST
+  name: DL_CUSTOMER_ST_1
   overrideSQL: false
   schema: ""
   sqlType: "301"
