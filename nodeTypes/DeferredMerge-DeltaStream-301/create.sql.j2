@@ -1139,7 +1139,7 @@ A hybrid view is established to provide access to the most current data by combi
         THEN DELETE
     {% endif %}
             {%- if desiredState.config.schedulePeriodOption != 'Predecessor' -%} 
-                {{ stage('Resume Task', true, "sql", "alter") }}
+                {{ stage('Resume Task', true, "sql", "create") }}
                 ALTER TASK {{ fullyQualifiedTaskName }} RESUME;
             {%- endif -%}
         {%- endif -%}
