@@ -148,7 +148,7 @@ A hybrid view is established to provide access to the most current data by combi
 
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create If Not Exists'%}
-        {{ stage('Create Stream If Not Exists', true, "sql", "alter") }}
+        {{ stage('Create Stream If Not Exists', true, "sql", "create") }}
         CREATE STREAM IF NOT EXISTS {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
@@ -156,13 +156,13 @@ A hybrid view is established to provide access to the most current data by combi
             {{ streamInsertOnlyMode }}
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create At Existing Stream'%}
-        {{ stage('Re-Create Stream at existing offset', true, "sql", "alter") }}
+        {{ stage('Re-Create Stream at existing offset', true, "sql", "create") }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             AT(STREAM => '{{ fullyQualifiedStreamName }}');
 
         {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create or Replace'%}
-        {{ stage('Create Stream', true, "sql", "alter") }}
+        {{ stage('Create Stream', true, "sql", "create") }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
