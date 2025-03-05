@@ -1,6 +1,6 @@
 fileVersion: 1
 id: af6faae7-9cfa-4e90-8ee5-7fc1a41e90ad
-name: AP_ORDERS_TEST
+name: AP_ORDERS_TEST_NEW
 operation:
   config:
     capUpdate: false
@@ -227,9 +227,9 @@ operation:
             nodeName: ORDERS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} "ORDERS"
-        name: AP_ORDERS_TEST
+        name: AP_ORDERS_TEST_NEW
         noLinkRefs: []
-  name: AP_ORDERS_TEST
+  name: AP_ORDERS_TEST_NEW
   overrideSQL: false
   schema: ""
   sqlType: "300"

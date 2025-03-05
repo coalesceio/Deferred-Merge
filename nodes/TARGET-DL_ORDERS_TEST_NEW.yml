@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 9d384b83-bcb3-442b-8755-c043ce327765
-name: DL_ORDERS_TEST
+name: DL_ORDERS_TEST_NEW
 operation:
   config:
     capUpdate: false
@@ -227,9 +227,9 @@ operation:
             nodeName: ORDERS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} "ORDERS"
-        name: DL_ORDERS_TEST
+        name: DL_ORDERS_TEST_NEW
         noLinkRefs: []
-  name: DL_ORDERS_TEST
+  name: DL_ORDERS_TEST_NEW
   overrideSQL: false
   schema: ""
   sqlType: "301"
