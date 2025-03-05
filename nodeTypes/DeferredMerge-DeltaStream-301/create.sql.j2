@@ -133,59 +133,6 @@ A hybrid view is established to provide access to the most current data by combi
     {% endif %}
 {% endif %}
 
-{# Create Stream first #}
-
-
-{% if desiredState and desiredState != currentState  %}
-
-    {% if currentState == undefined %}
-        {{ stage('Create Stream', true, "sql", "create") }}
-        CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
-            ON {{ streamType }} {{ streamSourceObjectName }}
-            {{ streamAppendMode }}
-            {{ streamInitialRowsMode }}
-            {{ streamInsertOnlyMode }}
-
-
-    {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create If Not Exists'%}
-        {{ stage('Create Stream If Not Exists', true, "sql", "alter") }}
-        CREATE STREAM IF NOT EXISTS {{ fullyQualifiedStreamName }}
-            ON {{ streamType }} {{ streamSourceObjectName }}
-            {{ streamAppendMode }}
-            {{ streamInitialRowsMode }}
-            {{ streamInsertOnlyMode }}
-
-    {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create At Existing Stream'%}
-        {{ stage('Re-Create Stream at existing offset', true, "sql", "alter") }}
-        CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
-            ON {{ streamType }} {{ streamSourceObjectName }}
-            AT(STREAM => '{{ fullyQualifiedStreamName }}');
-
-        {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create or Replace'%}
-        {{ stage('Create Stream', true, "sql", "alter") }}
-        CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
-            ON {{ streamType }} {{ streamSourceObjectName }}
-            {{ streamAppendMode }}
-            {{ streamInitialRowsMode }}
-            {{ streamInsertOnlyMode }}
-            
-    {% endif %}
-
-
-{% elif desiredState == undefined and currentState.storageLocations | length > 0 %}
-
-    {# Source Stream Location and Name #}
-    {% set streamTargetLocationName = currentState.node.location.name %}
-    {% set streamTargetDatabaseName = currentState.storageLocations | selectattr('name', 'equalto', streamTargetLocationName) | map(attribute='database') | first %}
-    {% set streamTargetSchemaName = currentState.storageLocations | selectattr('name', 'equalto', streamTargetLocationName) | map(attribute='schema') | first %}
-        {% set streamName = 'DM_STREAM_' + currentState.node.name %}
-    {% set fullyQualifiedStreamName = '"' + streamTargetDatabaseName + '"."' + streamTargetSchemaName + '"."' + streamName + '"' %}
-
-    {{ stage('Drop Stream', true, "sql", "drop") }}
-    DROP STREAM IF EXISTS {{ fullyQualifiedStreamName }}
-
-{% endif %}
-
 
 {# Create / Alter Table Second #}
 
@@ -571,6 +518,59 @@ A hybrid view is established to provide access to the most current data by combi
        DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
 
 {% endif %}
+{# Create Stream first #}
+
+
+{% if desiredState and desiredState != currentState  %}
+
+    {% if currentState == undefined %}
+        {{ stage('Create Stream', true, "sql", "create") }}
+        CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
+            ON {{ streamType }} {{ streamSourceObjectName }}
+            {{ streamAppendMode }}
+            {{ streamInitialRowsMode }}
+            {{ streamInsertOnlyMode }}
+
+
+    {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create If Not Exists'%}
+        {{ stage('Create Stream If Not Exists', true, "sql", "alter") }}
+        CREATE STREAM IF NOT EXISTS {{ fullyQualifiedStreamName }}
+            ON {{ streamType }} {{ streamSourceObjectName }}
+            {{ streamAppendMode }}
+            {{ streamInitialRowsMode }}
+            {{ streamInsertOnlyMode }}
+
+    {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create At Existing Stream'%}
+        {{ stage('Re-Create Stream at existing offset', true, "sql", "alter") }}
+        CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
+            ON {{ streamType }} {{ streamSourceObjectName }}
+            AT(STREAM => '{{ fullyQualifiedStreamName }}');
+
+        {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create or Replace'%}
+        {{ stage('Create Stream', true, "sql", "alter") }}
+        CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
+            ON {{ streamType }} {{ streamSourceObjectName }}
+            {{ streamAppendMode }}
+            {{ streamInitialRowsMode }}
+            {{ streamInsertOnlyMode }}
+            
+    {% endif %}
+
+
+{% elif desiredState == undefined and currentState.storageLocations | length > 0 %}
+
+    {# Source Stream Location and Name #}
+    {% set streamTargetLocationName = currentState.node.location.name %}
+    {% set streamTargetDatabaseName = currentState.storageLocations | selectattr('name', 'equalto', streamTargetLocationName) | map(attribute='database') | first %}
+    {% set streamTargetSchemaName = currentState.storageLocations | selectattr('name', 'equalto', streamTargetLocationName) | map(attribute='schema') | first %}
+        {% set streamName = 'DM_STREAM_' + currentState.node.name %}
+    {% set fullyQualifiedStreamName = '"' + streamTargetDatabaseName + '"."' + streamTargetSchemaName + '"."' + streamName + '"' %}
+
+    {{ stage('Drop Stream', true, "sql", "drop") }}
+    DROP STREAM IF EXISTS {{ fullyQualifiedStreamName }}
+
+{% endif %}
+
 
 {% if desiredState  and desiredState != currentState%}
 {% set nsVariables = namespace(taskWhenRun="",tableKey=[],orderBy="", partition="",
@@ -649,7 +649,7 @@ A hybrid view is established to provide access to the most current data by combi
     {% endif %}
     {%- set nsVariables.tableKeySort = nsVariables.tableKey + nsVariables.sortKey %}
     {% if desiredState.config.initialRows == true %}           
-        {{ stage('Target Table Initial Load',true,"sql","alter") }}
+        {{ stage('Target Table Initial Load',true,"sql","create") }}
 		{% if currentState == undefined and desiredState.config.redeploymentBehavior == 'Create or Replace' %} 
 		    INSERT  INTO {{ fullyQualifiedTargetTableName }}		
         {% elif desiredState.config.redeploymentBehavior == 'Create or Replace' %}      
