@@ -409,6 +409,10 @@ When node is deleted, executes:
 * Drop Table/Transient Table  
 * Drop View
 * Drop Current Task
+* 
+### Redeployment with no changes
+ 
+If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
 ## Code
 
