@@ -126,13 +126,13 @@ does not permit copying or modification for any other purpose.
             {{ streamInsertOnlyMode }}
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create At Existing Stream'%}
-        {{ stage('Re-Create Stream at existing offset', true, "sql", "create") }}
+        {{ stage('Re-Create Stream at existing offset', true, "sql", "alter") }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             AT(STREAM => '{{ fullyQualifiedStreamName }}');
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create or Replace'%}
-        {{ stage('Create Stream', true, "sql", "create") }}
+        {{ stage('Create Stream', true, "sql", "alter") }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
