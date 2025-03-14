@@ -43,8 +43,6 @@ metadata:
           - View
         isRequired: false
 
-
-
       - displayName: Show Initial Rows
         attributeName: initialRows
         type: toggleButton
@@ -60,10 +58,7 @@ metadata:
            - Create or Replace
            - Create If Not Exists
            - Create At Existing Stream
-        isRequired: true
-
-
-      
+        isRequired: true 
 
       - displayName: Insert Only
         attributeName: insertOnly
@@ -261,6 +256,16 @@ metadata:
         attributeName: flagSrcStream
         type: toggleButton
         isRequired: true
+
+      - type: label
+        attributeName: note2
+        displayName: 
+                       "NOTE:
+                       \n
+                       Ensure the parameter targetTaskWarehouse is added in Workspace and 
+                       deployment environment  for successful creation of Steam.  
+                       For more information, refer to the documentation."
+        enableIf: "{%- if (parameters == {} or parameters.targetTaskWarehouse == '' ) and config.schedulingMode == 'Warehouse Task'-%} true {%- else -%} false {%- endif -%}"
 
       - displayName: Select Warehouse on which to run task
         attributeName: whName

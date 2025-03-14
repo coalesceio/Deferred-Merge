@@ -10,6 +10,17 @@ does not permit copying or modification for any other purpose.
 {# == Node Type Description    : The Deferred Merge - Append Stream Node includes a Stream,Table,Task and Hybrid View which allows access to the most current data by combining initial and incremental updates without waiting for the merge task to execute.
 == #}
 
+{# Parameter Check for Deployment #}
+{%if desiredState and currentState != desiredState and desiredState.config.schedulingMode == 'Warehouse Task' %}
+     {% if desiredState.parameters == {} or desiredState.parameters.targetTaskWarehouse == ''%}
+
+         {{stage('WARNING')}}
+         
+          /*Add parameter targetTaskWarehouse in workspace settings and deployment environment for successful execution of node.
+          The default value for the parameter is 'DEV ENVIRONMENT'.
+          For more information, refer to the documentation.*/
+	{%endif%}
+{%endif%}
 
 {% if desiredState %}
     
@@ -576,6 +587,8 @@ does not permit copying or modification for any other purpose.
                 {# Task Type #}
             {%- if desiredState.config.schedulingMode == 'Warehouse Task' -%} 
                 {# Can be updated during deployment via a parameter to account for different warehouse names in different deployments #}
+
+                {% if 'targetTaskWarehouse'  in  desiredState.parameters %}
                 {% if desiredState.parameters.targetTaskWarehouse == 'DEV ENVIRONMENT' %}
                     {% set taskType = 'WAREHOUSE = ' + desiredState.config.whName %}
                 {% else %}
@@ -583,6 +596,7 @@ does not permit copying or modification for any other purpose.
                 {% endif %}
             {%- else -%}
                 {%- set taskType = 'USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = ' + desiredState.config.serverlessSize -%} 
+            {%- endif -%}
             {%- endif -%}
             {# Schedule Type #}
             {%- if desiredState.config.schedulePeriodOption == 'Minutes' -%} 
