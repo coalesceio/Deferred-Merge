@@ -598,10 +598,11 @@ A hybrid view is established to provide access to the most current data by combi
                 {% else %}
                     {% set taskType = 'WAREHOUSE = ' + desiredState.parameters.targetTaskWarehouse %}
                 {% endif %}
+                {%-endif -%}
             {%- else -%}
                 {%- set taskType = 'USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = ' + desiredState.config.serverlessSize -%} 
             {%- endif -%}
-            {%-endif -%}
+            
             {# Schedule Type #}
             {%- if desiredState.config.schedulePeriodOption == 'Minutes' -%} 
                 {%- set nsVariables.taskWhenRun = 'SCHEDULE = ' + "'" + desiredState.config.schedulePeriod + ' MINUTE' + "'" -%} 
