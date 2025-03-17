@@ -12,9 +12,19 @@ Then a target table is created and initially loaded with data.
 A hybrid view is established to provide access to the most current data by combining initial updates.
 == #}
 
+{# Parameter Check for Deployment #}
+{%if desiredState and currentState != desiredState and desiredState.config.schedulingMode == 'Warehouse Task' %}
+     {% if desiredState.parameters == {} or 'targetTaskWarehouse' not in  desiredState.parameters or desiredState.parameters.targetTaskWarehouse == ''%}
 
-{% if desiredState %}
-    
+         {{stage('WARNING')}}
+         
+          /*Add parameter targetTaskWarehouse in workspace settings and deployment environment for successful execution of node.
+          The default value for the parameter is 'DEV ENVIRONMENT'.
+          For more information, refer to the documentation.*/
+	{%endif%}
+{%endif%}
+
+{% if desiredState %} 
  
     {# Source Object Location and Name #}
     {% set sourceStorageLocation = desiredState.sources[0].dependencies[0].node.location.name %}
@@ -22,9 +32,6 @@ A hybrid view is established to provide access to the most current data by combi
     {% set sourceSchemaName = desiredState.storageLocations | selectattr('name', 'equalto', sourceStorageLocation) | map(attribute='schema') | first %}
     {% set sourceTableName = desiredState.sources[0].dependencies[0].node.name %}
     {% set fullyQualifiedSourceTableName = '"' + sourceDatabaseName + '"."' + sourceSchemaName + '"."' + sourceTableName + '"' %}
-    
-    
- 
      
  
     {# Target Stream Location and Name #}
@@ -35,7 +42,6 @@ A hybrid view is established to provide access to the most current data by combi
 
     {% set fullyQualifiedStreamName = '"' + streamTargetDatabaseName + '"."' + streamTargetSchemaName + '"."' + streamName + '"' %}
     {% set changesClauseAt = 'AT(stream => \'' + fullyQualifiedStreamName + '\')' %}
-
 
 
     {# Target Table Info #}
@@ -585,14 +591,18 @@ A hybrid view is established to provide access to the most current data by combi
             {# Task Type #}
             {%- if desiredState.config.schedulingMode == 'Warehouse Task' -%} 
                 {# Can be updated during deployment via a parameter to account for different warehouse names in different deployments #}
+
+                {% if 'targetTaskWarehouse'  in  desiredState.parameters %}
                 {% if desiredState.parameters.targetTaskWarehouse == 'DEV ENVIRONMENT' %}
                     {% set taskType = 'WAREHOUSE = ' + desiredState.config.whName %}
                 {% else %}
                     {% set taskType = 'WAREHOUSE = ' + desiredState.parameters.targetTaskWarehouse %}
                 {% endif %}
+                {%-endif -%}
             {%- else -%}
                 {%- set taskType = 'USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = ' + desiredState.config.serverlessSize -%} 
             {%- endif -%}
+            
             {# Schedule Type #}
             {%- if desiredState.config.schedulePeriodOption == 'Minutes' -%} 
                 {%- set nsVariables.taskWhenRun = 'SCHEDULE = ' + "'" + desiredState.config.schedulePeriod + ' MINUTE' + "'" -%} 
