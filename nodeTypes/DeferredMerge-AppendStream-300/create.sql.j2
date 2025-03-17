@@ -12,7 +12,7 @@ does not permit copying or modification for any other purpose.
 
 {# Parameter Check for Deployment #}
 {%if desiredState and currentState != desiredState and desiredState.config.schedulingMode == 'Warehouse Task' %}
-     {% if desiredState.parameters == {} or desiredState.parameters.targetTaskWarehouse == ''%}
+     {% if desiredState.parameters == {} or 'targetTaskWarehouse' not in  desiredState.parameters or desiredState.parameters.targetTaskWarehouse == ''%}
 
          {{stage('WARNING')}}
          
