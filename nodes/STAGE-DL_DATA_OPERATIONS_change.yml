@@ -54,7 +54,7 @@ operation:
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: TARGET
+  locationName: STAGE
   materializationType: table
   metadata:
     appliedNodeTests: []
