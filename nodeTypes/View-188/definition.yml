@@ -1,0 +1,71 @@
+fileVersion: 1
+id: "188"
+isDisabled: false
+metadata:
+  defaultStorageLocation: null
+  error: null
+  nodeMetadataSpec: |
+    capitalized: View
+    short: V
+    tagColor: '#C4C4C4'
+    isDisabled: true
+    plural: Views
+
+    config:
+      - groupName: Options
+        items:
+
+        - displayName: OverrideCreateSQL
+          attributeName: OverrideSQLCreate
+          type: overrideSQLToggle
+          default: false
+
+        - type: multisourceToggle 
+          enableIf: "{% if  node.override.create.enabled %} false {% else %} true {% endif %}"
+          default: false
+
+        - displayName: Multi Source Strategy
+          attributeName: insertStrategy
+          type: dropdownSelector
+          default: UNION
+          options:
+          - "UNION"
+          - "UNION ALL" 
+          isRequired: false
+          enableIf: "{% if node.isMultisource %} true {% else %} false {% endif %}"
+
+        - displayName: Secure
+          attributeName: secureoption
+          type: toggleButton
+          enableIf: "{% if  node.override.create.enabled %} false {% else %} true {% endif %}"
+          default: false
+
+        - displayName: Distinct
+          attributeName: selectDistinct
+          type: toggleButton
+          enableIf: "{% if config.groupByAll or  node.override.create.enabled %} false {% else %} true {% endif %}"
+          default: false
+        
+
+        - displayName: Group By All
+          attributeName: groupByAll
+          type: toggleButton
+          enableIf: "{% if config.selectDistinct or node.override.create.enabled %} false {% else %} true {% endif %}" 
+          default: false   
+        
+        - displayName: Enable Tests
+          attributeName: testsEnabled
+          type: toggleButton
+          default: false
+        
+      - groupName: Hidden Config
+        enableIf: "false"
+        items:
+        - displayName: Type
+          type: materializationSelector
+          default:  view
+          options:
+          - view
+          isRequired: false 
+name: View
+type: NodeType
