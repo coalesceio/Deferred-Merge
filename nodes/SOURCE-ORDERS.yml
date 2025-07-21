@@ -1,9 +1,8 @@
 fileVersion: 1
-id: b3ddb3b4-9def-4837-94e1-79d144947e83
-name: DATA_OPERATIONSWD
+id: ba552fec-2317-4db8-ba4f-95403cf16f71
+name: ORDERS
 operation:
   database: ""
-  dataset: ""
   deployEnabled: true
   description: ""
   locationName: SOURCE
@@ -14,32 +13,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: b8e5b2da-50cd-46ea-b9ec-4754af9ed159
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
-        config: {}
-        dataType: TIME(9)
-        defaultValue: ""
-        description: ""
-        name: TIMESTAMP
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 1197999f-2fc1-4025-9903-82bbf75b20d1
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: f0c9b64b-6e4e-4c1b-af96-53abbc49b3f0
+          stepCounter: ba552fec-2317-4db8-ba4f-95403cf16f71
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: RECORD_ID
+        name: O_ORDERKEY
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -52,32 +32,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 6ae5a432-ad7b-4e2c-90ae-9e3a8f9ca93b
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
-        config: {}
-        dataType: VARCHAR(255)
-        defaultValue: ""
-        description: ""
-        name: NAME
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 3d11f97e-5aca-4a2e-8f8b-3a037a39111d
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: db936e9c-053f-471b-85b6-f8075c4b3be0
+          stepCounter: ba552fec-2317-4db8-ba4f-95403cf16f71
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: AGE
+        name: O_CUSTKEY
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -90,13 +51,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 29282fd6-a1ee-4fea-8469-9e6a43f70621
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: 7adfe9da-be0c-4ef2-b360-8fe9b41995f9
+          stepCounter: ba552fec-2317-4db8-ba4f-95403cf16f71
         config: {}
-        dataType: VARCHAR(255)
+        dataType: VARCHAR(1)
         defaultValue: ""
         description: ""
-        name: CITY
+        name: O_ORDERSTATUS
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -109,13 +70,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: d2fd58e4-4635-43e5-9156-3575a218c4b2
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: 3e00e18e-52b9-4a24-aebb-7b06577dab9d
+          stepCounter: ba552fec-2317-4db8-ba4f-95403cf16f71
         config: {}
-        dataType: VARCHAR(10)
+        dataType: NUMBER(12,2)
         defaultValue: ""
         description: ""
-        name: OPERATION_TYPE
+        name: O_TOTALPRICE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -128,51 +89,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 8db00896-a856-4eb5-b038-c3ee2d751c5a
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
-        config: {}
-        dataType: VARCHAR(10)
-        defaultValue: ""
-        description: ""
-        name: SOURCE
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 9fb2031c-4b56-4654-b5e6-cd27e19710b9
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
-        config: {}
-        dataType: VARCHAR(16777216)
-        defaultValue: ""
-        description: ""
-        name: DML_IDENTIFIER
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: d3ed4a01-d64a-4e7e-a5c4-d9823847ba21
-          stepCounter: b3ddb3b4-9def-4837-94e1-79d144947e83
+          columnCounter: a59b2da8-9780-44f1-8392-28a680d7752a
+          stepCounter: ba552fec-2317-4db8-ba4f-95403cf16f71
         config: {}
         dataType: DATE
         defaultValue: ""
         description: ""
-        name: BOOK_AT
+        name: O_ORDERDATE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -180,12 +103,104 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-    join:
-      joinCondition: FROM {{ ref('SOURCE', 'DATA_OPERATIONSWD') }}
-  name: DATA_OPERATIONSWD
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f26e07f3-b087-4b6d-b7a9-5f049fbaf216
+          stepCounter: ba552fec-2317-4db8-ba4f-95403cf16f71
+        config: {}
+        dataType: VARCHAR(15)
+        defaultValue: ""
+        description: ""
+        name: O_ORDERPRIORITY
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1d93fbd7-3c3d-4126-94b6-2a9ff8ba15b7
+          stepCounter: ba552fec-2317-4db8-ba4f-95403cf16f71
+        config: {}
+        dataType: VARCHAR(15)
+        defaultValue: ""
+        description: ""
+        name: O_CLERK
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 14747e8e-ac49-46f5-9259-1a0b85c7b3f1
+          stepCounter: ba552fec-2317-4db8-ba4f-95403cf16f71
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: O_SHIPPRIORITY
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 354227ae-b286-44cb-846f-758b1547d5ef
+          stepCounter: ba552fec-2317-4db8-ba4f-95403cf16f71
+        config: {}
+        dataType: VARCHAR(79)
+        defaultValue: ""
+        description: ""
+        name: O_COMMENT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: cdb54e39-a586-4e5a-ba46-26c37a612e2f
+          stepCounter: ba552fec-2317-4db8-ba4f-95403cf16f71
+        config: {}
+        dataType: TIMESTAMP_LTZ(9)
+        defaultValue: ""
+        description: ""
+        name: O_LOAD_TIMESTAMP
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+  name: ORDERS
   schema: ""
   sqlType: Source
-  table: DATA_OPERATIONSWD
   type: sourceInput
   version: 1
 type: Node

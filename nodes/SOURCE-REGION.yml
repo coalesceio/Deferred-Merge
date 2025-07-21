@@ -1,0 +1,92 @@
+fileVersion: 1
+id: 1d403ed9-bc1e-45a8-b53b-ba57d2b8b095
+name: REGION
+operation:
+  database: ""
+  deployEnabled: true
+  description: ""
+  locationName: SOURCE
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9f1da58e-4c66-4c55-b0df-cf264b7a399a
+          stepCounter: 1d403ed9-bc1e-45a8-b53b-ba57d2b8b095
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: R_REGIONKEY
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2951949f-fa71-4cb1-9422-368de2255d61
+          stepCounter: 1d403ed9-bc1e-45a8-b53b-ba57d2b8b095
+        config: {}
+        dataType: VARCHAR(25)
+        defaultValue: ""
+        description: ""
+        name: R_NAME
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: fc8934b7-1a2f-4bac-aef0-f9f7b6a0d3a5
+          stepCounter: 1d403ed9-bc1e-45a8-b53b-ba57d2b8b095
+        config: {}
+        dataType: VARCHAR(152)
+        defaultValue: ""
+        description: ""
+        name: R_COMMENT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 87460323-3961-4ac9-a783-d7054ab7af9e
+          stepCounter: 1d403ed9-bc1e-45a8-b53b-ba57d2b8b095
+        config: {}
+        dataType: TIMESTAMP_LTZ(9)
+        defaultValue: ""
+        description: ""
+        name: R_LOAD_TIMESTAMP
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+  name: REGION
+  schema: ""
+  sqlType: Source
+  type: sourceInput
+  version: 1
+type: Node

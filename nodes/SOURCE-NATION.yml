@@ -1,6 +1,6 @@
 fileVersion: 1
-id: efebc506-4755-4538-baf3-b2da9808f210
-name: DATA_OPERATIONS
+id: 7909163b-9873-488a-9f78-8592f3ef6688
+name: NATION
 operation:
   database: ""
   deployEnabled: true
@@ -13,13 +13,108 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 196b0b29-e283-47fc-b27a-76491225a17b
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+          columnCounter: cced57de-07df-4294-91e0-782b14aac9b4
+          stepCounter: 7909163b-9873-488a-9f78-8592f3ef6688
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: N_NATIONKEY
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 48f2bf4c-e17e-4e4b-8bc3-aace28244286
+          stepCounter: 7909163b-9873-488a-9f78-8592f3ef6688
+        config: {}
+        dataType: VARCHAR(25)
+        defaultValue: ""
+        description: ""
+        name: N_NAME
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 31006eaa-db7d-4e2a-a0c9-d091687f45e7
+          stepCounter: 7909163b-9873-488a-9f78-8592f3ef6688
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: N_REGIONKEY
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: b7bb95ed-d900-4290-97bf-5cc4b6af341e
+          stepCounter: 7909163b-9873-488a-9f78-8592f3ef6688
+        config: {}
+        dataType: VARCHAR(152)
+        defaultValue: ""
+        description: ""
+        name: N_COMMENT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4887680d-5afd-4a61-9c47-097fdebe8aa7
+          stepCounter: 7909163b-9873-488a-9f78-8592f3ef6688
+        config: {}
+        dataType: TIMESTAMP_LTZ(9)
+        defaultValue: ""
+        description: ""
+        name: N_LOAD_TIMESTAMP
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8c287492-af0d-4578-b4cd-c3f2c31211a7
+          stepCounter: 7909163b-9873-488a-9f78-8592f3ef6688
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         defaultValue: ""
         description: ""
-        name: TIMESTAMP
+        name: UPDATE_TIME
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -27,140 +122,7 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 99c049e2-2a21-4b97-baf2-b2425b16ff2e
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
-        config: {}
-        dataType: NUMBER(38,0)
-        defaultValue: ""
-        description: ""
-        name: RECORD_ID
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 7ce71781-2c2b-44b3-9153-b262d1aceb22
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
-        config: {}
-        dataType: VARCHAR(255)
-        defaultValue: ""
-        description: ""
-        name: NAME
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 4715f0f7-939e-4913-b3d4-e795f9e4f115
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
-        config: {}
-        dataType: NUMBER(38,0)
-        defaultValue: ""
-        description: ""
-        name: AGE
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: bfae9002-ad0f-4466-80bb-24accfc38a9e
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
-        config: {}
-        dataType: VARCHAR(255)
-        defaultValue: ""
-        description: ""
-        name: CITY
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 60b15c72-45bf-4181-9144-569518174d5a
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
-        config: {}
-        dataType: VARCHAR(10)
-        defaultValue: ""
-        description: ""
-        name: OPERATION_TYPE
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 0c6d4c34-e9ad-4741-97e0-20eff75bb7ce
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
-        config: {}
-        dataType: VARCHAR(10)
-        defaultValue: ""
-        description: ""
-        name: SOURCE
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: e1bbf0a2-2a0e-4fa7-b4f5-fcae83fd125e
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
-        config: {}
-        dataType: NUMBER(38,0)
-        defaultValue: ""
-        description: ""
-        name: DML_IDENTIFIER
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-  name: DATA_OPERATIONS
+  name: NATION
   schema: ""
   sqlType: Source
   type: sourceInput
