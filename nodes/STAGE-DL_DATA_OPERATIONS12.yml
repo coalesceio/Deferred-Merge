@@ -1,6 +1,6 @@
 fileVersion: 1
 id: bc9857c6-5643-4fc1-af98-44d336b47a30
-name: DL_DATA_OPERATIONS
+name: DL_DATA_OPERATIONS12
 operation:
   config:
     capUpdate: false
@@ -39,7 +39,7 @@ operation:
             stepCounter: bc9857c6-5643-4fc1-af98-44d336b47a30
     predTask: ""
     recordVersioning: Datetime Column
-    redeploymentBehavior: Create At Existing Stream
+    redeploymentBehavior: Create or Replace
     retainLastNonDeleteFlag: false
     rootTask: ""
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
@@ -199,9 +199,9 @@ operation:
             nodeName: DATA_OPERATIONS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'DATA_OPERATIONS') }} "DATA_OPERATIONS"
-        name: DL_DATA_OPERATIONS
+        name: DL_DATA_OPERATIONS12
         noLinkRefs: []
-  name: DL_DATA_OPERATIONS
+  name: DL_DATA_OPERATIONS12
   overrideSQL: false
   schema: ""
   sqlType: "301"
