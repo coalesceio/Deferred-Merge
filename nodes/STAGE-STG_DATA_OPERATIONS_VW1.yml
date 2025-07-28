@@ -1,0 +1,151 @@
+fileVersion: 1
+id: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+name: STG_DATA_OPERATIONS_VW1
+operation:
+  config:
+    insertStrategy: INSERT
+    postSQL: ""
+    preSQL: ""
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: STAGE
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: cabfa5b0-0233-47b0-a617-908835153db3
+          stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 196b0b29-e283-47fc-b27a-76491225a17b
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5b015c4f-b260-4e99-ba26-acf9c3be3ade
+          stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: RECORD_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 99c049e2-2a21-4b97-baf2-b2425b16ff2e
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: bb7549b3-1002-4fb6-9f8b-1a9a303c73c5
+          stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+        config: {}
+        dataType: VARCHAR(255)
+        description: ""
+        name: NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7ce71781-2c2b-44b3-9153-b262d1aceb22
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7d0a98da-71b8-4f5a-b68a-a2ad98610842
+          stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AGE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 4715f0f7-939e-4913-b3d4-e795f9e4f115
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 50be61f4-8784-47fa-9fb3-082fb7f0faa1
+          stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+        config: {}
+        dataType: VARCHAR(255)
+        description: ""
+        name: CITY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: bfae9002-ad0f-4466-80bb-24accfc38a9e
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 67928c0d-ca29-4548-a361-eddac61f2177
+          stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+        config: {}
+        dataType: VARCHAR(10)
+        description: ""
+        name: OPERATION_TYPE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 60b15c72-45bf-4181-9144-569518174d5a
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 89e64e5e-893c-432c-8c06-49504d09ec5e
+          stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+        config: {}
+        dataType: VARCHAR(10)
+        description: ""
+        name: SOURCE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 0c6d4c34-e9ad-4741-97e0-20eff75bb7ce
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f725f51d-8645-4b19-af42-a351c4fc1b57
+          stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: DML_IDENTIFIER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e1bbf0a2-2a0e-4fa7-b4f5-fcae83fd125e
+                stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: DATA_OPERATIONS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'DATA_OPERATIONS') }} "DATA_OPERATIONS"
+        name: STG_DATA_OPERATIONS_VW1
+        noLinkRefs: []
+  name: STG_DATA_OPERATIONS_VW1
+  overrideSQL: false
+  schema: ""
+  sqlType: Stage
+  type: sql
+  version: 1
+type: Node

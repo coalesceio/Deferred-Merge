@@ -1,0 +1,215 @@
+fileVersion: 1
+id: a9cd96a0-da99-481d-8de4-c76fd041fc07
+name: DL_DATA_OPERATIONS
+operation:
+  config:
+    capUpdate: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    createas: table
+    devMode: false
+    dmlCol:
+      columnCounter: 5a098f06-51c0-44f0-b462-a0783f74f1fe
+      stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+    dmlDelete: "0"
+    dmlInsert: "1"
+    dmlUpdate: U
+    flagSrcStream: false
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: ecd31945-aed5-40d8-a699-40266b080646
+            stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+          sortOrd: desc
+    orderByDateTime:
+      items:
+        - {}
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 3e1a5e73-0565-4b12-ba15-c62176fbcf5f
+            stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+    predTask: TGCR_DELTA
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create At Existing Stream
+    retainLastNonDeleteFlag: false
+    rootTask: TGCR_DELTA
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Predecessor
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: true
+    sourceType: View
+    whName: COMPUTE_WH
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ecd31945-aed5-40d8-a699-40266b080646
+          stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: cabfa5b0-0233-47b0-a617-908835153db3
+                stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3e1a5e73-0565-4b12-ba15-c62176fbcf5f
+          stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: RECORD_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5b015c4f-b260-4e99-ba26-acf9c3be3ade
+                stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 64e97b70-4527-4fc7-b442-ccc7ff9f818f
+          stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+        config: {}
+        dataType: VARCHAR(255)
+        description: ""
+        name: NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: bb7549b3-1002-4fb6-9f8b-1a9a303c73c5
+                stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: aa35ed43-b0c6-4c16-b3c6-589b99e60b84
+          stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AGE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7d0a98da-71b8-4f5a-b68a-a2ad98610842
+                stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4390b0ba-70cc-47d9-b6d4-420fe23dc7f7
+          stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+        config: {}
+        dataType: VARCHAR(255)
+        description: ""
+        name: CITY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 50be61f4-8784-47fa-9fb3-082fb7f0faa1
+                stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 49bfa694-d3b8-472d-acfd-dbbf7beca546
+          stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+        config: {}
+        dataType: VARCHAR(10)
+        description: ""
+        name: OPERATION_TYPE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 67928c0d-ca29-4548-a361-eddac61f2177
+                stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b68aeebb-06a3-4c3c-82bc-c064d954bbe7
+          stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+        config: {}
+        dataType: VARCHAR(10)
+        description: ""
+        name: SOURCE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 89e64e5e-893c-432c-8c06-49504d09ec5e
+                stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5a098f06-51c0-44f0-b462-a0783f74f1fe
+          stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: DML_IDENTIFIER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f725f51d-8645-4b19-af42-a351c4fc1b57
+                stepCounter: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 366ca4f0-b561-4273-acd2-d2bc9ab926c6
+          stepCounter: a9cd96a0-da99-481d-8de4-c76fd041fc07
+        config: {}
+        dataType: timestamp
+        defaultValue: ""
+        description: ""
+        hmUpdTs: true
+        name: DM_UPDATE_TIMESTAMP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: current_timestamp::timestamp_ntz
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STG_DATA_OPERATIONS_VW1: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: STAGE
+            nodeName: STG_DATA_OPERATIONS_VW1
+          - locationName: STAGE
+            nodeName: TGCR_DELTA
+        join:
+          joinCondition: |-
+            FROM {{ ref('STAGE', 'STG_DATA_OPERATIONS_VW1') }} "STG_DATA_OPERATIONS_VW1"
+            -- {{ref('STAGE', 'TGCR_DELTA')}}
+        name: DL_DATA_OPERATIONS
+        noLinkRefs: []
+  name: DL_DATA_OPERATIONS
+  overrideSQL: false
+  schema: ""
+  sqlType: "301"
+  type: sql
+  version: 1
+type: Node

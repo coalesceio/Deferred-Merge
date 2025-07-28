@@ -1,0 +1,39 @@
+fileVersion: 1
+id: 35af8af8-51c0-414b-9e98-7071ac40bc56
+name: TGCR_DELTA
+operation:
+  config:
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    tskSql: select current_timestamp()
+    whName: COMPUTE_WH
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: STAGE
+  materializationType: task
+  metadata:
+    appliedNodeTests: []
+    columns: []
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ""
+        name: TGCR_DELTA
+        noLinkRefs: []
+  name: TGCR_DELTA
+  overrideSQL: false
+  schema: ""
+  sqlType: ST:::154
+  type: sql
+  version: 1
+type: Node
