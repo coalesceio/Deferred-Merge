@@ -1,5 +1,14 @@
 fileVersion: 1
 id: "419"
-mappingDefinitions: {}
+mappingDefinitions:
+  SOURCE:
+    database: ANANDHIS_DEV
+    schema: SOURCE_DATA
+  STAGE:
+    database: ANANDHIS_DEV
+    schema: TARGET_ACC
+  TARGET:
+    database: ANANDHIS_DEV
+    schema: TARGET_QA
 name: QA_4
 type: Environment
