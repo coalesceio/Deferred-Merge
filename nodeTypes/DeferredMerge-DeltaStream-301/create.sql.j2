@@ -57,6 +57,9 @@ A hybrid view is established to provide access to the most current data by combi
     {% set targetTableDmlIdentifierColumnDatatype = desiredState.config.dmlCol.dataType %}
     {% set targetTableDmlIdentifierColumnQuotes = '"' + targetTableDmlIdentifierColumn + '"' %}
    
+    {% set sourceTableName = desiredState.sources[0].dependencies[0].node.name %}
+    {% set fullyQualifiedSourceTableName = '"' + sourceDatabaseName + '"."' + sourceSchemaName + '"."' + sourceTableName + '"' %}
+    {% set refLink = "{{ ref('" + sourceStorageLocation + "', '" + sourceTableName + "') }}" %}
  
     {# Stream Type #}
     {% if desiredState.config.sourceType == 'Table' %}
@@ -146,8 +149,8 @@ A hybrid view is established to provide access to the most current data by combi
 
     {% if currentState == undefined %}
         {{ stage('Create Stream') }}
-        CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
-            ON {{ streamType }} {{ streamSourceObjectName }}
+        CREATE OR REPLACE STREAM {{ ref(streamTargetLocationName, streamName) }}
+            ON {{ streamType }} {{ refLink }}
             {{ streamAppendMode }}
             {{ streamInitialRowsMode }}
             {{ streamInsertOnlyMode }}
@@ -155,22 +158,22 @@ A hybrid view is established to provide access to the most current data by combi
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create If Not Exists'%}
         {{ stage('Create Stream If Not Exists') }}
-        CREATE STREAM IF NOT EXISTS {{ fullyQualifiedStreamName }}
-            ON {{ streamType }} {{ streamSourceObjectName }}
+        CREATE STREAM IF NOT EXISTS {{ ref(streamTargetLocationName, streamName) }}
+            ON {{ streamType }} {{ refLink }}
             {{ streamAppendMode }}
             {{ streamInitialRowsMode }}
             {{ streamInsertOnlyMode }}
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create At Existing Stream'%}
         {{ stage('Re-Create Stream at existing offset') }}
-        CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
-            ON {{ streamType }} {{ streamSourceObjectName }}
-            AT(STREAM => '{{ fullyQualifiedStreamName }}');
+        CREATE OR REPLACE STREAM {{ ref(streamTargetLocationName, streamName) }}
+            ON {{ streamType }} {{ refLink }}
+            AT(STREAM => '{{ ref(streamTargetLocationName, streamName) }}');
 
         {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create or Replace'%}
         {{ stage('Create Stream') }}
-        CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
-            ON {{ streamType }} {{ streamSourceObjectName }}
+        CREATE OR REPLACE STREAM {{ ref(streamTargetLocationName, streamName) }}
+            ON {{ streamType }} {{ refLink }}
             {{ streamAppendMode }}
             {{ streamInitialRowsMode }}
             {{ streamInsertOnlyMode }}
@@ -188,7 +191,7 @@ A hybrid view is established to provide access to the most current data by combi
     {% set fullyQualifiedStreamName = '"' + streamTargetDatabaseName + '"."' + streamTargetSchemaName + '"."' + streamName + '"' %}
 
     {{ stage('Drop Stream') }}
-    DROP STREAM IF EXISTS {{ fullyQualifiedStreamName }}
+    DROP STREAM IF EXISTS {{ ref(streamTargetLocationName, streamName) }}
 
 {% endif %}
 
@@ -243,7 +246,7 @@ A hybrid view is established to provide access to the most current data by combi
 
                       DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
                  
-                {{ stage('Create '+ ' {{desiredState.config.createas}}' ) }}
+                {{ stage('Create '+ ' {{desiredState.config.createas}}') }}
                CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 (
                 {% for col in desiredState.columns %}
@@ -268,7 +271,7 @@ A hybrid view is established to provide access to the most current data by combi
         {% endif %}
 
         {% if currentState == undefined or currentState.storageLocations | length == 0 %}
-            {{ stage('Create  '+ ' {{desiredState.config.createas}}' ) }}
+            {{ stage('Create  '+ ' {{desiredState.config.createas}}') }}
             CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
             (
                 {% for col in desiredState.columns %}
@@ -573,7 +576,7 @@ A hybrid view is established to provide access to the most current data by combi
     {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %} 
     {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
-       {{ stage('Drop ' + currentState.config.createas ) }}
+       {{ stage('Drop ' + currentState.config.createas) }}
        DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
 
 {% endif %}
@@ -684,7 +687,7 @@ A hybrid view is established to provide access to the most current data by combi
                     {% if desiredState.config.softDeleteFlag == false %}
                         ,case when {{ targetTableDmlIdentifierColumnQuotes }} = {{ deleteValue }} then 0 else 1 end as load_flag
                     {% endif %}
-            FROM {{ fullyQualifiedStreamName }}
+            FROM {{ ref(streamTargetLocationName, streamName) }}
             QUALIFY {{ nsVariables.rowNumber }} = 1)
             {% if desiredState.config.softDeleteFlag == false %}
                 WHERE load_flag = 1
@@ -715,7 +718,7 @@ A hybrid view is established to provide access to the most current data by combi
                     {% endif %}
                     {%- if not loop.last -%}, {% endif %}
             {%- endfor %}
-        FROM {{ fullyQualifiedSourceTableName }}
+        FROM {{ refLink }}
         {{ changesClauseMode }}
         {{ changesClauseAt }}
         {{ whereStreamFilter }}
@@ -725,7 +728,7 @@ A hybrid view is established to provide access to the most current data by combi
                     "{{ col.name }}"
                 {%- if not loop.last -%}, {% endif %}
             {%- endfor %}
-        FROM {{ fullyQualifiedTargetTableName }} a
+        FROM {{ ref(desiredState.node.location.name,desiredState.node.name) }} a
         WHERE NOT EXISTS (SELECT 1
                         FROM delta d
                         WHERE {%- for col in (nsVariables.partition).split(",") %}
@@ -754,7 +757,7 @@ A hybrid view is established to provide access to the most current data by combi
                     , 
                 {%- endfor %}
                     CASE WHEN {{ identifyDefaultStreamDeletedRow1 }} = {{ deleteValue }} THEN 0 ELSE 1 END AS LOAD_FLAG
-        FROM {{ fullyQualifiedSourceTableName }}
+        FROM {{ refLink }}
         {{ changesClauseMode }}
         {{ changesClauseAt }}
         {{ whereStreamFilter }}
@@ -765,7 +768,7 @@ A hybrid view is established to provide access to the most current data by combi
                     "{{ col.name }}"
                 {%- if not loop.last -%}, {% endif %}
             {%- endfor %}
-        FROM {{ fullyQualifiedTargetTableName }} a
+        FROM {{ ref(desiredState.node.location.name,desiredState.node.name) }} a
         WHERE NOT EXISTS (SELECT 1
                         FROM delta d
                         WHERE {%- for col in (nsVariables.partition).split(",") %}
@@ -794,7 +797,7 @@ A hybrid view is established to provide access to the most current data by combi
                     {% endif %}
                     {%- if not loop.last -%}, {%- endif -%}
             {%- endfor %}
-        FROM {{ fullyQualifiedSourceTableName }}
+        FROM {{ refLink }}
         {{ changesClauseMode }}
         {{ changesClauseAt }}
         WHERE "{{ targetTableDmlIdentifierColumn }}_CALC" != {{ deleteValue }}
@@ -811,7 +814,7 @@ A hybrid view is established to provide access to the most current data by combi
                     {% endif %}
                     {%- if not loop.last -%}, {%- endif -%}
             {%- endfor %}
-        FROM {{ fullyQualifiedSourceTableName }}
+        FROM {{ refLink }}
         {{ changesClauseMode }}
         {{ changesClauseAt }}
         WHERE "{{ targetTableDmlIdentifierColumn }}_CALC" = {{ deleteValue }}
@@ -830,13 +833,13 @@ A hybrid view is established to provide access to the most current data by combi
                     {% endif -%}
                     {%- if not loop.last -%}, {% endif %}
             {%- endfor %}
-        FROM {{ fullyQualifiedTargetTableName }} a
+        FROM {{ ref(desiredState.node.location.name,desiredState.node.name) }} a
         INNER JOIN (
                 SELECT {%- for col in nsVariables.tableKeySort %}
                                 "{{ col }}",
                         {%- endfor %}
                                 {{ identifyDefaultStreamDeletedRow }} as "{{ col }}"
-                    FROM {{ fullyQualifiedSourceTableName }}
+                    FROM {{ refLink }}
                     {{ changesClauseMode }}
                     {{ changesClauseAt }}
                     WHERE {{ targetTableDmlIdentifierColumnQuotes }} = {{ deleteValue }}) d
@@ -877,10 +880,10 @@ A hybrid view is established to provide access to the most current data by combi
                     "{{ col.name }}"
                     {%- if not loop.last -%}, {% endif %}
                 {%- endfor %}
-        FROM {{ fullyQualifiedTargetTableName }} d
+        FROM {{ ref(desiredState.node.location.name,desiredState.node.name) }} d
         WHERE NOT EXISTS (
             SELECT 1
-            FROM {{ fullyQualifiedSourceTableName }}
+            FROM {{ refLink }}
             {{ changesClauseMode }}
             {{ changesClauseAt }} a
             WHERE 
@@ -904,7 +907,7 @@ A hybrid view is established to provide access to the most current data by combi
                     {% endif %}
                     {%- if not loop.last -%}, {%- endif -%}
             {%- endfor %}
-        FROM {{ fullyQualifiedSourceTableName }}
+        FROM {{ refLink }}
         {{ changesClauseMode }}
         {{ changesClauseAt }}
         WHERE "{{ targetTableDmlIdentifierColumn }}_CALC" != {{ deleteValue }}
@@ -921,7 +924,7 @@ A hybrid view is established to provide access to the most current data by combi
                     {% endif %}
                     {%- if not loop.last -%}, {%- endif -%}
             {%- endfor %}
-        FROM {{ fullyQualifiedSourceTableName }}
+        FROM {{ refLink }}
         {{ changesClauseMode }}
         {{ changesClauseAt }}
         WHERE "{{ targetTableDmlIdentifierColumn }}_CALC" = {{ deleteValue }}
@@ -940,13 +943,13 @@ A hybrid view is established to provide access to the most current data by combi
                     {% endif -%}
                     {%- if not loop.last -%}, {% endif %}
             {%- endfor %}
-        FROM {{ fullyQualifiedTargetTableName }} a
+        FROM {{ ref(desiredState.node.location.name,desiredState.node.name) }} a
         INNER JOIN (
                 SELECT {%- for col in nsVariables.tableKeySort %}
                                 "{{ col }}",
                         {%- endfor %}
                                 {{ identifyDefaultStreamDeletedRow }} as "{{ col }}"
-                    FROM {{ fullyQualifiedSourceTableName }}
+                    FROM {{ refLink }}
                     {{ changesClauseMode }}
                     {{ changesClauseAt }}
                     WHERE {{ targetTableDmlIdentifierColumnQuotes }} = {{ deleteValue }}) d
@@ -996,10 +999,10 @@ A hybrid view is established to provide access to the most current data by combi
                     "{{ col.name }}"
                     {%- if not loop.last -%}, {% endif %}
                 {%- endfor %}
-        FROM {{ fullyQualifiedTargetTableName }} d
+        FROM {{ ref(desiredState.node.location.name,desiredState.node.name) }} d
         WHERE NOT EXISTS (
             SELECT 1
-            FROM {{ fullyQualifiedSourceTableName }}
+            FROM {{ refLink }}
             {{ changesClauseMode }}
             {{ changesClauseAt }} a
             WHERE 
@@ -1058,7 +1061,7 @@ A hybrid view is established to provide access to the most current data by combi
                 {% if nsVariables.poll != 'WHEN ' %} {{ nsVariables.poll }} {% endif %}
                
     AS
-    MERGE INTO {{ fullyQualifiedTargetTableName }} a
+    MERGE INTO {{ ref(desiredState.node.location.name,desiredState.node.name) }} a
     USING (SELECT
     {%- for col in desiredState.columns %}
                 {% if col.name == targetTableMergeUpdateColumn %}
@@ -1069,7 +1072,7 @@ A hybrid view is established to provide access to the most current data by combi
                 {%- if not loop.last -%}, {% endif %}
         {%- endfor %}
         ,{{syscol1}},{{syscol2}}
-    FROM {{ fullyQualifiedStreamName }}
+    FROM {{ ref(streamTargetLocationName, streamName) }}
     {{ whereStreamFilter }}
     QUALIFY {{ nsVariables.rowNumber }} = 1) d
     ON 
