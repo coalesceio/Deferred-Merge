@@ -192,18 +192,18 @@ operation:
     enabledColumnTestIDs: []
     sourceMapping:
       - aliases:
-          STG_DATA_OPERATIONS_VW1: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
+          STG_DATA_OPERATIONS_VW11: 3f70ffe8-3c5d-49f1-bd2c-adbf79d375e5
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: STAGE
-            nodeName: STG_DATA_OPERATIONS_VW1
-          - locationName: STAGE
+            nodeName: STG_DATA_OPERATIONS_VW11
+          - locationName: TARGET
             nodeName: TGCR_DELTA
         join:
           joinCondition: |-
-            FROM {{ ref('STAGE', 'STG_DATA_OPERATIONS_VW1') }} "STG_DATA_OPERATIONS_VW1"
-            -- {{ref('STAGE', 'TGCR_DELTA')}}
+            FROM {{ ref('STAGE', 'STG_DATA_OPERATIONS_VW11') }} "STG_DATA_OPERATIONS_VW11"
+            -- {{ref('TARGET', 'TGCR_DELTA')}}
         name: DL_DATA_OPERATIONS
         noLinkRefs: []
   name: DL_DATA_OPERATIONS
