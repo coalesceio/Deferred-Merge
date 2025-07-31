@@ -212,14 +212,14 @@ operation:
         customSQL:
           customSQL: ""
         dependencies:
-          - locationName: STAGE
+          - locationName: TARGET
             nodeName: STG_DATA_OPERATIONSWDVW1
-          - locationName: STAGE
+          - locationName: TARGET
             nodeName: TGCR_DEF
         join:
           joinCondition: |-
-            FROM {{ ref('STAGE', 'STG_DATA_OPERATIONSWDVW1') }} "STG_DATA_OPERATIONSWDVW1"
-            --{{ref('STAGE','TGCR_DEF') }}
+            FROM {{ ref('TARGET', 'STG_DATA_OPERATIONSWDVW1') }} "STG_DATA_OPERATIONSWDVW1"
+            --{{ref('TARGET','TGCR_DEF') }}
         name: DL_DATA_OPERATIONSWDVW
         noLinkRefs: []
   name: DL_DATA_OPERATIONSWDVW

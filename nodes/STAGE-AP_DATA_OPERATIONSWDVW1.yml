@@ -207,14 +207,15 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          STG_DATA_OPERATIONSWDVW1: 99b72bb9-fd32-4bd9-8559-6be797614596
         customSQL:
           customSQL: ""
         dependencies:
-          - locationName: STAGE
+          - locationName: TARGET
             nodeName: STG_DATA_OPERATIONSWDVW1
         join:
-          joinCondition: FROM {{ ref('STAGE', 'STG_DATA_OPERATIONSWDVW1') }} "STG_DATA_OPERATIONSWDVW1"
+          joinCondition: FROM {{ ref('TARGET', 'STG_DATA_OPERATIONSWDVW1') }} "STG_DATA_OPERATIONSWDVW1"
         name: AP_DATA_OPERATIONSWDVW1
         noLinkRefs: []
   name: AP_DATA_OPERATIONSWDVW1
