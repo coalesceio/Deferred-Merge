@@ -121,7 +121,7 @@ does not permit copying or modification for any other purpose.
 {# Create Stream first #}
 {% if desiredState and desiredState != currentState %}
     {% if currentState == undefined %}
-        {{ stage('Create Stream') }}
+        {{ stage('Create Stream',true,"sql","create") }}
         CREATE OR REPLACE STREAM {{ ref(streamTargetLocationName, streamName) }}
             ON {{ streamType }} {{ refLink }}
             {{ streamAppendMode }}
@@ -130,7 +130,7 @@ does not permit copying or modification for any other purpose.
 
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create If Not Exists'%}
-        {{ stage('Create Stream If Not Exists') }}
+        {{ stage('Create Stream If Not Exists',true,"sql","create") }}
         CREATE STREAM IF NOT EXISTS {{ ref(streamTargetLocationName, streamName) }}
             ON {{ streamType }} {{ refLink }}
             {{ streamAppendMode }}
@@ -138,13 +138,13 @@ does not permit copying or modification for any other purpose.
             {{ streamInsertOnlyMode }}
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create At Existing Stream'%}
-        {{ stage('Re-Create Stream at existing offset') }}
+        {{ stage('Re-Create Stream at existing offset',true,"sql","create") }}
         CREATE OR REPLACE STREAM {{ ref(streamTargetLocationName, streamName) }}
             ON {{ streamType }} {{ refLink }}
             AT(STREAM => '{{ ref(streamTargetLocationName, streamName) }}');
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create or Replace'%}
-        {{ stage('Create Stream') }}
+        {{ stage('Create Stream',true,"sql","create") }}
         CREATE OR REPLACE STREAM {{ ref(streamTargetLocationName, streamName) }}
             ON {{ streamType }} {{ refLink }}
             {{ streamAppendMode }}
@@ -212,12 +212,12 @@ does not permit copying or modification for any other purpose.
 
                 {# Change in materialization type #}
 
-                {{ stage('Drop ' + currentState.config.createas + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+                {{ stage('Drop ' + currentState.config.createas + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name),true,"sql","drop") }}
 
 
                       DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
                  
-                {{ stage('Create '+ ' {{desiredState.config.createas}}') }}
+                {{ stage('Create '+ ' {{desiredState.config.createas}}',true,"sql","create") }}
                CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 (
                 {% for col in desiredState.columns %}
@@ -232,16 +232,16 @@ does not permit copying or modification for any other purpose.
                {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
 
         {% if desiredState.config.clusterKey == true %}
-            {{ stage('Apply Table Clustering') }}
+            {{ stage('Apply Table Clustering',true,"sql","create") }}
             ALTER TABLE {{ fullyQualifiedTargetTableName }} {{ nsVariables.finalClusterKey }}
 
-            {{ stage('Resume Recluster Table') }}
+            {{ stage('Resume Recluster Table',true,"sql","create") }}
             ALTER TABLE {{ fullyQualifiedTargetTableName }} RESUME RECLUSTER
                {% endif %}
         {% endif %}
 
         {% if currentState == undefined or currentState.storageLocations | length == 0 %}
-            {{ stage('Create  '+ ' {{desiredState.config.createas}}') }}
+            {{ stage('Create  '+ ' {{desiredState.config.createas}}',true,"sql","create") }}
             CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
             (
                 {% for col in desiredState.columns %}
@@ -256,10 +256,10 @@ does not permit copying or modification for any other purpose.
             {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
 
         {% if desiredState.config.clusterKey == true %}
-            {{ stage('Apply Table Clustering') }}
+            {{ stage('Apply Table Clustering',true,"sql","create") }}
             ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} {{ nsVariables.finalClusterKey }}
 
-            {{ stage('Resume Recluster Table') }}
+            {{ stage('Resume Recluster Table',true,"sql","create") }}
             ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} RESUME RECLUSTER
         {% endif %}
 
@@ -688,7 +688,7 @@ does not permit copying or modification for any other purpose.
 
 {% if desiredState and desiredState != currentState   %}   
 
-{{ stage('Create Hybrid View') }}
+{{ stage('Create Hybrid View',true,"sql","create") }}
     CREATE OR REPLACE VIEW {{ fullyQualifiedHybridViewName }} (
         {%- for col in desiredState.columns %}
             "{{ col.name }}"
@@ -1026,7 +1026,7 @@ does not permit copying or modification for any other purpose.
             {%- endif -%}
     {% endif -%}  
    
-    {{ stage('Create Task') }}
+    {{ stage('Create Task',true,"sql","create") }}
     CREATE OR REPLACE TASK
                 {{ fullyQualifiedTaskName }}
                 {{ taskType}}

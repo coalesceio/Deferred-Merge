@@ -4,15 +4,17 @@ name: DL_DATA_OPERATIONSWDVW
 operation:
   config:
     capUpdate: false
-    clusterKey: false
+    clusterKey: true
     clusterKeyConfig:
       items:
-        - {}
+        - columnName:
+            columnCounter: e44b3950-de4c-431b-abcf-31899008ff48
+            stepCounter: 52f89bdd-bc16-4011-af8b-a28c942f1d8e
     clusterKeyConfigExpressions:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: table
+    createas: transient table
     devMode: false
     dmlCol:
       columnCounter: f928f4fb-d10c-41aa-9c1b-70c12e53eb81
@@ -206,17 +208,17 @@ operation:
     enabledColumnTestIDs: []
     sourceMapping:
       - aliases:
-          STG_DATA_OPERATIONSWDVW: 99b72bb9-fd32-4bd9-8559-6be797614596
+          STG_DATA_OPERATIONSWDVW1: 99b72bb9-fd32-4bd9-8559-6be797614596
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: STAGE
-            nodeName: STG_DATA_OPERATIONSWDVW
+            nodeName: STG_DATA_OPERATIONSWDVW1
           - locationName: STAGE
             nodeName: TGCR_DEF
         join:
           joinCondition: |-
-            FROM {{ ref('STAGE', 'STG_DATA_OPERATIONSWDVW') }} "STG_DATA_OPERATIONSWDVW"
+            FROM {{ ref('STAGE', 'STG_DATA_OPERATIONSWDVW1') }} "STG_DATA_OPERATIONSWDVW1"
             --{{ref('STAGE','TGCR_DEF') }}
         name: DL_DATA_OPERATIONSWDVW
         noLinkRefs: []
