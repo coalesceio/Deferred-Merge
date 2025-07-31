@@ -190,14 +190,20 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          DL_DATA_OPERATIONSWDVW: 52f89bdd-bc16-4011-af8b-a28c942f1d8e
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: STAGE
+            nodeName: AP_DATA_OPERATIONSWDVW1
+          - locationName: STAGE
             nodeName: DL_DATA_OPERATIONSWDVW
         join:
-          joinCondition: FROM {{ ref('STAGE', 'DL_DATA_OPERATIONSWDVW') }} "DL_DATA_OPERATIONSWDVW"
+          joinCondition: |
+            FROM {{ ref('STAGE', 'DL_DATA_OPERATIONSWDVW') }} "DL_DATA_OPERATIONSWDVW"
+            --{{ ref('STAGE', 'AP_DATA_OPERATIONSWDVW1') }}
+            
         name: TGRR_DATA_OPERATIONSWDVW
         noLinkRefs: []
   name: TGRR_DATA_OPERATIONSWDVW

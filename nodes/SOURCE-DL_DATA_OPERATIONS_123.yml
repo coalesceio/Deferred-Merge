@@ -1,6 +1,6 @@
 fileVersion: 1
-id: c409c93a-595f-4048-be0c-d0e69ed9f715
-name: AP_DATA_OPERATIONS
+id: 13577fec-0189-4d4c-a74f-61d30c1ecfea
+name: DL_DATA_OPERATIONS_123
 operation:
   config:
     capUpdate: false
@@ -8,17 +8,17 @@ operation:
     clusterKeyConfig:
       items:
         - columnName:
-            columnCounter: a43ee1f3-3db4-4b4c-8d4f-a2b1482acef5
-            stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+            columnCounter: 6b676c6f-1611-4315-a434-8970c0df07ec
+            stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
     clusterKeyConfigExpressions:
       items:
         - {}
     clusterKeyExpressions: false
     createas: table
-    devMode: false
+    devMode: true
     dmlCol:
-      columnCounter: 5a616bad-740b-46c7-8fd8-e55de0b20ec1
-      stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+      columnCounter: 5c9f190c-1916-4652-8782-50d0decdb82f
+      stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
     dmlDelete: "0"
     dmlInsert: "1"
     dmlUpdate: U
@@ -28,8 +28,8 @@ operation:
     orderBy:
       items:
         - colName:
-            columnCounter: 5ee9cc0b-03d7-459e-8e91-66b92becafb1
-            stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+            columnCounter: ea18b18c-ce49-4252-a060-267ab327de56
+            stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
           sortOrd: desc
     orderByDateTime:
       items:
@@ -37,16 +37,16 @@ operation:
     partitionBy:
       items:
         - partColName:
-            columnCounter: a43ee1f3-3db4-4b4c-8d4f-a2b1482acef5
-            stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
-    predTask: ""
+            columnCounter: 6b676c6f-1611-4315-a434-8970c0df07ec
+            stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
+    predTask: TGCR_DEF
     recordVersioning: Datetime Column
-    redeploymentBehavior: Create At Existing Stream
-    retainLastNonDeleteFlag: false
-    rootTask: ""
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: true
+    rootTask: TGCR_DEF
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
     schedulePeriod: "60"
-    schedulePeriodOption: Minutes
+    schedulePeriodOption: Predecessor
     schedulingMode: Warehouse Task
     serverlessSize: MEDIUM
     softDeleteFlag: true
@@ -56,15 +56,15 @@ operation:
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: STAGE
+  locationName: SOURCE
   materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 5ee9cc0b-03d7-459e-8e91-66b92becafb1
-          stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+          columnCounter: ea18b18c-ce49-4252-a060-267ab327de56
+          stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -77,8 +77,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: a43ee1f3-3db4-4b4c-8d4f-a2b1482acef5
-          stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+          columnCounter: 6b676c6f-1611-4315-a434-8970c0df07ec
+          stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -91,8 +91,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 1843f5be-e100-49c9-952f-2b69f9f7c6c9
-          stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+          columnCounter: c32d12b5-abda-42ca-bfbe-417dfa06f458
+          stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
         config: {}
         dataType: VARCHAR(255)
         description: ""
@@ -105,8 +105,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 80d04393-c246-4295-9774-e8fe9c22d08f
-          stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+          columnCounter: 6ffba194-2aa5-4f04-986e-f4d2866f84c5
+          stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -119,8 +119,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: fa7f6a55-5ef9-4734-a76c-ed275fa9bda0
-          stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+          columnCounter: 50530d90-be84-462f-a6b0-7bf5e9338938
+          stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
         config: {}
         dataType: VARCHAR(255)
         description: ""
@@ -133,8 +133,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 1e266ad3-fdda-4d72-81db-7523f95da98c
-          stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+          columnCounter: 920ab382-553c-4b1a-9264-52a97b4e2fba
+          stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
         config: {}
         dataType: VARCHAR(10)
         description: ""
@@ -147,8 +147,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 399969a8-338b-4cec-9e80-a163b5952601
-          stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+          columnCounter: de785219-436c-4cd0-b68c-504dc46cad6f
+          stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
         config: {}
         dataType: VARCHAR(10)
         description: ""
@@ -161,8 +161,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 5a616bad-740b-46c7-8fd8-e55de0b20ec1
-          stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+          columnCounter: 5c9f190c-1916-4652-8782-50d0decdb82f
+          stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -178,8 +178,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: dbf4cfeb-901d-437b-90c0-4f5dd0021637
-          stepCounter: c409c93a-595f-4048-be0c-d0e69ed9f715
+          columnCounter: 65ecab5f-f454-403f-bc0f-ece330be1800
+          stepCounter: 13577fec-0189-4d4c-a74f-61d30c1ecfea
         config: {}
         dataType: timestamp
         defaultValue: ""
@@ -201,12 +201,12 @@ operation:
             nodeName: DATA_OPERATIONS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'DATA_OPERATIONS') }} "DATA_OPERATIONS"
-        name: AP_DATA_OPERATIONS
+        name: DL_DATA_OPERATIONS_123
         noLinkRefs: []
-  name: AP_DATA_OPERATIONS
+  name: DL_DATA_OPERATIONS_123
   overrideSQL: false
   schema: ""
-  sqlType: "300"
+  sqlType: "301"
   type: sql
   version: 1
 type: Node
