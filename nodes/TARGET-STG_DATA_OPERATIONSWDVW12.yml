@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 99b72bb9-fd32-4bd9-8559-6be797614596
-name: STG_DATA_OPERATIONSWDVW1
+name: STG_DATA_OPERATIONSWDVW12
 operation:
   config:
     insertStrategy: INSERT
@@ -154,9 +154,9 @@ operation:
             nodeName: DATA_OPERATIONSWD
         join:
           joinCondition: FROM {{ ref('SOURCE', 'DATA_OPERATIONSWD') }} "DATA_OPERATIONSWD"
-        name: STG_DATA_OPERATIONSWDVW1
+        name: STG_DATA_OPERATIONSWDVW12
         noLinkRefs: []
-  name: STG_DATA_OPERATIONSWDVW1
+  name: STG_DATA_OPERATIONSWDVW12
   overrideSQL: false
   schema: ""
   sqlType: Stage

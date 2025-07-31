@@ -208,17 +208,17 @@ operation:
     enabledColumnTestIDs: []
     sourceMapping:
       - aliases:
-          STG_DATA_OPERATIONSWDVW1: 99b72bb9-fd32-4bd9-8559-6be797614596
+          STG_DATA_OPERATIONSWDVW12: 99b72bb9-fd32-4bd9-8559-6be797614596
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: TARGET
-            nodeName: STG_DATA_OPERATIONSWDVW1
+            nodeName: STG_DATA_OPERATIONSWDVW12
           - locationName: TARGET
             nodeName: TGCR_DEF
         join:
           joinCondition: |-
-            FROM {{ ref('TARGET', 'STG_DATA_OPERATIONSWDVW1') }} "STG_DATA_OPERATIONSWDVW1"
+            FROM {{ ref('TARGET', 'STG_DATA_OPERATIONSWDVW12') }} "STG_DATA_OPERATIONSWDVW12"
             --{{ref('TARGET','TGCR_DEF') }}
         name: DL_DATA_OPERATIONSWDVW
         noLinkRefs: []
