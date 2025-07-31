@@ -269,11 +269,8 @@ does not permit copying or modification for any other purpose.
         {# Storage Location Tests #}
         {# Only need to account for updated Storage Location mappings   #}
         {# Current Namespace Varialbes #}
-        {% set nsVariables = namespace(nsCurrentDepStorageLocations="") %}
-        {% set nsVariables = namespace(nsCurrentSourceStorageLocations="") %}
-        {% set nsVariables = namespace(nsCurrentTargetStorageLocations="") %}
-        {% set nsVariables = namespace(nsCurrentUsedStorageLocations="") %}
-
+        {% set nsVariables = namespace(nsCurrentDepStorageLocations="",nsCurrentSourceStorageLocations="",nsCurrentTargetStorageLocations="",nsCurrentUsedStorageLocations="",nsDesiredDepStorageLocations="",nsDesiredSourceStorageLocations="",nsDesiredTargetStorageLocations="",nsDesiredUsedStorageLocations="",storageLocationTest=true) %}
+ 
         {# Current State Storage Location Info #}
         {% for source in currentState.sources %}
             {% for dep in source.dependencies %}
@@ -298,12 +295,6 @@ does not permit copying or modification for any other purpose.
 
         {% set currentStorageLocations = (nsVariables.nsCurrentUsedStorageLocations).split(',') | list %}
         {% set currentUniqueStorageLocations = currentStorageLocations | unique | sort | list %}
-
-        {# Desired Namespace Variables #}
-        {% set nsVariables = namespace(nsDesiredDepStorageLocations="") %}
-        {% set nsVariables = namespace(nsDesiredSourceStorageLocations="") %}
-        {% set nsVariables = namespace(nsDesiredTargetStorageLocations="") %}
-        {% set nsVariables = namespace(nsDesiredUsedStorageLocations="") %}
 
         {% set nsVariables = namespace(storageLocationTest="") %}
 
