@@ -653,7 +653,7 @@ does not permit copying or modification for any other purpose.
     {%- set nsVariables.tableKeySort = nsVariables.tableKey + nsVariables.sortKey %}
 
     {% if desiredState.config.initialRows == true %}           
-        {{ stage('Target Table Initial Load') }}
+        {{ stage('Target Table Initial Load',true,"sql","create") }}
 		{% if currentState == undefined and desiredState.config.redeploymentBehavior == 'Create or Replace' %} 
 		    INSERT  INTO {{ fullyQualifiedTargetTableName }}		
         {% elif desiredState.config.redeploymentBehavior == 'Create or Replace' %}      
@@ -1014,7 +1014,7 @@ does not permit copying or modification for any other purpose.
         {% if desiredState.config.devMode == false %}
     {%- if desiredState.config.schedulePeriodOption == 'Predecessor' -%}
         {%- set fullyQualifiedRootTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + desiredState.config.rootTask + '"' -%}
-                {{ stage('Suspend Root Task') }}
+                {{ stage('Suspend Root Task',true,"sql","create") }}
         ALTER TASK {{ fullyQualifiedRootTaskName }} SUSPEND
     {%- endif -%}
 
@@ -1121,7 +1121,7 @@ does not permit copying or modification for any other purpose.
     {% endif %}
  
             {%- if desiredState.config.schedulePeriodOption != 'Predecessor' -%} 
-                {{ stage('Resume Task') }}
+                {{ stage('Resume Task',true,"sql","create") }}
                 ALTER TASK {{ fullyQualifiedTaskName }} RESUME;
             {%- endif -%}
             
