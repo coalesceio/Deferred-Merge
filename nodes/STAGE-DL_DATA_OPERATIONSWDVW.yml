@@ -37,18 +37,18 @@ operation:
         - partColName:
             columnCounter: e44b3950-de4c-431b-abcf-31899008ff48
             stepCounter: 52f89bdd-bc16-4011-af8b-a28c942f1d8e
-    predTask: ""
+    predTask: TGCR_DEF
     recordVersioning: Datetime Column
     redeploymentBehavior: Create or Replace
     retainLastNonDeleteFlag: false
-    rootTask: ""
+    rootTask: TGCR_DEF
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
     schedulePeriod: "60"
     schedulePeriodOption: Predecessor
     schedulingMode: Warehouse Task
     serverlessSize: MEDIUM
     softDeleteFlag: true
-    sourceType: Table
+    sourceType: View
     whName: COMPUTE_WH
   database: ""
   deployEnabled: true
