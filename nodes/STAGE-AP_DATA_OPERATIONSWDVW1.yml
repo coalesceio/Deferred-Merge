@@ -14,7 +14,7 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: table
+    createas: transient table
     devMode: false
     dmlCol:
       columnCounter: 4b47be70-758f-4097-b660-a439457c6267
