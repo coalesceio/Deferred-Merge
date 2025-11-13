@@ -1,6 +1,6 @@
 fileVersion: 1
-id: efebc506-4755-4538-baf3-b2da9808f210
-name: DATA_OPERATIONS
+id: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
+name: DYNAMIC_CUSTOMER
 operation:
   database: ""
   deployEnabled: true
@@ -13,13 +13,108 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 196b0b29-e283-47fc-b27a-76491225a17b
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+          columnCounter: ffdac4de-5762-4072-bbc6-35f0a7d8899d
+          stepCounter: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: CUSTOMER_ID
+        nullable: false
+        primaryKey: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: c96c9716-c916-428a-98f1-33f7ea192cee
+          stepCounter: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: CUSTOMER_KEY
+        nullable: false
+        primaryKey: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8c5835ab-e96c-47f8-90dd-f861968b21f0
+          stepCounter: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: CUSTOMER_NAME
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1be1c0d9-0905-4b41-afa9-037eb63034fb
+          stepCounter: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: CUSTOMER_EMAIL
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9230d2e7-3a2b-4e4b-8ef4-820b680cc8f8
+          stepCounter: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: RECORD_VERSION_TYPE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: c9b59970-afad-4fc5-aa85-fca11014af3e
+          stepCounter: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         defaultValue: ""
         description: ""
-        name: TIMESTAMP
+        name: LAST_UPDATED_TIMESTAMP
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -32,13 +127,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 99c049e2-2a21-4b97-baf2-b2425b16ff2e
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+          columnCounter: 6b9f6120-1fc2-4163-9541-cc5dc5f3516e
+          stepCounter: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: RECORD_ID
+        name: RECORD_SEQUENCE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -51,13 +146,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 7ce71781-2c2b-44b3-9153-b262d1aceb22
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+          columnCounter: 84725419-2fbb-4898-b57c-815d48947856
+          stepCounter: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
         config: {}
-        dataType: VARCHAR(255)
+        dataType: TIMESTAMP_NTZ(9)
         defaultValue: ""
         description: ""
-        name: NAME
+        name: DATA_LOAD_TIMESTAMP
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -70,13 +165,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 4715f0f7-939e-4913-b3d4-e795f9e4f115
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+          columnCounter: 8094b508-6a4a-450d-9daa-5e4d5470899f
+          stepCounter: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: DATE
         defaultValue: ""
         description: ""
-        name: AGE
+        name: RECORD_DATE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -89,13 +184,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: bfae9002-ad0f-4466-80bb-24accfc38a9e
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+          columnCounter: 23d97c7d-f9f9-48de-a4fc-85cc1001ee85
+          stepCounter: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
         config: {}
-        dataType: VARCHAR(255)
+        dataType: TIME(9)
         defaultValue: ""
         description: ""
-        name: CITY
+        name: RECORD_TIME
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -108,13 +203,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 60b15c72-45bf-4181-9144-569518174d5a
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
+          columnCounter: bfe23976-f44a-45fd-941f-e102b29402f3
+          stepCounter: 50aa2859-89e6-46a7-8774-2ec4126fdfc1
         config: {}
-        dataType: VARCHAR(10)
+        dataType: BOOLEAN
         defaultValue: ""
         description: ""
-        name: OPERATION_TYPE
+        name: ACTIVE_FLAG
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -122,45 +217,7 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 0c6d4c34-e9ad-4741-97e0-20eff75bb7ce
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
-        config: {}
-        dataType: VARCHAR(10)
-        defaultValue: ""
-        description: ""
-        name: SOURCE
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: e1bbf0a2-2a0e-4fa7-b4f5-fcae83fd125e
-          stepCounter: efebc506-4755-4538-baf3-b2da9808f210
-        config: {}
-        dataType: NUMBER(38,0)
-        defaultValue: ""
-        description: ""
-        name: DML_IDENTIFIER
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-  name: DATA_OPERATIONS
+  name: DYNAMIC_CUSTOMER
   schema: ""
   sqlType: Source
   type: sourceInput

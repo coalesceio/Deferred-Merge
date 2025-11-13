@@ -3,7 +3,6 @@ id: b3ddb3b4-9def-4837-94e1-79d144947e83
 name: DATA_OPERATIONSWD
 operation:
   database: ""
-  dataset: ""
   deployEnabled: true
   description: ""
   locationName: SOURCE
@@ -180,12 +179,9 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-    join:
-      joinCondition: FROM {{ ref('SOURCE', 'DATA_OPERATIONSWD') }}
   name: DATA_OPERATIONSWD
   schema: ""
   sqlType: Source
-  table: DATA_OPERATIONSWD
   type: sourceInput
   version: 1
 type: Node

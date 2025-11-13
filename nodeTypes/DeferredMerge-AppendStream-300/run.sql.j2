@@ -182,5 +182,10 @@ does not permit copying or modification for any other purpose.
     /* Hard Delete */
         WHEN MATCHED AND source_table.{{ targetTableDmlIdentifierColumnQuotes }} = {{ deleteValue }} THEN DELETE
     {% endif %}
-
+{% else %}
+    {{ stage('Task Mode - No Manual Run') }}
+    -- This node is configured to run as a scheduled task
+    -- Manual Run is only available when Development Mode is enabled
+    -- To execute this task, wait for the scheduled run or manually execute: EXECUTE TASK {{'DM_TASK_' + node.name + '_TASK'}}
+    SELECT 1 AS INFO_MESSAGE WHERE FALSE
 {% endif %}

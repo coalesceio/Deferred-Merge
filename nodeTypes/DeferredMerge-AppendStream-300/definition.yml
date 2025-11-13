@@ -330,7 +330,7 @@ metadata:
         default: ""
         isRequired: false
         enableIf: "{% if config.schedulePeriodOption == 'Predecessor' %} true {% else %} false {% endif %}"
-
+      enableIf: "{% if config.devMode == true %} false {% else %} true {% endif %}" 
 
     systemColumns:
     - displayName: 'DM_UPDATE_TIMESTAMP'
