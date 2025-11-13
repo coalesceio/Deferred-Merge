@@ -31,7 +31,7 @@ The Deferred Merge Append node has the following configuration groups:
 
 | **Option** | **Description** |
 |------------|----------------|
-| **Development Mode** | True/False toggle that determines task creation:<br/>- **True**: Table created and SQL executes as Run action<br/>- **False**: SQL wraps into task with Scheduling Options |
+| **Development Mode** | True/False toggle that determines task creation:<br/>- **True**: Table created and SQL executes as Run action<br/>- **False**: SQL wraps into task with Scheduling Options. Displays a message prompting the user to wait or run manually when executed. |
 | **Create Target As** | Choose target object type:<br/>- **Table**: Creates table<br/>- **Transient Table**: Creates transient table |
 
 Prior to creating a task, it is helpful to test the SQL the task will execute to make sure it runs without errors and returns the expected data.
@@ -234,7 +234,7 @@ The Deferred Merge Append node has the following configuration groups:
 
 | **Option** | **Description** |
 |------------|----------------|
-| **Development Mode** | True/False toggle that determines task creation:<br/>- **True**: Table created and SQL executes as Run action<br/>- **False**: SQL wraps into task with Scheduling Options |
+| **Development Mode** | True/False toggle that determines task creation:<br/>- **True**: Table created and SQL executes as Run action<br/>- **False**: SQL wraps into task with Scheduling Options. Displays a message prompting the user to wait or run manually when executed. |
 | **Create Target As** | Choose target object type:<br/>- **Table**: Creates table<br/>- **Transient Table**: Creates transient table |
 
 Prior to creating a task, it is helpful to test the SQL the task will execute to make sure it runs without errors and returns the expected data.
