@@ -170,6 +170,17 @@ does not permit copying or modification for any other purpose.
 
 {% if desiredState and desiredState != currentState%}
 
+    {%- if currentState != undefined and currentState.node.nodeType != desiredState.node.nodeType %}
+        {%- set warningMsg = getNodeTypeSwitchWarning() | default('') %}
+
+        {# Warning display - Node type changes can impact related tasks, streams, or services. #}
+        {%- if warningMsg | trim | length > 0 -%}
+            {{ stage('Warning! Node Type Switching Detected', false) }}
+            {{ warningMsg }}
+            select 1=0
+        {%- endif -%}
+    {%- endif -%}
+
 
     {% if desiredState.config.createas == 'table' or desiredState.config.createas == 'transient table'  %}
         
@@ -207,14 +218,17 @@ does not permit copying or modification for any other purpose.
         {% endif %}
 
 
-        {% if currentState != undefined and currentState.config.createas != desiredState.config.createas %}
+            {% if  currentState != undefined and (currentState.config.createas | default('') != desiredState.config.createas or currentState.node.materializationType | lower not in ['task', 'table']) %}
 
                 {# Change in materialization type #}
 
-                {{ stage('Drop ' + currentState.config.createas + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "alter") }}
+                {% if currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType %}
+                {# Change in materialization type #}
 
-
-                      DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+                {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+                {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+                DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+            {% endif %}
                  
                 {{ stage('Create '+ ' {{desiredState.config.createas}}' , true, "sql", "create") }}
                CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
@@ -262,7 +276,7 @@ does not permit copying or modification for any other purpose.
             ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} RESUME RECLUSTER
         {% endif %}
 
-        {% elif currentState != undefined and currentState.config.createas == desiredState.config.createas %}
+        {% elif currentState != undefined and currentState.config.createas | default('') == desiredState.config.createas %}
 
         {# Change Node Name or Change Storage Location #}
         {# Storage Location Tests #}
@@ -352,10 +366,10 @@ does not permit copying or modification for any other purpose.
         {% endfor %}
 
         {# Clustering Test #}
-        {% set clusterKeyTest = currentState.config.clusterKey == desiredState.config.clusterKey %}
-        {% set clusterKeyExpressionsTest = currentState.config.clusterKeyExpressions == desiredState.config.clusterKeyExpressions %}
-        {% set clusterKeyConfigTest = currentState.config.clusterKeyConfig == desiredState.config.clusterKeyConfig %}
-        {% set clusterKeyConfigExpressionsTest = currentState.config.clusterKeyConfigExpressions == desiredState.config.clusterKeyConfigExpressions %}
+        {% set clusterKeyTest = currentState.config.clusterKey | default(false) == desiredState.config.clusterKey %}
+        {% set clusterKeyExpressionsTest = currentState.config.clusterKeyExpressions | default(false) == desiredState.config.clusterKeyExpressions %}
+        {% set clusterKeyConfigTest = currentState.config.clusterKeyConfig  | default({'items': [{}]}) == desiredState.config.clusterKeyConfig %}
+        {% set clusterKeyConfigExpressionsTest = currentState.config.clusterKeyConfigExpressions  | default({'items': [{}]}) == desiredState.config.clusterKeyConfigExpressions %}
 
         {% if 
             clusterKeyTest == false or
@@ -562,8 +576,9 @@ does not permit copying or modification for any other purpose.
     {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
 
-       {{ stage('Drop ' + currentState.config.createas , true, "sql", "drop") }}
-       DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
+    {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+    DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
 
 {%- endif -%}
 
@@ -1012,8 +1027,9 @@ does not permit copying or modification for any other purpose.
     {% set targetHybridViewName1 = 'DM_VIEW_' + currentState.node.name  %}
     {% set fullyQualifiedHybridViewName1 = targetHybridViewDatabase1 + '.' + targetHybridViewSchema1 + '."' + targetHybridViewName1 + '"' %}
 
-    {{ stage('Drop VIEW', true, "sql", "drop") }}
-    DROP VIEW IF EXISTS {{ fullyQualifiedHybridViewName1 }}
+    {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+    DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
 
 {%- endif -%}
  
@@ -1142,13 +1158,13 @@ does not permit copying or modification for any other purpose.
     {% set targetTableDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %}
     {% set targetTableSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %}
     {% set fullyQualifiedTargetTableName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
-    {% if currentState.config.devMode == false %}
+    {% if currentState.config.devMode | default(false) == false %}
         {# FQ Root Task name #}
         {% set fullyQualifiedRootTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + currentState.config.rootTask + '"'%}
     {# Task Info #}
     {% set taskName = 'DM_TASK_' +  currentState.node.name  %}
     {%- set fullyQualifiedTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + taskName + '"' -%}
-    {%- if currentState.config.schedulingPeriodOption == 'Predecessor' -%}
+    {%- if currentState.config.schedulingPeriodOption| default('')  == 'Predecessor' -%}
         {{ stage('Suspend Root Task', true, "sql", "alter") }}
             ALTER TASK IF EXISTS {{ fullyQualifiedRootTaskName }} SUSPEND
         {{ stage('Drop Current Task', true, "sql", "drop") }}
