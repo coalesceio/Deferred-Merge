@@ -12,7 +12,7 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: table
+    createas: transient table
     devMode: true
     dmlCol:
       columnCounter: df008e19-0c6b-459a-84bc-be7c1566ccc8
