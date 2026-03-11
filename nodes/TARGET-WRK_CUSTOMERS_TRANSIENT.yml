@@ -3,13 +3,7 @@ id: 5f5b76e8-b9a0-4063-98fb-8aae30f1325e
 name: WRK_CUSTOMERS_TRANSIENT
 operation:
   config:
-    asofColumn:
-      items:
-        - {}
-    asofJoin: true
-    asofJoinMain: false
-    asofJoinON: false
-    asofJoinUSING: false
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -18,23 +12,50 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: INSERT
-    orderby: false
-    orderbycolumn:
+    createas: table
+    devMode: true
+    dmlCol:
+      columnCounter: 744d0ed1-9f42-4ab2-8cf7-85451a587546
+      stepCounter: 5f5b76e8-b9a0-4063-98fb-8aae30f1325e
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: bf2e548c-9de9-4190-96c0-4696cf3a540c
+            stepCounter: 5f5b76e8-b9a0-4063-98fb-8aae30f1325e
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
-    postSQL: ""
-    preSQL: ""
-    selectDistinct: true
-    testsEnabled: false
-    truncateBefore: true
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: e082f46f-5e7c-4fb7-b5d3-6e84816bd7d1
+            stepCounter: 5f5b76e8-b9a0-4063-98fb-8aae30f1325e
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: transient table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -111,7 +132,7 @@ operation:
   name: WRK_CUSTOMERS_TRANSIENT
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::179
+  sqlType: "300"
   type: sql
   version: 1
 type: Node

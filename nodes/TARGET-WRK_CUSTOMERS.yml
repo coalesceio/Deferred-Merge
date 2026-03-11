@@ -3,13 +3,7 @@ id: 3bd4eec5-257f-4e89-bcb7-826f3405d097
 name: WRK_CUSTOMERS
 operation:
   config:
-    asofColumn:
-      items:
-        - {}
-    asofJoin: true
-    asofJoinMain: false
-    asofJoinON: false
-    asofJoinUSING: false
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -18,17 +12,44 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: INSERT
-    orderby: false
-    orderbycolumn:
+    createas: table
+    devMode: true
+    dmlCol:
+      columnCounter: 6b4cba8c-44df-4ee5-9bbf-0732306790fc
+      stepCounter: 3bd4eec5-257f-4e89-bcb7-826f3405d097
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 005c90e4-544f-461d-ae9d-0dd154b92e11
+            stepCounter: 3bd4eec5-257f-4e89-bcb7-826f3405d097
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
-    postSQL: ""
-    preSQL: ""
-    selectDistinct: false
-    testsEnabled: false
-    truncateBefore: true
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: ab901f47-cfba-4b3a-aca8-0f8d0381b498
+            stepCounter: 3bd4eec5-257f-4e89-bcb7-826f3405d097
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
@@ -94,6 +115,26 @@ operation:
               - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
                 stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 39729e25-2b02-436e-bc4a-07f67c27a37b
+          stepCounter: 3bd4eec5-257f-4e89-bcb7-826f3405d097
+        config: {}
+        dataType: timestamp
+        defaultValue: ""
+        description: ""
+        keyColumnType: None
+        name: DM_UPDATE_TIMESTAMP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: current_timestamp::timestamp_ntz
+        systemColumnType: None
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -111,7 +152,7 @@ operation:
   name: WRK_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::179
+  sqlType: "300"
   type: sql
   version: 1
 type: Node

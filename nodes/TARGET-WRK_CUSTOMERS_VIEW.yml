@@ -3,13 +3,7 @@ id: baa71b80-7e36-4f3a-a528-11924c24c6b3
 name: WRK_CUSTOMERS_VIEW
 operation:
   config:
-    asofColumn:
-      items:
-        - {}
-    asofJoin: true
-    asofJoinMain: false
-    asofJoinON: false
-    asofJoinUSING: false
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -18,23 +12,50 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: INSERT
-    orderby: false
-    orderbycolumn:
+    createas: table
+    devMode: true
+    dmlCol:
+      columnCounter: 2f980b18-3fca-48ea-b5fe-4ad1a793dc0a
+      stepCounter: baa71b80-7e36-4f3a-a528-11924c24c6b3
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: aa9caf5f-9590-45eb-aa08-0836b689e7a3
+            stepCounter: baa71b80-7e36-4f3a-a528-11924c24c6b3
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
-    postSQL: ""
-    preSQL: ""
-    selectDistinct: false
-    testsEnabled: false
-    truncateBefore: true
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: f7b045c9-047a-4ac1-93e0-bea09831464e
+            stepCounter: baa71b80-7e36-4f3a-a528-11924c24c6b3
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: view
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -94,6 +115,26 @@ operation:
               - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
                 stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9a05730f-c122-4b95-92ea-a9f20685692b
+          stepCounter: baa71b80-7e36-4f3a-a528-11924c24c6b3
+        config: {}
+        dataType: timestamp
+        defaultValue: ""
+        description: ""
+        keyColumnType: None
+        name: DM_UPDATE_TIMESTAMP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: current_timestamp::timestamp_ntz
+        systemColumnType: None
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -118,9 +159,9 @@ operation:
         name: WRK_CUSTOMERS_VIEW
         noLinkRefs: []
   name: WRK_CUSTOMERS_VIEW
-  overrideSQL: true
+  overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::179
+  sqlType: "300"
   type: sql
   version: 1
 type: Node
