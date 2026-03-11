@@ -260,6 +260,7 @@ metadata:
       - displayName: When Source Stream has Data Flag
         attributeName: flagSrcStream
         type: toggleButton
+        default: true
         isRequired: true
 
       - type: label
