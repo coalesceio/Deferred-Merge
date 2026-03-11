@@ -1,0 +1,123 @@
+fileVersion: 1
+id: ee6a7da0-08b3-4f66-a384-e2f519e61724
+name: DT_WRK_CUSTOMERS1
+operation:
+  config:
+    advanceWarehouse: false
+    backfill: false
+    backfillSource: ""
+    backfillSourceSchema: ""
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    cpygrants: false
+    downstreamOption: false
+    groupByAll: false
+    immutabilityConstraint: false
+    immutableExpression: ""
+    initialize: ON_CREATE
+    initializeWarehouseSize: ""
+    insertStrategy: UNION ALL
+    lagSpecification:
+      items:
+        - lagPeriod: Minutes
+          lagValue: "60"
+    refreshWarehouseSize: ""
+    refresh_mode: AUTO
+    selectDistinct: false
+    timeTravel: false
+    timeTravelreference: ""
+    timeTraveltype: ""
+    timeTravelvalue: ""
+    warehouseName: COMPUTE_WH
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: dynamic table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3b555334-c9da-4fba-a951-ed1f805f7589
+          stepCounter: ee6a7da0-08b3-4f66-a384-e2f519e61724
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: CUSTOMER_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: fd704b28-38e5-4b4f-996f-26d6140befe3
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a95666d2-b90b-4c61-9bd6-7d4f9b5c7eee
+          stepCounter: ee6a7da0-08b3-4f66-a384-e2f519e61724
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: CUSTOMER_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a368bb23-0a1c-4d87-87ac-6ce6c275511c
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7c9ef68d-1104-4d00-8802-014039ab9112
+          stepCounter: ee6a7da0-08b3-4f66-a384-e2f519e61724
+        config: {}
+        dataType: DATE
+        description: ""
+        name: SIGNUP_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5ddd436c-e585-421c-b652-1c74ddfb09f4
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 90b11472-d123-41f0-961f-4d9489d2e1d0
+          stepCounter: ee6a7da0-08b3-4f66-a384-e2f519e61724
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          CUSTOMERS: 827875ff-cb31-4656-928d-7f3b3ad30b54
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: CUSTOMERS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'CUSTOMERS') }} "CUSTOMERS"
+        name: DT_WRK_CUSTOMERS1
+        noLinkRefs: []
+  name: DT_WRK_CUSTOMERS1
+  overrideSQL: false
+  schema: ""
+  sqlType: dynamic-tables:::347
+  type: sql
+  version: 1
+type: Node
