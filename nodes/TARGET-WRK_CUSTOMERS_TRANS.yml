@@ -1,0 +1,117 @@
+fileVersion: 1
+id: 14d6a831-147c-4bae-91f7-d26585c8213d
+name: WRK_CUSTOMERS_TRANS
+operation:
+  config:
+    asofColumn:
+      items:
+        - {}
+    asofJoin: true
+    asofJoinMain: false
+    asofJoinON: false
+    asofJoinUSING: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    groupByAll: false
+    insertStrategy: INSERT
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: transient table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0d3654d8-e4aa-4749-92c6-478bb3d72697
+          stepCounter: 14d6a831-147c-4bae-91f7-d26585c8213d
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: CUSTOMER_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: fd704b28-38e5-4b4f-996f-26d6140befe3
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: faa3dd27-9884-43c5-98c1-ffdd344a58bc
+          stepCounter: 14d6a831-147c-4bae-91f7-d26585c8213d
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: CUSTOMER_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a368bb23-0a1c-4d87-87ac-6ce6c275511c
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4720d63e-6841-499f-aac5-0734fc0eabb9
+          stepCounter: 14d6a831-147c-4bae-91f7-d26585c8213d
+        config: {}
+        dataType: DATE
+        description: ""
+        name: SIGNUP_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5ddd436c-e585-421c-b652-1c74ddfb09f4
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c03c31ee-a19e-4f5a-bd17-5d3f0224d9f9
+          stepCounter: 14d6a831-147c-4bae-91f7-d26585c8213d
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          CUSTOMERS: 827875ff-cb31-4656-928d-7f3b3ad30b54
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: CUSTOMERS
+        join:
+          joinCondition: FROM  {{ ref('SOURCE', 'CUSTOMERS') }} CUSTOMERS
+        name: WRK_CUSTOMERS_TRANS
+        noLinkRefs: []
+  name: WRK_CUSTOMERS_TRANS
+  overrideSQL: false
+  schema: ""
+  sqlType: base-node-types-advanced-deploy:::179
+  type: sql
+  version: 1
+type: Node
