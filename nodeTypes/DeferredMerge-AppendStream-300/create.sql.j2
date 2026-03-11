@@ -161,8 +161,9 @@ does not permit copying or modification for any other purpose.
         {% set streamName = 'DM_STREAM_' + currentState.node.name %}
     {% set fullyQualifiedStreamName = '"' + streamTargetDatabaseName + '"."' + streamTargetSchemaName + '"."' + streamName + '"' %}
 
-    {{ stage('Drop Stream', true, "sql", "drop") }}
-    DROP STREAM IF EXISTS {{ fullyQualifiedStreamName }}
+    {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+    DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
 
 {% endif %}
 
@@ -228,29 +229,29 @@ does not permit copying or modification for any other purpose.
                     {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
                     {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
                     DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-                {% endif %}
                  
-                {{ stage('Create '+ ' {{desiredState.config.createas}}' , true, "sql", "create") }}
-               CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-                (
-                {% for col in desiredState.columns %}
-                    "{{ col.name }}" {{ col.dataType }}
-                    {%- if not col.nullable %} NOT NULL
-                        {%- if col.defaultValue | length > 0 %} DEFAULT {{ col.defaultValue }}{% endif %}
+                    {{ stage('Create '+ ' {{desiredState.config.createas}}' , true, "sql", "create") }}
+                    CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                    (
+                    {% for col in desiredState.columns %}
+                        "{{ col.name }}" {{ col.dataType }}
+                        {%- if not col.nullable %} NOT NULL
+                            {%- if col.defaultValue | length > 0 %} DEFAULT {{ col.defaultValue }}{% endif %}
+                        {% endif %}
+                        {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+                        {%- if not loop.last -%}, {% endif %}
+                    {% endfor %}
+                    )
+                {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
+
+                    {% if desiredState.config.clusterKey == true %}
+                        {{ stage('Apply Table Clustering', true, "sql", "alter") }}
+                        ALTER TABLE {{ fullyQualifiedTargetTableName }} {{ nsVariables.finalClusterKey }}
+
+                        {{ stage('Resume Recluster Table', true, "sql", "alter") }}
+                        ALTER TABLE {{ fullyQualifiedTargetTableName }} RESUME RECLUSTER
                     {% endif %}
-                    {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
-                    {%- if not loop.last -%}, {% endif %}
-                {% endfor %}
-                )
-               {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
-
-                {% if desiredState.config.clusterKey == true %}
-                    {{ stage('Apply Table Clustering', true, "sql", "alter") }}
-                    ALTER TABLE {{ fullyQualifiedTargetTableName }} {{ nsVariables.finalClusterKey }}
-
-                    {{ stage('Resume Recluster Table', true, "sql", "alter") }}
-                    ALTER TABLE {{ fullyQualifiedTargetTableName }} RESUME RECLUSTER
-               {% endif %}
+                {% endif %}
             {% endif %}
 
         {% if currentState == undefined or currentState.storageLocations | length == 0 %}
