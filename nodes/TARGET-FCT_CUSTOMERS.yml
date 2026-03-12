@@ -3,6 +3,7 @@ id: 3d44f3e4-26a7-4011-9df0-e846be76dcb5
 name: FCT_CUSTOMERS
 operation:
   config:
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -11,31 +12,44 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    deleteStrategy: NO DELETE
-    excludeMergeList:
+    createas: transient table
+    devMode: true
+    dmlCol:
+      columnCounter: d16bb2c7-786a-4282-ae95-a6bde8f349fa
+      stepCounter: 3d44f3e4-26a7-4011-9df0-e846be76dcb5
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 03014764-9f5a-41dd-9c06-e9bd6e710623
+            stepCounter: 3d44f3e4-26a7-4011-9df0-e846be76dcb5
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
-    excludeMergeToggle: false
-    groupByAll: false
-    insertStrategy: UNION ALL
-    lastModifiedComparison: false
-    orderby: false
-    orderbycolumn:
+    partitionBy:
       items:
-        - {}
-    postSQL: SELECT COUNT(*) FROM {{ ref('SOURCE', 'CUSTOMERS') }}
-    preSQL: ""
-    primary: true
-    primaryKeyCol:
-      items:
-        - primaryKey:
+        - partColName:
             columnCounter: 2fcc6a69-d159-4e39-81ba-05f66f763470
             stepCounter: 3d44f3e4-26a7-4011-9df0-e846be76dcb5
-    primaryKeyName: ""
-    selectDistinct: false
-    testsEnabled: false
-    treatNullAsCurrentTimestamp: false
-    truncateBefore: false
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
@@ -101,40 +115,6 @@ operation:
               - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
                 stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 1dee15e9-a68d-4b98-a90f-496a9da084dc
-          stepCounter: 3d44f3e4-26a7-4011-9df0-e846be76dcb5
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 1755a5dd-ede1-4efc-a32f-134ea0db625a
-          stepCounter: 3d44f3e4-26a7-4011-9df0-e846be76dcb5
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -152,7 +132,7 @@ operation:
   name: FCT_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::389
+  sqlType: "300"
   type: sql
   version: 1
 type: Node

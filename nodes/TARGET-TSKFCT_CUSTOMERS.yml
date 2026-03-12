@@ -3,6 +3,7 @@ id: 70a83b0b-c1dc-40c0-9ecb-6938a025c862
 name: TSKFCT_CUSTOMERS
 operation:
   config:
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -11,30 +12,50 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
+    createas: table
     devMode: false
+    dmlCol:
+      columnCounter: 22fd5d2d-fb71-467c-9fcf-6482dcc0880d
+      stepCounter: 70a83b0b-c1dc-40c0-9ecb-6938a025c862
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
     flagSrcStream: true
-    groupByAll: false
-    insertStrategy: UNION
-    multiStreamBehavior: AND
-    orderby: false
-    orderbycolumn:
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 409724c1-8185-4bb5-b8d8-1af54639c8c8
+            stepCounter: 70a83b0b-c1dc-40c0-9ecb-6938a025c862
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 664e0400-9756-4181-bead-fbf6cd453bd2
+            stepCounter: 70a83b0b-c1dc-40c0-9ecb-6938a025c862
     predTask: DATA_TRANSFORMATION_ROOT_TASK
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
     rootTask: DATA_TRANSFORMATION_ROOT_TASK
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
     schedulePeriod: "60"
     schedulePeriodOption: Minutes
     schedulingMode: Warehouse Task
-    selectDistinct: false
     serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
     whName: COMPUTE_WH
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: task
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -94,40 +115,6 @@ operation:
               - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
                 stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 416787d2-3e56-4127-a118-568219111e58
-          stepCounter: 70a83b0b-c1dc-40c0-9ecb-6938a025c862
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 9a2ea6f1-fe69-4826-bb16-dbda6c761a34
-          stepCounter: 70a83b0b-c1dc-40c0-9ecb-6938a025c862
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -145,7 +132,7 @@ operation:
   name: TSKFCT_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::150
+  sqlType: "300"
   type: sql
   version: 1
 type: Node

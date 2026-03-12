@@ -3,51 +3,59 @@ id: 1559c33f-ca60-4cb7-8163-f4738f346f5e
 name: CSS_CUSTOMERS
 operation:
   config:
-    allcol: false
-    attrcol:
-      items:
-        - acolname:
-            columnCounter: 9be4c71d-fc24-4140-8f6d-a1acd85dc305
-            stepCounter: 1559c33f-ca60-4cb7-8163-f4738f346f5e
-    colpreview:
+    capUpdate: false
+    clusterKey: false
+    clusterKeyConfig:
       items:
         - {}
-    createcortex: true
-    embmodel: ""
-    excss: false
-    filcrit:
+    clusterKeyConfigExpressions:
       items:
         - {}
-    filtoggle: false
-    initialize: ON_CREATE
-    lagSpecification:
-      items:
-        - lagPeriod: Minutes
-          lagValue: "60"
-    locCSS: ""
-    lopt: and
-    mulfilcon: false
-    namCSS: ""
-    numboost: false
-    numericboost:
-      items:
-        - {}
-    query1: ""
-    querycortex: false
-    searchcol:
+    clusterKeyExpressions: false
+    createas: table
+    devMode: true
+    dmlCol:
       columnCounter: 9be4c71d-fc24-4140-8f6d-a1acd85dc305
       stepCounter: 1559c33f-ca60-4cb7-8163-f4738f346f5e
-    timdec: false
-    timedecay:
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 8882ec13-5fb1-44ec-b79b-44b71207af66
+            stepCounter: 1559c33f-ca60-4cb7-8163-f4738f346f5e
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
-    warehouseName: COMPUTE_WH
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 15c9c654-c41b-41ff-8007-8fe48ef78832
+            stepCounter: 1559c33f-ca60-4cb7-8163-f4738f346f5e
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: cortex search service
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -124,7 +132,7 @@ operation:
   name: CSS_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: cortex:::499
+  sqlType: "300"
   type: sql
   version: 1
 type: Node

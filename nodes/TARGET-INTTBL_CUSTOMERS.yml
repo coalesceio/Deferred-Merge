@@ -3,7 +3,7 @@ id: f0a345fe-989b-4f10-847d-10ec4f65affd
 name: INTTBL_CUSTOMERS
 operation:
   config:
-    autoRefresh: false
+    capUpdate: false
     clusterKey: true
     clusterKeyConfig:
       items:
@@ -14,20 +14,50 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: UNION ALL
-    lagSpecification:
+    createas: table
+    devMode: true
+    dmlCol:
+      columnCounter: 8c94daf2-e033-424c-a5e0-e91c32e4db8a
+      stepCounter: f0a345fe-989b-4f10-847d-10ec4f65affd
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: eb7d38d7-41d0-46c7-98af-b353de7e2906
+            stepCounter: f0a345fe-989b-4f10-847d-10ec4f65affd
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
-    selectDistinct: true
-    testsEnabled: false
-    warehouseName: dev_wh_xs
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: a37a0485-f46e-4f56-b4ac-250810eb17f0
+            stepCounter: f0a345fe-989b-4f10-847d-10ec4f65affd
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create If Not Exists
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: interactive table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -104,7 +134,7 @@ operation:
   name: INTTBL_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: interactive-table:::602
+  sqlType: "300"
   type: sql
   version: 1
 type: Node

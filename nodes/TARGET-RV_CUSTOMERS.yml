@@ -3,19 +3,59 @@ id: 01d7ab7e-2dbb-486e-b27a-a12927ce2387
 name: RV_CUSTOMERS
 operation:
   config:
-    insertStrategy: UNION ALL
-    persistTableLocation: "ex: TARGET"
-    persistTableName: "ex: DIM_ORDERS"
-    refTable: false
-    srcTable: false
-    suffixlength: ex:1
-    testsEnabled: true
+    capUpdate: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    createas: transient table
+    devMode: true
+    dmlCol:
+      columnCounter: 3374affb-b93a-4e46-a397-0f679ef76079
+      stepCounter: 01d7ab7e-2dbb-486e-b27a-a12927ce2387
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: dfaa9b3a-80e0-4562-8570-df66c741d532
+            stepCounter: 01d7ab7e-2dbb-486e-b27a-a12927ce2387
+          sortOrd: desc
+    orderByDateTime:
+      items:
+        - {}
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 911749aa-c0a0-4773-ad6d-168cef684f4b
+            stepCounter: 01d7ab7e-2dbb-486e-b27a-a12927ce2387
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: run view
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -99,9 +139,9 @@ operation:
         name: RV_CUSTOMERS
         noLinkRefs: []
   name: RV_CUSTOMERS
-  overrideSQL: true
+  overrideSQL: false
   schema: ""
-  sqlType: incremental-loading:::281
+  sqlType: "300"
   type: sql
   version: 1
 type: Node

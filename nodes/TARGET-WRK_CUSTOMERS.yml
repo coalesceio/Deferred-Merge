@@ -3,13 +3,7 @@ id: d4154d0c-1fe5-4072-915b-01396d46c9c4
 name: WRK_CUSTOMERS
 operation:
   config:
-    asofColumn:
-      items:
-        - {}
-    asofJoin: true
-    asofJoinMain: false
-    asofJoinON: false
-    asofJoinUSING: false
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -18,23 +12,50 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: INSERT
-    orderby: false
-    orderbycolumn:
+    createas: transient table
+    devMode: true
+    dmlCol:
+      columnCounter: 358ad167-6e25-4fc0-bf70-de059bb2ee86
+      stepCounter: d4154d0c-1fe5-4072-915b-01396d46c9c4
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: b481e824-ad9c-44cb-92af-1bd204f40391
+            stepCounter: d4154d0c-1fe5-4072-915b-01396d46c9c4
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
-    postSQL: ""
-    preSQL: ""
-    selectDistinct: false
-    testsEnabled: false
-    truncateBefore: true
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 60ff6bcf-f4ee-4552-bdc5-448df215e8f8
+            stepCounter: d4154d0c-1fe5-4072-915b-01396d46c9c4
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: view
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -118,9 +139,9 @@ operation:
         name: WRK_CUSTOMERS
         noLinkRefs: []
   name: WRK_CUSTOMERS
-  overrideSQL: true
+  overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::179
+  sqlType: "300"
   type: sql
   version: 1
 type: Node
