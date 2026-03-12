@@ -1,0 +1,107 @@
+fileVersion: 1
+id: 01d7ab7e-2dbb-486e-b27a-a12927ce2387
+name: RV_CUSTOMERS
+operation:
+  config:
+    insertStrategy: UNION ALL
+    persistTableLocation: "ex: TARGET"
+    persistTableName: "ex: DIM_ORDERS"
+    refTable: false
+    srcTable: false
+    suffixlength: ex:1
+    testsEnabled: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: run view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 911749aa-c0a0-4773-ad6d-168cef684f4b
+          stepCounter: 01d7ab7e-2dbb-486e-b27a-a12927ce2387
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: CUSTOMER_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: fd704b28-38e5-4b4f-996f-26d6140befe3
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3374affb-b93a-4e46-a397-0f679ef76079
+          stepCounter: 01d7ab7e-2dbb-486e-b27a-a12927ce2387
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: CUSTOMER_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a368bb23-0a1c-4d87-87ac-6ce6c275511c
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f4dcdf25-2297-4414-8080-f58892a29024
+          stepCounter: 01d7ab7e-2dbb-486e-b27a-a12927ce2387
+        config: {}
+        dataType: DATE
+        description: ""
+        name: SIGNUP_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5ddd436c-e585-421c-b652-1c74ddfb09f4
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: dfaa9b3a-80e0-4562-8570-df66c741d532
+          stepCounter: 01d7ab7e-2dbb-486e-b27a-a12927ce2387
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
+                stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          CUSTOMERS: 827875ff-cb31-4656-928d-7f3b3ad30b54
+        customSQL:
+          customSQL: |-
+            {{ stage('Override Create SQL', deploy_phase_override="create") }}
+            	CREATE OR REPLACE VIEW {{ ref('TARGET', 'RV_CUSTOMERS')}} AS (
+            		SELECT 
+             "CUSTOMER_ID" AS "CUSTOMER_ID",
+             "CUSTOMER_NAME" AS "CUSTOMER_NAME",
+             "SIGNUP_DATE" AS "SIGNUP_DATE",
+             "CREATED_AT" AS "CREATED_AT"
+             FROM {{ ref('SOURCE', 'CUSTOMERS') }}
+            	)
+        dependencies:
+          - locationName: SOURCE
+            nodeName: CUSTOMERS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'CUSTOMERS') }} "CUSTOMERS"
+        name: RV_CUSTOMERS
+        noLinkRefs: []
+  name: RV_CUSTOMERS
+  overrideSQL: true
+  schema: ""
+  sqlType: incremental-loading:::281
+  type: sql
+  version: 1
+type: Node
