@@ -1,9 +1,12 @@
 fileVersion: 1
-id: ca58495a-2da1-4d10-9d30-a1d5b920f062
-name: MV_CUSTOMERS
+id: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
+name: DT_WRK_CUSTOMERS
 operation:
   config:
-    capUpdate: false
+    advanceWarehouse: false
+    backfill: false
+    backfillSource: ""
+    backfillSourceSchema: ""
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -12,57 +15,39 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: table
-    devMode: true
-    dmlCol:
-      columnCounter: fb497c4b-552b-40ad-97d0-85550c9972d2
-      stepCounter: ca58495a-2da1-4d10-9d30-a1d5b920f062
-    dmlDelete: D
-    dmlInsert: I
-    dmlUpdate: U
-    flagSrcStream: true
-    initialRows: true
-    insertOnly: false
-    orderBy:
+    cpygrants: false
+    downstreamOption: false
+    groupByAll: false
+    immutabilityConstraint: false
+    immutableExpression: ""
+    initialize: ON_CREATE
+    initializeWarehouseSize: ""
+    insertStrategy: UNION ALL
+    lagSpecification:
       items:
-        - colName:
-            columnCounter: b344684d-8d55-4daf-96a6-d1963a66a043
-            stepCounter: ca58495a-2da1-4d10-9d30-a1d5b920f062
-          sortOrd: desc
-    orderByDateTime:
-      items:
-        - {}
-    partitionBy:
-      items:
-        - partColName:
-            columnCounter: 3866066f-d8ac-474b-a383-dd847be53225
-            stepCounter: ca58495a-2da1-4d10-9d30-a1d5b920f062
-    predTask: ""
-    recordVersioning: Datetime Column
-    redeploymentBehavior: Create or Replace
-    retainLastNonDeleteFlag: false
-    rootTask: ""
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Minutes
-    schedulingMode: Warehouse Task
-    serverlessSize: MEDIUM
-    softDeleteFlag: false
-    sourceType: Table
-    whName: <WAREHOUSE_NAME>
+        - lagPeriod: Minutes
+          lagValue: "60"
+    refreshWarehouseSize: ""
+    refresh_mode: AUTO
+    selectDistinct: false
+    timeTravel: false
+    timeTravelreference: ""
+    timeTraveltype: ""
+    timeTravelvalue: ""
+    warehouseName: COMPUTE_WH
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: dynamic table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 3866066f-d8ac-474b-a383-dd847be53225
-          stepCounter: ca58495a-2da1-4d10-9d30-a1d5b920f062
+          columnCounter: 55070a20-9f6e-4179-9fa5-907603844350
+          stepCounter: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -75,8 +60,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: fb497c4b-552b-40ad-97d0-85550c9972d2
-          stepCounter: ca58495a-2da1-4d10-9d30-a1d5b920f062
+          columnCounter: 3f5054be-385f-463c-b69d-5f57100509b2
+          stepCounter: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
         config: {}
         dataType: VARCHAR(100)
         description: ""
@@ -89,8 +74,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 357b623f-a795-42e1-bf29-07b920a30909
-          stepCounter: ca58495a-2da1-4d10-9d30-a1d5b920f062
+          columnCounter: d3bc17e0-a2f5-40a9-a374-00d91a949a7c
+          stepCounter: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
         config: {}
         dataType: DATE
         description: ""
@@ -103,8 +88,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: b344684d-8d55-4daf-96a6-d1963a66a043
-          stepCounter: ca58495a-2da1-4d10-9d30-a1d5b920f062
+          columnCounter: 780c1bb3-6226-4077-a68f-b14880fb66d8
+          stepCounter: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -127,12 +112,12 @@ operation:
             nodeName: CUSTOMERS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'CUSTOMERS') }} "CUSTOMERS"
-        name: MV_CUSTOMERS
+        name: DT_WRK_CUSTOMERS
         noLinkRefs: []
-  name: MV_CUSTOMERS
+  name: DT_WRK_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: "300"
+  sqlType: dynamic-tables:::347
   type: sql
   version: 1
 type: Node
