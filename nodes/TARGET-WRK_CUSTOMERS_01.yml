@@ -1,9 +1,15 @@
 fileVersion: 1
-id: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
-name: DT_WRK_CUSTOMERS
+id: ec758d79-6403-4b69-aa7f-f8c9c1bf77dd
+name: WRK_CUSTOMERS_01
 operation:
   config:
-    capUpdate: false
+    asofColumn:
+      items:
+        - {}
+    asofJoin: true
+    asofJoinMain: false
+    asofJoinON: false
+    asofJoinUSING: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -12,44 +18,17 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: table
-    devMode: true
-    dmlCol:
-      columnCounter: 3f5054be-385f-463c-b69d-5f57100509b2
-      stepCounter: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
-    dmlDelete: D
-    dmlInsert: I
-    dmlUpdate: U
-    flagSrcStream: true
-    initialRows: true
-    insertOnly: false
-    orderBy:
-      items:
-        - colName:
-            columnCounter: 780c1bb3-6226-4077-a68f-b14880fb66d8
-            stepCounter: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
-          sortOrd: desc
-    orderByDateTime:
+    groupByAll: false
+    insertStrategy: INSERT
+    orderby: false
+    orderbycolumn:
       items:
         - {}
-    partitionBy:
-      items:
-        - partColName:
-            columnCounter: 55070a20-9f6e-4179-9fa5-907603844350
-            stepCounter: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
-    predTask: ""
-    recordVersioning: Datetime Column
-    redeploymentBehavior: Create If Not Exists
-    retainLastNonDeleteFlag: false
-    rootTask: ""
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Minutes
-    schedulingMode: Warehouse Task
-    serverlessSize: MEDIUM
-    softDeleteFlag: false
-    sourceType: Table
-    whName: <WAREHOUSE_NAME>
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    truncateBefore: true
   database: ""
   deployEnabled: true
   description: ""
@@ -61,8 +40,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 55070a20-9f6e-4179-9fa5-907603844350
-          stepCounter: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
+          columnCounter: f942d425-720b-4016-a4cc-d9238bfcbdeb
+          stepCounter: ec758d79-6403-4b69-aa7f-f8c9c1bf77dd
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -75,8 +54,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 3f5054be-385f-463c-b69d-5f57100509b2
-          stepCounter: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
+          columnCounter: 4aa292c5-da85-4b88-abef-2dbb1e80bfa5
+          stepCounter: ec758d79-6403-4b69-aa7f-f8c9c1bf77dd
         config: {}
         dataType: VARCHAR(100)
         description: ""
@@ -89,8 +68,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: d3bc17e0-a2f5-40a9-a374-00d91a949a7c
-          stepCounter: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
+          columnCounter: 71ebe29c-2891-499f-b235-dd7c65795e33
+          stepCounter: ec758d79-6403-4b69-aa7f-f8c9c1bf77dd
         config: {}
         dataType: DATE
         description: ""
@@ -103,8 +82,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 780c1bb3-6226-4077-a68f-b14880fb66d8
-          stepCounter: 65d53db2-c2f6-4f5c-8173-daac0beb7ec7
+          columnCounter: 7f566b06-eb16-40fe-afca-68cda0c98e86
+          stepCounter: ec758d79-6403-4b69-aa7f-f8c9c1bf77dd
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -126,13 +105,13 @@ operation:
           - locationName: SOURCE
             nodeName: CUSTOMERS
         join:
-          joinCondition: FROM {{ ref('SOURCE', 'CUSTOMERS') }} "CUSTOMERS"
-        name: DT_WRK_CUSTOMERS
+          joinCondition: FROM  {{ ref('SOURCE', 'CUSTOMERS') }} CUSTOMERS
+        name: WRK_CUSTOMERS_01
         noLinkRefs: []
-  name: DT_WRK_CUSTOMERS
+  name: WRK_CUSTOMERS_01
   overrideSQL: false
   schema: ""
-  sqlType: "301"
+  sqlType: base-node-types-advanced-deploy:::179
   type: sql
   version: 1
 type: Node
