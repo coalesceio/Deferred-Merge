@@ -3,13 +3,7 @@ id: 67baa1a6-2234-4562-a92f-afe943d328ce
 name: WRK_CUSTOMERS_TRANSIENT
 operation:
   config:
-    asofColumn:
-      items:
-        - {}
-    asofJoin: true
-    asofJoinMain: false
-    asofJoinON: false
-    asofJoinUSING: false
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -18,17 +12,44 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: INSERT
-    orderby: false
-    orderbycolumn:
+    createas: transient table
+    devMode: true
+    dmlCol:
+      columnCounter: 843b6dca-d077-45d3-814a-f283e2f63c3b
+      stepCounter: 67baa1a6-2234-4562-a92f-afe943d328ce
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 82af1e60-c580-47e2-9630-855c2173b5d2
+            stepCounter: 67baa1a6-2234-4562-a92f-afe943d328ce
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
-    postSQL: ""
-    preSQL: ""
-    selectDistinct: false
-    testsEnabled: false
-    truncateBefore: true
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: cd9d8925-9844-458d-b13f-b0740bd1016d
+            stepCounter: 67baa1a6-2234-4562-a92f-afe943d328ce
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
@@ -111,7 +132,7 @@ operation:
   name: WRK_CUSTOMERS_TRANSIENT
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::179
+  sqlType: "301"
   type: sql
   version: 1
 type: Node

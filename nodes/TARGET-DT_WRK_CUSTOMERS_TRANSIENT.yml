@@ -3,10 +3,7 @@ id: 3514712a-bba1-4e5b-897c-08279a95de98
 name: DT_WRK_CUSTOMERS_TRANSIENT
 operation:
   config:
-    advanceWarehouse: false
-    backfill: false
-    backfillSource: ""
-    backfillSourceSchema: ""
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -15,32 +12,50 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    cpygrants: false
-    downstreamOption: false
-    groupByAll: false
-    immutabilityConstraint: false
-    immutableExpression: ""
-    initialize: ON_CREATE
-    initializeWarehouseSize: ""
-    insertStrategy: UNION ALL
-    lagSpecification:
+    createas: transient table
+    devMode: true
+    dmlCol:
+      columnCounter: 2e47a07c-c75a-43fc-b3dd-943649dbe62f
+      stepCounter: 3514712a-bba1-4e5b-897c-08279a95de98
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
       items:
-        - lagPeriod: Minutes
-          lagValue: "60"
-    refreshWarehouseSize: ""
-    refresh_mode: AUTO
-    selectDistinct: false
-    timeTravel: false
-    timeTravelreference: ""
-    timeTraveltype: ""
-    timeTravelvalue: ""
-    warehouseName: COMPUTE_WH
+        - colName:
+            columnCounter: 164c56a9-2914-4488-8e8a-36b9837aa0da
+            stepCounter: 3514712a-bba1-4e5b-897c-08279a95de98
+          sortOrd: desc
+    orderByDateTime:
+      items:
+        - {}
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: ff4d6524-f17b-4da3-8954-cd2c773e8a0c
+            stepCounter: 3514712a-bba1-4e5b-897c-08279a95de98
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: dynamic table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -117,7 +132,7 @@ operation:
   name: DT_WRK_CUSTOMERS_TRANSIENT
   overrideSQL: false
   schema: ""
-  sqlType: dynamic-tables:::347
+  sqlType: "301"
   type: sql
   version: 1
 type: Node

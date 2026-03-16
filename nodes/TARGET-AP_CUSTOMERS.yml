@@ -12,7 +12,7 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: transient table
+    createas: table
     devMode: true
     dmlCol:
       columnCounter: c7549028-6760-44f0-912b-b62db63f07d8
@@ -149,7 +149,7 @@ operation:
   name: AP_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: "300"
+  sqlType: "301"
   type: sql
   version: 1
 type: Node
