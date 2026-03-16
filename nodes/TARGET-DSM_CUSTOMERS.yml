@@ -1,9 +1,8 @@
 fileVersion: 1
-id: 5c9a30f5-74ea-42f3-86f5-4ef929844e48
-name: WRK_CUSTOMERS_02
+id: c2f1db84-3518-4ce2-9144-4ee7ba021a63
+name: DSM_CUSTOMERS
 operation:
   config:
-    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -14,40 +13,29 @@ operation:
     clusterKeyExpressions: false
     createas: table
     devMode: true
-    dmlCol:
-      columnCounter: d7e8a6f5-bffb-489e-9926-34e5e4515170
-      stepCounter: 5c9a30f5-74ea-42f3-86f5-4ef929844e48
-    dmlDelete: D
-    dmlInsert: I
-    dmlUpdate: U
     flagSrcStream: true
     initialRows: true
-    insertOnly: false
+    latestRowFromSource: false
+    loadType: Merge
     orderBy:
       items:
         - colName:
-            columnCounter: aeb9be3b-1ce2-4214-bc1a-b3b95cb3f30b
-            stepCounter: 5c9a30f5-74ea-42f3-86f5-4ef929844e48
+            columnCounter: b41883f1-38bf-44b7-ba65-b3ce31d15f0c
+            stepCounter: c2f1db84-3518-4ce2-9144-4ee7ba021a63
           sortOrd: desc
-    orderByDateTime:
-      items:
-        - {}
     partitionBy:
       items:
         - partColName:
-            columnCounter: 7cc07e0c-391b-42a5-b4dc-cc69f47a1dfe
-            stepCounter: 5c9a30f5-74ea-42f3-86f5-4ef929844e48
-    predTask: ""
-    recordVersioning: Datetime Column
+            columnCounter: c38bd1b0-f7ec-4275-9bd4-8fe55a5591a0
+            stepCounter: c2f1db84-3518-4ce2-9144-4ee7ba021a63
+    predTask: DATA_TRANSFORMATION_ROOT_TASK
     redeploymentBehavior: Create or Replace
-    retainLastNonDeleteFlag: false
-    rootTask: ""
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    rootTask: DATA_TRANSFORMATION_ROOT_TASK
+    scheduleCRON: ""
     schedulePeriod: "60"
-    schedulePeriodOption: Minutes
+    schedulePeriodOption: Predecessor
     schedulingMode: Warehouse Task
     serverlessSize: MEDIUM
-    softDeleteFlag: false
     sourceType: Table
     whName: <WAREHOUSE_NAME>
   database: ""
@@ -55,14 +43,14 @@ operation:
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: task
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 7cc07e0c-391b-42a5-b4dc-cc69f47a1dfe
-          stepCounter: 5c9a30f5-74ea-42f3-86f5-4ef929844e48
+          columnCounter: c38bd1b0-f7ec-4275-9bd4-8fe55a5591a0
+          stepCounter: c2f1db84-3518-4ce2-9144-4ee7ba021a63
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -75,8 +63,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: d7e8a6f5-bffb-489e-9926-34e5e4515170
-          stepCounter: 5c9a30f5-74ea-42f3-86f5-4ef929844e48
+          columnCounter: bc246357-0e81-4ea5-aaa8-d15da683f7c8
+          stepCounter: c2f1db84-3518-4ce2-9144-4ee7ba021a63
         config: {}
         dataType: VARCHAR(100)
         description: ""
@@ -89,8 +77,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 05b7a58f-3ea5-4aae-b9b1-98d4a6c79afe
-          stepCounter: 5c9a30f5-74ea-42f3-86f5-4ef929844e48
+          columnCounter: 88abd8bc-f92f-4f2f-bee2-25717c7081fe
+          stepCounter: c2f1db84-3518-4ce2-9144-4ee7ba021a63
         config: {}
         dataType: DATE
         description: ""
@@ -103,8 +91,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: aeb9be3b-1ce2-4214-bc1a-b3b95cb3f30b
-          stepCounter: 5c9a30f5-74ea-42f3-86f5-4ef929844e48
+          columnCounter: b41883f1-38bf-44b7-ba65-b3ce31d15f0c
+          stepCounter: c2f1db84-3518-4ce2-9144-4ee7ba021a63
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -120,21 +108,35 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: e9b87faf-845e-4471-9d23-d60ed8568b37
-          stepCounter: 5c9a30f5-74ea-42f3-86f5-4ef929844e48
+          columnCounter: ae7c613c-31c2-4b53-845b-72d95038255c
+          stepCounter: c2f1db84-3518-4ce2-9144-4ee7ba021a63
         config: {}
-        dataType: timestamp
+        dataType: TIMESTAMP
         defaultValue: ""
         description: ""
-        keyColumnType: None
-        name: DM_UPDATE_TIMESTAMP
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
         nullable: true
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: "0"
-                stepCounter: "0"
-            transform: current_timestamp::timestamp_ntz
-        systemColumnType: None
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 97f53a66-1d88-4327-a2ed-4d086b8f2453
+          stepCounter: c2f1db84-3518-4ce2-9144-4ee7ba021a63
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -146,13 +148,13 @@ operation:
           - locationName: SOURCE
             nodeName: CUSTOMERS
         join:
-          joinCondition: FROM  {{ ref('SOURCE', 'CUSTOMERS') }} CUSTOMERS
-        name: WRK_CUSTOMERS_02
+          joinCondition: FROM {{ ref('SOURCE', 'CUSTOMERS') }} "CUSTOMERS"
+        name: DSM_CUSTOMERS
         noLinkRefs: []
-  name: WRK_CUSTOMERS_02
+  name: DSM_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: "301"
+  sqlType: streams-and-tasks:::483
   type: sql
   version: 1
 type: Node

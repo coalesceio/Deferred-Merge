@@ -1,9 +1,12 @@
 fileVersion: 1
-id: 2fe87225-1da5-4e5a-91d5-25e0c258699d
-name: SIM_CUSTOMERS
+id: d5d27f97-d700-4024-b462-e38755c76f4b
+name: DT_WRK_LRV_CUSTOMERS
 operation:
   config:
-    capUpdate: false
+    advanceWarehouse: false
+    backfill: false
+    backfillSource: ""
+    backfillSourceSchema: ""
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -12,57 +15,56 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: table
-    devMode: true
-    dmlCol:
-      columnCounter: 69808eaa-f000-4265-85b6-248b871d51ea
-      stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
-    dmlDelete: D
-    dmlInsert: I
-    dmlUpdate: U
-    flagSrcStream: true
-    initialRows: true
-    insertOnly: false
+    cpygrants: false
+    downstreamOption: false
+    immutabilityConstraint: false
+    immutableExpression: ""
+    initialize: ON_CREATE
+    initializeWarehouseSize: ""
+    lagSpecification:
+      items:
+        - lagPeriod: Minutes
+          lagValue: "60"
     orderBy:
       items:
         - colName:
-            columnCounter: 935e8a32-46fa-4425-8dcb-607c53704e8e
-            stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
-          sortOrd: desc
+            columnCounter: b2589315-8167-434f-a042-3decc643ecb9
+            stepCounter: d5d27f97-d700-4024-b462-e38755c76f4b
     orderByDateTime:
+      items:
+        - {}
+    orderseq:
       items:
         - {}
     partitionBy:
       items:
         - partColName:
-            columnCounter: 35bb29d4-e63f-4093-8e8d-7432cafdf995
-            stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
-    predTask: DATA_TRANSFORMATION_ROOT_TASK
+            columnCounter: 607b733b-63f4-44a6-a671-4d7da8448701
+            stepCounter: d5d27f97-d700-4024-b462-e38755c76f4b
     recordVersioning: Datetime Column
-    redeploymentBehavior: Create or Replace
-    retainLastNonDeleteFlag: false
-    rootTask: DATA_TRANSFORMATION_ROOT_TASK
-    scheduleCRON: ""
-    schedulePeriod: "60"
-    schedulePeriodOption: Predecessor
-    schedulingMode: Warehouse Task
-    serverlessSize: MEDIUM
-    softDeleteFlag: false
-    sourceType: Table
-    whName: <WAREHOUSE_NAME>
+    recordorderBy:
+      items:
+        - {}
+    refreshWarehouseSize: ""
+    refresh_mode: AUTO
+    timeTravel: false
+    timeTravelreference: ""
+    timeTraveltype: ""
+    timeTravelvalue: ""
+    warehouseName: COMPUTE_WH
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: dynamic table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 35bb29d4-e63f-4093-8e8d-7432cafdf995
-          stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
+          columnCounter: 607b733b-63f4-44a6-a671-4d7da8448701
+          stepCounter: d5d27f97-d700-4024-b462-e38755c76f4b
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -75,8 +77,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 69808eaa-f000-4265-85b6-248b871d51ea
-          stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
+          columnCounter: 8d1c28e0-e75f-496b-b871-31c14cd2ab1b
+          stepCounter: d5d27f97-d700-4024-b462-e38755c76f4b
         config: {}
         dataType: VARCHAR(100)
         description: ""
@@ -89,8 +91,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 7e98a006-fc64-44ea-9c41-126478dbd073
-          stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
+          columnCounter: a0c82cca-c181-436c-9915-b2eeaae8fd11
+          stepCounter: d5d27f97-d700-4024-b462-e38755c76f4b
         config: {}
         dataType: DATE
         description: ""
@@ -103,8 +105,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 935e8a32-46fa-4425-8dcb-607c53704e8e
-          stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
+          columnCounter: b2589315-8167-434f-a042-3decc643ecb9
+          stepCounter: d5d27f97-d700-4024-b462-e38755c76f4b
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -115,6 +117,23 @@ operation:
               - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
                 stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2a09969b-f1cb-48c6-b674-35be294955ef
+          stepCounter: d5d27f97-d700-4024-b462-e38755c76f4b
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        name: RECORD_CREATED_DATE
+        nullable: true
+        recordCreated: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: FIRST_VALUE({%if config.recordVersioning not in ('Integer Column')%}{{order_by_col()}}{%else%} {{order_by_col_int()}}{%endif%}) OVER (PARTITION BY {{ partition_by() }} ORDER BY {{ order_by_col() }} asc)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -127,12 +146,12 @@ operation:
             nodeName: CUSTOMERS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'CUSTOMERS') }} "CUSTOMERS"
-        name: SIM_CUSTOMERS
+        name: DT_WRK_LRV_CUSTOMERS
         noLinkRefs: []
-  name: SIM_CUSTOMERS
+  name: DT_WRK_LRV_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: "301"
+  sqlType: dynamic-tables:::351
   type: sql
   version: 1
 type: Node

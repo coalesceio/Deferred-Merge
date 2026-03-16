@@ -1,55 +1,46 @@
 fileVersion: 1
-id: 5d003238-1732-47cf-89a2-4b4e45d65f5a
-name: AP_CUSTOMERS_01
+id: ed5cd60a-0060-4e34-afa2-a57faa1712a9
+name: CT_CUSTOMERS
 operation:
   config:
-    capUpdate: false
-    clusterKey: false
+    changetracking: false
+    clusterKey: true
     clusterKeyConfig:
       items:
-        - {}
+        - columnName:
+            columnCounter: 40c1ee3c-dcb1-4286-a5b8-7564601a1e47
+            stepCounter: ed5cd60a-0060-4e34-afa2-a57faa1712a9
     clusterKeyConfigExpressions:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: transient table
-    devMode: true
-    dmlCol:
-      columnCounter: 64e2daad-abfe-4e20-aa28-257d5e611dbc
-      stepCounter: 5d003238-1732-47cf-89a2-4b4e45d65f5a
-    dmlDelete: D
-    dmlInsert: I
-    dmlUpdate: U
-    flagSrcStream: true
-    initialRows: true
-    insertOnly: false
-    orderBy:
-      items:
-        - colName:
-            columnCounter: c3803190-56ec-4b63-b2fb-76c2173ae9e3
-            stepCounter: 5d003238-1732-47cf-89a2-4b4e45d65f5a
-          sortOrd: desc
-    orderByDateTime:
+    constraintsspec:
       items:
         - {}
-    partitionBy:
+    datretention: ""
+    defaultcoallation: ""
+    eschemaevol: false
+    foreignk: false
+    foreignkeycon:
       items:
-        - partColName:
-            columnCounter: 1fe25ab1-1fb1-46e6-8017-b93033142f65
-            stepCounter: 5d003238-1732-47cf-89a2-4b4e45d65f5a
-    predTask: ""
-    recordVersioning: Datetime Column
-    redeploymentBehavior: Create or Replace
-    retainLastNonDeleteFlag: false
-    rootTask: ""
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Minutes
-    schedulingMode: Warehouse Task
-    serverlessSize: MEDIUM
-    softDeleteFlag: false
-    sourceType: Table
-    whName: <WAREHOUSE_NAME>
+        - {}
+    groupByAll: false
+    inlineconst: false
+    insertStrategy: INSERT
+    maxdataretention: ""
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    outlineconst: false
+    primary: false
+    primarykeycon:
+      items:
+        - {}
+    primarykeyname: ""
+    selectDistinct: true
+    testsEnabled: false
+    truncateBefore: true
   database: ""
   deployEnabled: true
   description: ""
@@ -61,8 +52,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 1fe25ab1-1fb1-46e6-8017-b93033142f65
-          stepCounter: 5d003238-1732-47cf-89a2-4b4e45d65f5a
+          columnCounter: 40c1ee3c-dcb1-4286-a5b8-7564601a1e47
+          stepCounter: ed5cd60a-0060-4e34-afa2-a57faa1712a9
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -75,8 +66,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 64e2daad-abfe-4e20-aa28-257d5e611dbc
-          stepCounter: 5d003238-1732-47cf-89a2-4b4e45d65f5a
+          columnCounter: 208bc592-3cee-4694-9a77-3d562e5121ec
+          stepCounter: ed5cd60a-0060-4e34-afa2-a57faa1712a9
         config: {}
         dataType: VARCHAR(100)
         description: ""
@@ -89,8 +80,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 30145759-a3fb-4d2c-8d62-125ed5a2a5c5
-          stepCounter: 5d003238-1732-47cf-89a2-4b4e45d65f5a
+          columnCounter: ece910f4-479a-4ace-bb15-b632c725b666
+          stepCounter: ed5cd60a-0060-4e34-afa2-a57faa1712a9
         config: {}
         dataType: DATE
         description: ""
@@ -103,8 +94,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: c3803190-56ec-4b63-b2fb-76c2173ae9e3
-          stepCounter: 5d003238-1732-47cf-89a2-4b4e45d65f5a
+          columnCounter: 0c8c5203-5cbe-4701-995e-28c29f3e7512
+          stepCounter: ed5cd60a-0060-4e34-afa2-a57faa1712a9
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -115,23 +106,6 @@ operation:
               - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
                 stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: bc33e528-d201-45f2-8d81-893af01211f2
-          stepCounter: 5d003238-1732-47cf-89a2-4b4e45d65f5a
-        config: {}
-        dataType: timestamp
-        defaultValue: ""
-        description: ""
-        hmUpdTs: true
-        name: DM_UPDATE_TIMESTAMP
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: current_timestamp::timestamp_ntz
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -144,12 +118,12 @@ operation:
             nodeName: CUSTOMERS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'CUSTOMERS') }} "CUSTOMERS"
-        name: AP_CUSTOMERS_01
+        name: CT_CUSTOMERS
         noLinkRefs: []
-  name: AP_CUSTOMERS_01
+  name: CT_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: "301"
+  sqlType: create-or-alter-package:::345
   type: sql
   version: 1
 type: Node
