@@ -3,6 +3,7 @@ id: 35b0f554-61a2-4cb9-87e8-5af2ce584952
 name: TSKWRK_CUSTOMERS
 operation:
   config:
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -11,31 +12,50 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
+    createas: table
     devMode: true
+    dmlCol:
+      columnCounter: c8087710-6184-4022-834d-a3c437d3b301
+      stepCounter: 35b0f554-61a2-4cb9-87e8-5af2ce584952
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
     flagSrcStream: true
-    groupByAll: false
-    insertStrategy: UNION
-    multiStreamBehavior: AND
-    orderby: false
-    orderbycolumn:
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 5253ea95-86bf-42e5-850d-406f53e0436a
+            stepCounter: 35b0f554-61a2-4cb9-87e8-5af2ce584952
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 24595ce2-12f6-4f97-8fb8-07d912053f0c
+            stepCounter: 35b0f554-61a2-4cb9-87e8-5af2ce584952
     predTask: DATA_TRANSFORMATION_ROOT_TASK
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
     rootTask: DATA_TRANSFORMATION_ROOT_TASK
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
     schedulePeriod: "60"
     schedulePeriodOption: Minutes
     schedulingMode: Warehouse Task
-    selectDistinct: true
     serverlessSize: MEDIUM
-    truncateBefore: true
+    softDeleteFlag: false
+    sourceType: Table
     whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: task
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -112,7 +132,7 @@ operation:
   name: TSKWRK_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::151
+  sqlType: "301"
   type: sql
   version: 1
 type: Node

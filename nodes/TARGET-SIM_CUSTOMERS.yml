@@ -3,7 +3,7 @@ id: 2fe87225-1da5-4e5a-91d5-25e0c258699d
 name: SIM_CUSTOMERS
 operation:
   config:
-    appendOnly: false
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -14,26 +14,40 @@ operation:
     clusterKeyExpressions: false
     createas: table
     devMode: true
+    dmlCol:
+      columnCounter: 69808eaa-f000-4265-85b6-248b871d51ea
+      stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
     flagSrcStream: true
-    groupByAll: false
     initialRows: true
-    loadType: Insert
+    insertOnly: false
     orderBy:
+      items:
+        - colName:
+            columnCounter: 935e8a32-46fa-4425-8dcb-607c53704e8e
+            stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
     partitionBy:
       items:
-        - {}
+        - partColName:
+            columnCounter: 35bb29d4-e63f-4093-8e8d-7432cafdf995
+            stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
     predTask: DATA_TRANSFORMATION_ROOT_TASK
-    propagateDeletes: false
+    recordVersioning: Datetime Column
     redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
     rootTask: DATA_TRANSFORMATION_ROOT_TASK
     scheduleCRON: ""
     schedulePeriod: "60"
     schedulePeriodOption: Predecessor
     schedulingMode: Warehouse Task
-    selectDistinct: false
     serverlessSize: MEDIUM
+    softDeleteFlag: false
     sourceType: Table
     whName: <WAREHOUSE_NAME>
   database: ""
@@ -41,7 +55,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: task
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -101,40 +115,6 @@ operation:
               - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
                 stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: ea916bc6-1dfd-4d8a-a8c0-3065179357a3
-          stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 15a86e95-9f10-476a-b46e-20635d29e9c0
-          stepCounter: 2fe87225-1da5-4e5a-91d5-25e0c258699d
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -152,7 +132,7 @@ operation:
   name: SIM_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::152
+  sqlType: "301"
   type: sql
   version: 1
 type: Node
