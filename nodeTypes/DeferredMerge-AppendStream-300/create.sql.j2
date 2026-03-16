@@ -223,7 +223,7 @@ does not permit copying or modification for any other purpose.
 
                 {# Change in materialization type #}
 
-                {% if currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType %}
+                {% if currentState != undefined and (currentState.node.materializationType != desiredState.node.materializationType or currentState.config.createas | default('') != desiredState.config.createas) %}
                     {# Change in materialization type #}
 
                     {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}

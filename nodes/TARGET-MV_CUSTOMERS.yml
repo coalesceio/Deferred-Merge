@@ -3,6 +3,7 @@ id: 2c2f887b-1127-4b90-adc3-da66f4500c1c
 name: MV_CUSTOMERS
 operation:
   config:
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -11,14 +12,50 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    secureOption: false
-    selectDistinct: true
+    createas: table
+    devMode: true
+    dmlCol:
+      columnCounter: d8421f59-eef8-4464-b2b4-7af56c2e2a0c
+      stepCounter: 2c2f887b-1127-4b90-adc3-da66f4500c1c
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 494774c4-993f-414a-9f52-4dc1949b50f5
+            stepCounter: 2c2f887b-1127-4b90-adc3-da66f4500c1c
+          sortOrd: desc
+    orderByDateTime:
+      items:
+        - {}
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 8e85561e-9f54-441c-827e-68f46ecd44ff
+            stepCounter: 2c2f887b-1127-4b90-adc3-da66f4500c1c
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: Materialized View
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -95,7 +132,7 @@ operation:
   name: MV_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: materialized-view:::178
+  sqlType: "301"
   type: sql
   version: 1
 type: Node

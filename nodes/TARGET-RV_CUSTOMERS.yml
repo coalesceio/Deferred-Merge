@@ -3,19 +3,59 @@ id: 416b50ed-962c-4261-a851-f8a04ef00e3a
 name: RV_CUSTOMERS
 operation:
   config:
-    insertStrategy: UNION ALL
-    persistTableLocation: "ex: TARGET"
-    persistTableName: "ex: DIM_ORDERS"
-    refTable: false
-    srcTable: false
-    suffixlength: ex:1
-    testsEnabled: true
+    capUpdate: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    createas: table
+    devMode: true
+    dmlCol:
+      columnCounter: 1e33cb9b-7684-47b6-a6b9-fa424237e609
+      stepCounter: 416b50ed-962c-4261-a851-f8a04ef00e3a
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 1cbfaa3e-887a-4e58-a2cb-5dfe6a7fdf6f
+            stepCounter: 416b50ed-962c-4261-a851-f8a04ef00e3a
+          sortOrd: desc
+    orderByDateTime:
+      items:
+        - {}
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: ce212790-4220-406a-aefe-a69ca1f227fd
+            stepCounter: 416b50ed-962c-4261-a851-f8a04ef00e3a
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create If Not Exists
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: run view
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -99,9 +139,9 @@ operation:
         name: RV_CUSTOMERS
         noLinkRefs: []
   name: RV_CUSTOMERS
-  overrideSQL: true
+  overrideSQL: false
   schema: ""
-  sqlType: incremental-loading:::281
+  sqlType: "301"
   type: sql
   version: 1
 type: Node

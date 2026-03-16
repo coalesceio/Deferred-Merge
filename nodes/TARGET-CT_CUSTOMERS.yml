@@ -3,7 +3,7 @@ id: ed5cd60a-0060-4e34-afa2-a57faa1712a9
 name: CT_CUSTOMERS
 operation:
   config:
-    changetracking: false
+    capUpdate: false
     clusterKey: true
     clusterKeyConfig:
       items:
@@ -14,33 +14,36 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    constraintsspec:
+    createas: table
+    devMode: true
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
       items:
         - {}
-    datretention: ""
-    defaultcoallation: ""
-    eschemaevol: false
-    foreignk: false
-    foreignkeycon:
+    orderByDateTime:
       items:
         - {}
-    groupByAll: false
-    inlineconst: false
-    insertStrategy: INSERT
-    maxdataretention: ""
-    orderby: false
-    orderbycolumn:
+    partitionBy:
       items:
         - {}
-    outlineconst: false
-    primary: false
-    primarykeycon:
-      items:
-        - {}
-    primarykeyname: ""
-    selectDistinct: true
-    testsEnabled: false
-    truncateBefore: true
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create At Existing Stream
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
@@ -123,7 +126,7 @@ operation:
   name: CT_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: create-or-alter-package:::345
+  sqlType: "301"
   type: sql
   version: 1
 type: Node

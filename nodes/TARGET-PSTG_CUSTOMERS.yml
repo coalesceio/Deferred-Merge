@@ -3,6 +3,7 @@ id: ce575945-72ed-40f9-8893-0ded822f6d2e
 name: PSTG_CUSTOMERS
 operation:
   config:
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -11,20 +12,44 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: UNION ALL
-    lastModifiedComparison: false
-    orderby: false
-    orderbycolumn:
+    createas: table
+    devMode: true
+    dmlCol:
+      columnCounter: 5f2e8267-bdb7-41c2-885a-0b993b6206ea
+      stepCounter: ce575945-72ed-40f9-8893-0ded822f6d2e
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 7db86a86-053e-4235-8660-462479140ffc
+            stepCounter: ce575945-72ed-40f9-8893-0ded822f6d2e
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
-    postSQL: ""
-    preSQL: ""
-    selectDistinct: true
-    testsEnabled: false
-    treatNullAsCurrentTimestamp: false
-    truncateBefore: false
-    type2Dimension: false
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 326ecedb-cd73-42b4-83b2-c7fc5f7cdcf3
+            stepCounter: ce575945-72ed-40f9-8893-0ded822f6d2e
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
@@ -34,23 +59,6 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 81acf1fa-947f-4911-9bdb-ea2ed36fc2c1
-          stepCounter: ce575945-72ed-40f9-8893-0ded822f6d2e
-        config: {}
-        dataType: NUMBER
-        defaultValue: ""
-        description: ""
-        isSurrogateKey: true
-        name: PSTG_CUSTOMERS_KEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
       - appliedColumnTests: {}
         columnReference:
           columnCounter: 326ecedb-cd73-42b4-83b2-c7fc5f7cdcf3
@@ -107,108 +115,6 @@ operation:
               - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
                 stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 2e329b0b-d39c-46a1-9aab-fa327236840b
-          stepCounter: ce575945-72ed-40f9-8893-0ded822f6d2e
-        config: {}
-        dataType: NUMBER
-        defaultValue: ""
-        description: ""
-        isSystemVersion: true
-        name: SYSTEM_VERSION
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: f5ea1ebe-7acd-4980-b3b1-a0ea443ab0e4
-          stepCounter: ce575945-72ed-40f9-8893-0ded822f6d2e
-        config: {}
-        dataType: VARCHAR
-        defaultValue: ""
-        description: ""
-        isSystemCurrentFlag: true
-        name: SYSTEM_CURRENT_FLAG
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: adaf25fe-c924-4616-805d-0cba3db9c17a
-          stepCounter: ce575945-72ed-40f9-8893-0ded822f6d2e
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemStartDate: true
-        name: SYSTEM_START_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 753e762f-23a0-415f-850e-489c0a0d74ab
-          stepCounter: ce575945-72ed-40f9-8893-0ded822f6d2e
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemEndDate: true
-        name: SYSTEM_END_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST('2999-12-31 00:00:00' AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: e357beef-8018-4e81-be58-e7da5a4cd05b
-          stepCounter: ce575945-72ed-40f9-8893-0ded822f6d2e
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: c0bc6855-1400-4ad7-89c0-e6d8a3a82d4b
-          stepCounter: ce575945-72ed-40f9-8893-0ded822f6d2e
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -226,7 +132,7 @@ operation:
   name: PSTG_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::391
+  sqlType: "301"
   type: sql
   version: 1
 type: Node
