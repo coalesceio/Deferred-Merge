@@ -237,7 +237,7 @@ A hybrid view is established to provide access to the most current data by combi
 
         {% if  currentState != undefined and (currentState.config.createas | default('') != desiredState.config.createas or currentState.node.materializationType | lower not in ['task', 'table']) %}
                 {# Change in materialization type #}
-                {% if currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType %}
+                {% if currentState != undefined and (currentState.node.materializationType != desiredState.node.materializationType or currentState.config.createas | default('') != desiredState.config.createas) %}
                     {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
                     {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
                     DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
