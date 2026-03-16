@@ -16,6 +16,9 @@ operation:
     clusterKeyExpressions: false
     createas: table
     devMode: true
+    dmlCol:
+      columnCounter: 208bc592-3cee-4694-9a77-3d562e5121ec
+      stepCounter: ed5cd60a-0060-4e34-afa2-a57faa1712a9
     dmlDelete: D
     dmlInsert: I
     dmlUpdate: U
@@ -24,16 +27,21 @@ operation:
     insertOnly: false
     orderBy:
       items:
-        - {}
+        - colName:
+            columnCounter: 0c8c5203-5cbe-4701-995e-28c29f3e7512
+            stepCounter: ed5cd60a-0060-4e34-afa2-a57faa1712a9
+          sortOrd: desc
     orderByDateTime:
       items:
         - {}
     partitionBy:
       items:
-        - {}
+        - partColName:
+            columnCounter: 40c1ee3c-dcb1-4286-a5b8-7564601a1e47
+            stepCounter: ed5cd60a-0060-4e34-afa2-a57faa1712a9
     predTask: ""
     recordVersioning: Datetime Column
-    redeploymentBehavior: Create At Existing Stream
+    redeploymentBehavior: Create or Replace
     retainLastNonDeleteFlag: false
     rootTask: ""
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
