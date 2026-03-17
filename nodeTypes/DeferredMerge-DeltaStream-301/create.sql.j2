@@ -145,7 +145,7 @@ A hybrid view is established to provide access to the most current data by combi
 {% if desiredState and desiredState != currentState  %}
 
     {% if currentState == undefined %}
-        {{ stage('Create Stream', true, "sql", "create") }}
+        {{ stage('Create Stream') }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
@@ -154,7 +154,7 @@ A hybrid view is established to provide access to the most current data by combi
 
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create If Not Exists'%}
-        {{ stage('Create Stream If Not Exists', true, "sql", "alter") }}
+        {{ stage('Create Stream If Not Exists') }}
         CREATE STREAM IF NOT EXISTS {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
@@ -162,13 +162,13 @@ A hybrid view is established to provide access to the most current data by combi
             {{ streamInsertOnlyMode }}
 
     {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create At Existing Stream'%}
-        {{ stage('Re-Create Stream at existing offset', true, "sql", "Alter") }}
+        {{ stage('Re-Create Stream at existing offset') }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             AT(STREAM => '{{ fullyQualifiedStreamName }}');
 
         {% elif currentState != undefined and desiredState.config.redeploymentBehavior == 'Create or Replace'%}
-        {{ stage('Create Stream', true, "sql", "alter") }}
+        {{ stage('Create Stream') }}
         CREATE OR REPLACE STREAM {{ fullyQualifiedStreamName }}
             ON {{ streamType }} {{ streamSourceObjectName }}
             {{ streamAppendMode }}
@@ -187,8 +187,9 @@ A hybrid view is established to provide access to the most current data by combi
         {% set streamName = 'DM_STREAM_' + currentState.node.name %}
     {% set fullyQualifiedStreamName = '"' + streamTargetDatabaseName + '"."' + streamTargetSchemaName + '"."' + streamName + '"' %}
 
-    {{ stage('Drop Stream', true, "sql", "drop") }}
-    DROP STREAM IF EXISTS {{ fullyQualifiedStreamName }}
+    {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+    DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
 
 {% endif %}
 
@@ -234,16 +235,15 @@ A hybrid view is established to provide access to the most current data by combi
         {% endif %}
 
 
-        {% if currentState != undefined and currentState.config.createas != desiredState.config.createas %}
-
+        {% if  currentState != undefined and (currentState.config.createas | default('') != desiredState.config.createas or currentState.node.materializationType | lower not in ['task', 'table']) %}
                 {# Change in materialization type #}
+                {% if currentState != undefined and (currentState.node.materializationType != desiredState.node.materializationType or currentState.config.createas | default('') != desiredState.config.createas) %}
+                    {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+                    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+                    DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+                {% endif %}
 
-                {{ stage('Drop ' + currentState.config.createas + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "alter") }}
-
-
-                      DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-                 
-                {{ stage('Create '+ ' {{desiredState.config.createas}}' , true, "sql", "create") }}
+                {{ stage('Create '+ ' {{desiredState.config.createas}}' ) }}
                CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 (
                 {% for col in desiredState.columns %}
@@ -258,17 +258,17 @@ A hybrid view is established to provide access to the most current data by combi
                {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
 
                {% if desiredState.config.clusterKey == true %}
-                  {{ stage('Apply Table Clustering', true, "sql", "alter") }}
+                  {{ stage('Apply Table Clustering') }}
             ALTER TABLE {{ fullyQualifiedTargetTableName }} {{ nsVariables.finalClusterKey }}
 
-            {{ stage('Resume Recluster Table', true, "sql", "alter") }}
+            {{ stage('Resume Recluster Table') }}
             ALTER TABLE {{ fullyQualifiedTargetTableName }} RESUME RECLUSTER
                {% endif %}
                 
         {% endif %}
 
         {% if currentState == undefined or currentState.storageLocations | length == 0 %}
-            {{ stage('Create  '+ ' {{desiredState.config.createas}}' , true, "sql", "create") }}
+            {{ stage('Create  '+ ' {{desiredState.config.createas}}' ) }}
             CREATE OR REPLACE {{desiredState.config.createas}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
             (
                 {% for col in desiredState.columns %}
@@ -283,14 +283,14 @@ A hybrid view is established to provide access to the most current data by combi
             {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
 
         {% if desiredState.config.clusterKey == true %}
-            {{ stage('Apply Table Clustering', true, "sql", "alter") }}
+            {{ stage('Apply Table Clustering') }}
             ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} {{ nsVariables.finalClusterKey }}
 
-            {{ stage('Resume Recluster Table', true, "sql", "alter") }}
+            {{ stage('Resume Recluster Table') }}
             ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} RESUME RECLUSTER
         {% endif %}
 
-        {% elif currentState != undefined and currentState.config.createas == desiredState.config.createas %}
+        {% elif currentState != undefined and currentState.config.createas | default('') == desiredState.config.createas %}
 
             {# Change Node Name or Change Storage Location #}
             {# Storage Location Tests #}
@@ -380,10 +380,10 @@ A hybrid view is established to provide access to the most current data by combi
             {% endfor %}
 
             {# Clustering Test #}
-            {% set clusterKeyTest = currentState.config.clusterKey == desiredState.config.clusterKey %}
-            {% set clusterKeyExpressionsTest = currentState.config.clusterKeyExpressions == desiredState.config.clusterKeyExpressions %}
-            {% set clusterKeyConfigTest = currentState.config.clusterKeyConfig == desiredState.config.clusterKeyConfig %}
-            {% set clusterKeyConfigExpressionsTest = currentState.config.clusterKeyConfigExpressions == desiredState.config.clusterKeyConfigExpressions %}
+            {% set clusterKeyTest = currentState.config.clusterKey | default(false) == desiredState.config.clusterKey %}
+            {% set clusterKeyExpressionsTest = currentState.config.clusterKeyExpressions | default(false) == desiredState.config.clusterKeyExpressions %}
+            {% set clusterKeyConfigTest = currentState.config.clusterKeyConfig  | default({'items': [{}]})  == desiredState.config.clusterKeyConfig %}
+            {% set clusterKeyConfigExpressionsTest = currentState.config.clusterKeyConfigExpressions  | default({'items': [{}]})  == desiredState.config.clusterKeyConfigExpressions %}
 
             {% if 
                 clusterKeyTest == false or
@@ -398,7 +398,7 @@ A hybrid view is established to provide access to the most current data by combi
 
             {# Rename / Move Object #}
             {% if (nsVariables.storageLocationTest == false or currentState.node.name != desiredState.node.name) %}
-                {{ stage('Rename and / or Move Table', true, "sql", "alter") }}
+                {{ stage('Rename and / or Move Table') }}
                 {% set srcSchName = currentState.node.location.name %}
                 {% set cdb = currentState.storageLocations | selectattr('name', 'equalto', srcSchName) | map(attribute='database') | first %}
                 {% set csch = currentState.storageLocations | selectattr('name', 'equalto', srcSchName) | map(attribute='schema') | first %}
@@ -409,7 +409,7 @@ A hybrid view is established to provide access to the most current data by combi
 
             {# Change table description #}
             {% if (nsVariables.nodeCommentTest == false or currentState.node.description != desiredState.node.description) %}
-                 {{ stage('Change table description', true, "sql", "alter") }}
+                 {{ stage('Change table description') }}
             ALTER TABLE {{ fullyQualifiedTargetTableName }}
                 SET COMMENT = '{{ desiredState.node.description | escape }}'
             {% endif %}
@@ -423,7 +423,7 @@ A hybrid view is established to provide access to the most current data by combi
                 {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
 
                     {% if nsVariables.colchanges == 1 %}
-                        {{ stage('Drop Columns', true, "sql", "alter") }}
+                        {{ stage('Drop Columns') }}
                     ALTER TABLE {{ fullyQualifiedTargetTableName }}
                         DROP COLUMN 
                     {% else %}
@@ -440,7 +440,7 @@ A hybrid view is established to provide access to the most current data by combi
                 {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
 
                     {% if nsVariables.colchanges == 1 %}
-                        {{ stage('Add Columns', true, "sql", "alter") }}
+                        {{ stage('Add Columns') }}
                     ALTER TABLE {{ fullyQualifiedTargetTableName }}
                         ADD COLUMN
                     {% else %}
@@ -459,7 +459,7 @@ A hybrid view is established to provide access to the most current data by combi
                 {% if renameCurCol.id in desiredState.columns | map(attribute="id") %}
                     {% set desiredColumnName = desiredState.columns | selectattr('id', 'equalto', renameCurCol.id) | map(attribute='name') | first %}
                     {% if renameCurCol.name != desiredColumnName %}
-                        {{ stage('Rename Column ' + renameCurCol.name, true, "sql", "alter") }}
+                        {{ stage('Rename Column ' + renameCurCol.name) }}
                     ALTER TABLE {{ fullyQualifiedTargetTableName }}
                         RENAME COLUMN "{{ renameCurCol.name }}"
                         TO "{{ desiredColumnName }}"
@@ -494,7 +494,7 @@ A hybrid view is established to provide access to the most current data by combi
                         {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
 
                         {% if nsVariables.colchanges == 1 %}
-                            {{ stage('Change Column Attributes', true, "sql", "alter") }}
+                            {{ stage('Change Column Attributes') }}
                         ALTER TABLE {{ fullyQualifiedTargetTableName }}
                             MODIFY
                         {% endif %}
@@ -561,7 +561,7 @@ A hybrid view is established to provide access to the most current data by combi
                 {% else %}
                     {% set nsVariables.finalClusterKey = 'DROP CLUSTERING KEY' %}
                 {% endif %}
-            {{ stage('Recluster TABLE', true, "sql", "alter") }}
+            {{ stage('Recluster TABLE') }}
             ALTER TABLE {{ fullyQualifiedTargetTableName }}
             {{ nsVariables.finalClusterKey }}
             {% endif %}
@@ -573,8 +573,9 @@ A hybrid view is established to provide access to the most current data by combi
     {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %} 
     {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
-       {{ stage('Drop ' + currentState.config.createas , true, "sql", "drop") }}
-       DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
+    {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+    DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
 
 {% endif %}
 
@@ -659,7 +660,7 @@ A hybrid view is established to provide access to the most current data by combi
     {% endif %}
     {%- set nsVariables.tableKeySort = nsVariables.tableKey + nsVariables.sortKey %}
     {% if desiredState.config.initialRows == true %}           
-        {{ stage('Target Table Initial Load',true,"sql","alter") }}
+        {{ stage('Target Table Initial Load') }}
 		{% if currentState == undefined and desiredState.config.redeploymentBehavior == 'Create or Replace' %} 
 		    INSERT  INTO {{ fullyQualifiedTargetTableName }}		
         {% elif desiredState.config.redeploymentBehavior == 'Create or Replace' %}      
@@ -1024,8 +1025,9 @@ A hybrid view is established to provide access to the most current data by combi
     {% set targetHybridViewName1 = 'DM_VIEW_' + currentState.node.name  %}
     {% set fullyQualifiedHybridViewName1 = targetHybridViewDatabase1 + '.' + targetHybridViewSchema1 + '."' + targetHybridViewName1 + '"' %}
 
-    {{ stage('Drop VIEW', true, "sql", "drop") }}
-    DROP VIEW IF EXISTS {{ fullyQualifiedHybridViewName1 }}
+    {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+    DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
 
 {%- endif -%}
 
@@ -1038,7 +1040,7 @@ A hybrid view is established to provide access to the most current data by combi
     {% if desiredState.config.devMode == false %}
     {%- if desiredState.config.schedulePeriodOption == 'Predecessor' -%}
         {%- set fullyQualifiedRootTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + desiredState.config.rootTask + '"' -%}
-                {{ stage('Suspend Root Task', true, "sql", "alter") }}
+                {{ stage('Suspend Root Task') }}
         ALTER TASK {{ fullyQualifiedRootTaskName }} SUSPEND
     {%- endif -%}
 
@@ -1050,7 +1052,7 @@ A hybrid view is established to provide access to the most current data by combi
             {%- endif -%}
     {% endif -%}  
    
-    {{ stage('Create Task', true, "sql", "create") }}
+    {{ stage('Create Task') }}
     CREATE OR REPLACE TASK
                 {{ fullyQualifiedTaskName }}
                 {{ taskType}}
@@ -1149,7 +1151,7 @@ A hybrid view is established to provide access to the most current data by combi
         THEN DELETE
     {% endif %}
             {%- if desiredState.config.schedulePeriodOption != 'Predecessor' -%} 
-                {{ stage('Resume Task', true, "sql", "create") }}
+                {{ stage('Resume Task') }}
                 ALTER TASK {{ fullyQualifiedTaskName }} RESUME;
             {%- endif -%}
         {%- endif -%}
@@ -1158,19 +1160,19 @@ A hybrid view is established to provide access to the most current data by combi
     {% set targetTableDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %}
     {% set targetTableSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %}
     {% set fullyQualifiedTargetTableName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
-    {% if currentState.config.devMode == false %}
+    {% if currentState.config.devMode | default(false) == false %}
     {# FQ Root Task name #}
     {% set fullyQualifiedRootTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + currentState.config.rootTask + '"'%}
     {# Task Info #}
     {% set taskName = 'DM_TASK_' +  currentState.node.name  %}
     {%- set fullyQualifiedTaskName = targetTableDatabase + '.' + targetTableSchema + '."' + taskName + '"' -%}
-    {%- if currentState.config.schedulingPeriodOption == 'Predecessor' -%}
-        {{ stage('Suspend Root Task', true, "sql", "alter") }}
+    {%- if currentState.config.schedulingPeriodOption | default('') == 'Predecessor' -%}
+        {{ stage('Suspend Root Task') }}
             ALTER TASK IF EXISTS {{ fullyQualifiedRootTaskName }} SUSPEND
-        {{ stage('Drop Current Task', true, "sql", "drop") }}
+        {{ stage('Drop Current Task') }}
             DROP TASK IF EXISTS {{ fullyQualifiedTaskName }} 
         {%- else -%}
-        {{ stage('Drop Current Task', true, "sql", "drop") }}
+        {{ stage('Drop Current Task') }}
             DROP TASK IF EXISTS {{ fullyQualifiedTaskName }} 
         {%- endif -%}
     {%- endif -%}
