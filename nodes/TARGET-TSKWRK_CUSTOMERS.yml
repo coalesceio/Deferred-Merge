@@ -1,9 +1,8 @@
 fileVersion: 1
-id: 2323e7a2-7bbc-4bdb-82eb-b0af884a1b8d
-name: CSS_CUSTOMERS
+id: 5e387e21-24dd-4547-a101-412bfdd5fdb9
+name: TSKWRK_CUSTOMERS
 operation:
   config:
-    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -12,57 +11,38 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: table
-    devMode: true
-    dmlCol:
-      columnCounter: f0288809-0b10-4eff-adac-48c4e9e97163
-      stepCounter: 2323e7a2-7bbc-4bdb-82eb-b0af884a1b8d
-    dmlDelete: D
-    dmlInsert: I
-    dmlUpdate: U
+    devMode: false
     flagSrcStream: true
-    initialRows: true
-    insertOnly: false
-    orderBy:
-      items:
-        - colName:
-            columnCounter: 3faf948d-41e8-4a42-a567-0c6bae7c5c84
-            stepCounter: 2323e7a2-7bbc-4bdb-82eb-b0af884a1b8d
-          sortOrd: desc
-    orderByDateTime:
+    groupByAll: false
+    insertStrategy: UNION
+    multiStreamBehavior: AND
+    orderby: false
+    orderbycolumn:
       items:
         - {}
-    partitionBy:
-      items:
-        - partColName:
-            columnCounter: 8db93bb2-cb8b-4a9a-864f-b30affd73423
-            stepCounter: 2323e7a2-7bbc-4bdb-82eb-b0af884a1b8d
-    predTask: ""
-    recordVersioning: Datetime Column
-    redeploymentBehavior: Create or Replace
-    retainLastNonDeleteFlag: false
-    rootTask: ""
+    predTask: DATA_TRANSFORMATION_ROOT_TASK
+    rootTask: DATA_TRANSFORMATION_ROOT_TASK
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
     schedulePeriod: "60"
     schedulePeriodOption: Minutes
     schedulingMode: Warehouse Task
+    selectDistinct: false
     serverlessSize: MEDIUM
-    softDeleteFlag: false
-    sourceType: Table
-    whName: <WAREHOUSE_NAME>
+    truncateBefore: true
+    whName: COMPUTE_WH
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: task
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 8db93bb2-cb8b-4a9a-864f-b30affd73423
-          stepCounter: 2323e7a2-7bbc-4bdb-82eb-b0af884a1b8d
+          columnCounter: 8d1afbb8-77b0-440f-a7d5-dc3aba2d54a6
+          stepCounter: 5e387e21-24dd-4547-a101-412bfdd5fdb9
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -75,8 +55,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: f0288809-0b10-4eff-adac-48c4e9e97163
-          stepCounter: 2323e7a2-7bbc-4bdb-82eb-b0af884a1b8d
+          columnCounter: 3a26a767-26dd-4cbd-a061-5247af0954c2
+          stepCounter: 5e387e21-24dd-4547-a101-412bfdd5fdb9
         config: {}
         dataType: VARCHAR(100)
         description: ""
@@ -89,8 +69,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 44108483-80cc-4e1d-8881-6cae262b200f
-          stepCounter: 2323e7a2-7bbc-4bdb-82eb-b0af884a1b8d
+          columnCounter: 2dc3f8ce-729b-4e36-891f-1cb88718bc66
+          stepCounter: 5e387e21-24dd-4547-a101-412bfdd5fdb9
         config: {}
         dataType: DATE
         description: ""
@@ -103,8 +83,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 3faf948d-41e8-4a42-a567-0c6bae7c5c84
-          stepCounter: 2323e7a2-7bbc-4bdb-82eb-b0af884a1b8d
+          columnCounter: efff229b-a365-4826-a8b4-6d0d7a8288bb
+          stepCounter: 5e387e21-24dd-4547-a101-412bfdd5fdb9
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -127,12 +107,12 @@ operation:
             nodeName: CUSTOMERS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'CUSTOMERS') }} "CUSTOMERS"
-        name: CSS_CUSTOMERS
+        name: TSKWRK_CUSTOMERS
         noLinkRefs: []
-  name: CSS_CUSTOMERS
+  name: TSKWRK_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: "301"
+  sqlType: streams-and-tasks:::151
   type: sql
   version: 1
 type: Node
