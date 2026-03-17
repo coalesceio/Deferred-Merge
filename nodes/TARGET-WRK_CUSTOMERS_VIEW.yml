@@ -3,13 +3,7 @@ id: 5d459d25-bfad-4b91-afd9-76e41b9a01a3
 name: WRK_CUSTOMERS_VIEW
 operation:
   config:
-    asofColumn:
-      items:
-        - {}
-    asofJoin: true
-    asofJoinMain: false
-    asofJoinON: false
-    asofJoinUSING: false
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -18,23 +12,50 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: INSERT
-    orderby: false
-    orderbycolumn:
+    createas: table
+    devMode: true
+    dmlCol:
+      columnCounter: 5d270b3a-d445-4c91-87f7-3e0623a98542
+      stepCounter: 5d459d25-bfad-4b91-afd9-76e41b9a01a3
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: true
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 837f8130-e521-4871-8eac-0e5f35501c63
+            stepCounter: 5d459d25-bfad-4b91-afd9-76e41b9a01a3
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
-    postSQL: ""
-    preSQL: ""
-    selectDistinct: false
-    testsEnabled: false
-    truncateBefore: true
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: b5a23b80-b358-4f05-b5eb-5866e2fc5774
+            stepCounter: 5d459d25-bfad-4b91-afd9-76e41b9a01a3
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: view
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -111,7 +132,7 @@ operation:
   name: WRK_CUSTOMERS_VIEW
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::179
+  sqlType: "300"
   type: sql
   version: 1
 type: Node

@@ -3,6 +3,7 @@ id: 5e387e21-24dd-4547-a101-412bfdd5fdb9
 name: TSKWRK_CUSTOMERS
 operation:
   config:
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -11,31 +12,50 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
+    createas: table
     devMode: false
+    dmlCol:
+      columnCounter: 3a26a767-26dd-4cbd-a061-5247af0954c2
+      stepCounter: 5e387e21-24dd-4547-a101-412bfdd5fdb9
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
     flagSrcStream: true
-    groupByAll: false
-    insertStrategy: UNION
-    multiStreamBehavior: AND
-    orderby: false
-    orderbycolumn:
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: efff229b-a365-4826-a8b4-6d0d7a8288bb
+            stepCounter: 5e387e21-24dd-4547-a101-412bfdd5fdb9
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 8d1afbb8-77b0-440f-a7d5-dc3aba2d54a6
+            stepCounter: 5e387e21-24dd-4547-a101-412bfdd5fdb9
     predTask: DATA_TRANSFORMATION_ROOT_TASK
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
     rootTask: DATA_TRANSFORMATION_ROOT_TASK
     scheduleCRON: 5 0-23 * * * America/Los_Angeles
     schedulePeriod: "60"
     schedulePeriodOption: Minutes
     schedulingMode: Warehouse Task
-    selectDistinct: false
     serverlessSize: MEDIUM
-    truncateBefore: true
+    softDeleteFlag: false
+    sourceType: Table
     whName: COMPUTE_WH
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: task
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -112,7 +132,7 @@ operation:
   name: TSKWRK_CUSTOMERS
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::151
+  sqlType: "300"
   type: sql
   version: 1
 type: Node

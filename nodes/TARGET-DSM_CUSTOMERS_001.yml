@@ -3,6 +3,7 @@ id: 6411dcd9-ee8d-4e70-9dfd-d3130a643a42
 name: DSM_CUSTOMERS_001
 operation:
   config:
+    capUpdate: false
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -11,31 +12,42 @@ operation:
       items:
         - {}
     clusterKeyExpressions: false
-    createas: table
+    createas: transient table
     devMode: true
+    dmlCol:
+      columnCounter: 34b71f26-70af-4b07-a189-fe32cbba8212
+      stepCounter: 6411dcd9-ee8d-4e70-9dfd-d3130a643a42
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
     flagSrcStream: true
     initialRows: true
-    latestRowFromSource: false
-    loadType: Merge
+    insertOnly: false
     orderBy:
       items:
         - colName:
             columnCounter: 01a15e26-9627-41dd-b51d-7077bb052642
             stepCounter: 6411dcd9-ee8d-4e70-9dfd-d3130a643a42
           sortOrd: desc
+    orderByDateTime:
+      items:
+        - {}
     partitionBy:
       items:
         - partColName:
             columnCounter: aed7a7ca-0160-49a4-895f-6fb14236fee6
             stepCounter: 6411dcd9-ee8d-4e70-9dfd-d3130a643a42
     predTask: DATA_TRANSFORMATION_ROOT_TASK
+    recordVersioning: Datetime Column
     redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
     rootTask: DATA_TRANSFORMATION_ROOT_TASK
     scheduleCRON: ""
     schedulePeriod: "60"
     schedulePeriodOption: Predecessor
     schedulingMode: Warehouse Task
     serverlessSize: MEDIUM
+    softDeleteFlag: false
     sourceType: Table
     whName: <WAREHOUSE_NAME>
   database: ""
@@ -43,7 +55,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: task
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -103,40 +115,6 @@ operation:
               - columnCounter: 8b5a547f-23f2-486f-a0fe-e3091c4f7aa3
                 stepCounter: 827875ff-cb31-4656-928d-7f3b3ad30b54
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: a8ff6e32-259e-4976-8bc7-2b346f9fa89a
-          stepCounter: 6411dcd9-ee8d-4e70-9dfd-d3130a643a42
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: d4909a48-37f0-4eec-8d50-6acde63a877f
-          stepCounter: 6411dcd9-ee8d-4e70-9dfd-d3130a643a42
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -154,7 +132,7 @@ operation:
   name: DSM_CUSTOMERS_001
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::483
+  sqlType: "300"
   type: sql
   version: 1
 type: Node
