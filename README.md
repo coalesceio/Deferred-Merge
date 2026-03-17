@@ -1,4 +1,39 @@
-# Deferred Merge Package
+## Snowflake - Deferred Merge - Brief Summary
+
+- **Deferred Merge - Append Stream** Streamlines high-frequency data ingestion by capturing incremental changes (CDC) from source tables or views. These nodes efficiently stage new records, updates, and deletes into a buffer, providing the necessary agility for real-time pipelines while shielding large base tables from the performance overhead of constant micro-partition rewrites.
+- **Deferred Merge - Delta Stream** Manages the intermediate delta layer by processing change streams into a queryable, state-aware buffer. By handling record versioning and complex DML logic natively, these nodes ensure that the most recent record states are immediately available via hybrid views, maintaining a "single source of truth" while deferring heavy-duty merge operations to optimized, lower-frequency schedules.
+
+----
+
+## Nodetypes Config Matrix
+
+| Category | Feature | Append Stream | Delta Stream |
+| :--- | :--- | :---: | :---: |
+| **General** | Development Mode  | ✅ | ✅ |
+| **General** | Create Target As (Table/Transient) | ✅ | ✅ |
+| **Stream** | Source Object  | ✅ | ✅ |
+| **Stream** | Show Initial Rows | ✅ | ✅ |
+| **Stream** | Redeployment Behavior | ✅ | ✅ |
+| **Loading** | Table Keys (Business Keys) | ✅ | ✅ |
+| **Loading** | Record Versioning (Latest Tracking) | ✅ | ✅ |
+| **DML Ops** | Column Identifier | ✅ | ✅ |
+| **DML Ops** | Include Value for Update | ✅ | ✅ |
+| **DML Ops** | Insert Value | ✅ | ✅ |
+| **DML Ops** | Delete Value | ✅ | ✅ |
+| **Delete** | Soft Delete Toggle | ✅ | ✅ |
+| **Delete** | Retain Last Non-Deleted Values | ✅ | ✅ |
+| **Clustering** | Cluster Key Support | ✅ | ✅ |
+| **Clustering** | Allow Expressions in Cluster Key | ✅ | ✅ |
+| **Scheduling** | Scheduling Mode | ✅ | ✅ |
+| **Scheduling** | When Source Stream has Data Flag | ✅ | ✅ |
+| **Scheduling** | Warehouse Selection | ✅ | ✅ |
+| **Scheduling** | Initial Serverless Size | ✅ | ✅ |
+| **Scheduling** | Task Schedule (Minutes/Cron/Predecessor) | ✅ | ✅ |
+| **Scheduling** | Predecessor Task Management | ✅ | ✅ |
+| **Scheduling** | Root Task Name Selection | ✅ | ✅ |
+
+
+---
 
 The Deferred Merge Package includes mechanisms for handling merge operations with different streaming strategies:
 
@@ -198,6 +233,14 @@ Stream or table changes trigger:
 > 🚧 Redeployment Behavior
 >
 > Redeployment with changes in Stream/Table/Task properties will result in execution of all steps mentioned in inital deployment.
+
+#### Node Type Switching
+
+Node Type switching is supported starting from Coalesce version **7.28+**.
+
+From this version onward, a node’s materialization type can be switched from one supported type to another, subject to certain limitations.
+
+For more info click here - [Node Type Switching Logic and Limitations](#node-type-switching-logic)
 
 ### Append Stream Undeployment
 
@@ -401,6 +444,14 @@ Stream or table changes trigger:
 >
 > Redeployment with changes in Stream/Table/Task properties will result in execution of all steps mentioned in inital deployment.
 
+#### Node Type Switching
+
+Node Type switching is supported starting from Coalesce version **7.28+**.
+
+From this version onward, a node’s materialization type can be switched from one supported type to another, subject to certain limitations.
+
+For more info click here - [Node Type Switching Logic and Limitations](#node-type-switching-logic)
+
 ### Delta Stream Undeployment
 
 When node is deleted, executes:
@@ -413,6 +464,39 @@ When node is deleted, executes:
 ### Redeployment with no changes
  
 If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
+
+-----------------
+
+#### Node Type Switching Logic
+| Current MaterializationType | Desired MaterializationType | Stage |
+|------------|--------|-------|
+| SIM or DSM | Table | 1. Warning(if applicable)<br/> 2. Drop/Alter(depending on Create Target As config)<br/> 3. Create(if applicable) |
+| Table | Table | 1. Warning (if applicable)<br/> 2. Drop<br/> 3. Create|
+| Any other Task | Table | 1. Warning (if applicable)<br/> 2. Drop<br/> 3. Create |
+| Any Other | Table | 1. Warning (if applicable)<br/>2. Drop <br/> 3. Create |
+
+**Note:** SIM and DSM nodes contain a **Create Target As** configuration similar to **Deferred Merge - Append** and **Delta Stream**. When switching from SIM/DSM, the system performs an **Alter** if this configuration matches the desired state, or a **Drop and Create** if it differs. For all other task or table types, this configuration is absent and is treated as "blank" in the current state, triggering a mandatory **Drop and Create** to correctly initialize the Deferred Merge table properties.
+
+Please review the documented limitations before performing a node type switch to ensure compatibility and avoid unintended deployment issues.
+
+#### ⚠ Limitations of Node Type Switching (Current)
+
+| # | Current Materialization | Desired Materialization | Limitation |
+|---|--------------------------|--------------------------|------------|
+| 1 | Older Version Iceberg Table | Table | Results in `ALTER` failure. Iceberg tables require `ALTER ICEBERG TABLE`. Works only if latest package (with switching support) is already used. |
+| 2 | Older Version<br/>Create or Alter-View<br/>Data Quality-DMF | Any(except View) | Switch fails unless current node uses latest package supporting node type switching. |
+| 3 | First Node in Pipeline | Any | Not supported. First node is foundational and switching may disrupt the pipeline. |
+| 4 | External Packages | Any | Not supported as they typically act as first nodes in the pipeline. |
+| 5 | Functional Packages | Any | Not supported due to column re-sync behavior which may cause schema inconsistencies. |
+| 6 | Dynamic Dimension / LRV | Any | System columns must be manually dropped before redeployment. |
+| 7 | Any | Any Other | After performing node switching, the `Create/Run` in Workspace browser may not work as expected due to changes in the node’s materialization type. |
+| 8 | Table(Data Profiling) | Table | This may result in ALTER failure unless latest package is used(with system column removal support)**(Pending Release)** |
+| 9 | Any | Any Stream-based Node (Stream, Stream & I/M, Delta Merge, or Directory Stream) | When switching to a Stream-based node, do not select **'Create At Existing Stream'** from the Redeployment Behavior; this causes deployment errors. Use **'Create or Replace'** or **'Create If Not Exists'**. |
+| 10 | Stream | Stream for Directory Table (and vice versa) | Metadata columns are not automatically synchronized. Specific directory columns (e.g., `relative_path`, `size`, `md5`) are not added when switching to Directory Table, nor are they removed when switching back to a standard Stream. |
+| 11 | Stream | Any Other (and vice versa) | Snowflake CDC metadata columns (`METADATA$ACTION`, `METADATA$ISUPDATE`, `METADATA$ROW_ID`) are not automatically managed. They are neither removed nor added when there's a node type switch |
+| 12 | Deferred Merge - Append and Delta Stream | Any Other(and vice versa) | System columns are not automatically managed, They are neither removed nor added when there's a node type switch. These must be manually dropped or added before redeployment. |
+
+--------------
 
 ## Code
 
