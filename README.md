@@ -129,7 +129,7 @@ Prior to creating a task, it is helpful to test the SQL the task will execute to
 
 If development mode is set to false then Scheduling Options can be used to configure how and when the task will run.
 
-![image](https://github.com/coalesceio/Deferred-Merge/assets/169126315/08023b93-9506-447b-87e8-088696e356ba)
+<img width="436" height="596" alt="image" src="https://github.com/user-attachments/assets/30e1b229-6df1-447b-9b22-8bc42ea78d8c" />
 
 | **Option** | **Description** |
 |------------|----------------|
@@ -137,9 +137,40 @@ If development mode is set to false then Scheduling Options can be used to confi
 | **When Source Stream has Data Flag** | True/False toggle to check for stream data<br/>**True** - Only run task if source stream has capture change data<br/>**False** -  Run task on schedule regardless of whether the source stream has data. If the source is not a stream should set this to false. |
 | **Select Warehouse** | Visible if Scheduling Mode is set to Warehouse Task. Enter the name of the warehouse you want the task to run on without quotes.|
 | **Select initial serverless size** | Visible when Scheduling Mode is set to Serverless Task.<br/> Select the initial compute size on which to run the task. Snowflake will adjust size from there based on target schedule and task run times. |
+| **Enable Size Bounds** | Toggle to set explicit limits on serverless scaling. (Visible if **Serverless Task** is selected).<br/>**Validation Rules:**<br/>- Min size must be ≤ Initial size<br/>- Max size must be ≥ Initial size<br/>- Min size must be ≤ Max size |
+| **Minimum Warehouse Size** | The smallest compute size allowed for the task (e.g., 1. XSMALL). |
+| **Maximum Warehouse Size** | The largest compute size allowed for the task (e.g., 6. XXLARGE). |
 | **Task Schedule** | Choose schedule type:<br/>- **Minutes** - Specify interval in minutes. Enter a whole number from 1 to 11520 which represents the number of minutes between task runs.<br/>- **Cron** - Uses [Cron expressions](https://docs.coalesce.io/docs/reference/cron-reference/). Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax.<br/>- **Predecessor** - Specify dependent tasks |
+| **Execution Time** | The specific duration for the task run limit. Supported ranges:<br/>- **SECONDS**: 10 - 691200<br/>- **MINUTES**: 1 - 11520<br/>- **HOURS**: 1 - 192 |
 | **Enter predecessor tasks separated by a comma**| Visible when Task Schedule is set to Predecessor. <br/>One or more task names that precede the task being created in the current node. Task names are case sensitive, should not be quoted and must exist in the same schema in which the current task is being created. If there are multiple predecessor task separate the task names using a comma and no spaces.|
 | **Root task name** | Visible when Task Schedule is set to Predecessor.<br/> Name of the root task that controls scheduling for the DAG of tasks. Task names are case sensitive, should not be quoted and must exist in the same schema in which the current task is being created. If there are multiple predecessor task separate the task names using a comma and no spaces.|
+
+#### Append Stream Advanced Scheduling Options
+
+<img width="465" height="708" alt="image" src="https://github.com/user-attachments/assets/44c937fa-3827-4ab7-9480-8e23a8fb89e4" />
+
+| **Option** | **Description** |
+|------------|----------------|
+| **Execute As Specific User** | Toggle to run on behalf of another user. Requires `GRANT IMPERSONATE` privileges. |
+| **User Name** | The specific user account name used when **Execute As Specific User** is enabled. |
+| **Allow Overlapping Execution** | Allows a new instance of the task to start if the previous one is still running. |
+| **Enable Task Graph Config** | Enables a text box to provide **Configuration JSON** for the task graph. |
+| **Auto-Suspend After Failures** | Automatically suspends the task after a set number of consecutive failures. |
+| **Number of Consecutive Failures** | Set the threshold (0 - No Limit) before the task is automatically suspended. <br/>- When toggle is OFF: Parameter is not included (uses Snowflake default of 10).<br/>- When toggle is ON with value 0: **Disables** auto-suspension.<br/>- When toggle is ON with value > 0: **Suspends** after that many consecutive failures. |
+| **Enable Auto-Retry** | Toggle to automatically retry the task if it fails. |
+| **Retry Attempts** | Specify the number of retry attempts allowed (Range: 0 - 30). |
+
+#### Append Stream Notification Options
+
+<img width="453" height="459" alt="image" src="https://github.com/user-attachments/assets/83b9dcfc-20c9-41c0-a459-a8706b3c885f" />
+
+| **Option** | **Description** |
+|------------|----------------|
+| **Enable Error Notifications** | Toggle to send alerts on failure. Requires an **Error Integration Name**. |
+| **Enable Success Notifications** | Toggle to send alerts on success. Requires a **Success Integration Name**. |
+
+> **Note:** Options under **Advanced Scheduling Options** and **Notification Options** (Execution Time, Overlapping Execution, Auto-Suspend, Auto-Retry, etc.) are only applicable to **Root** and **Independent** tasks. The only exception is **Execute As Specific User**, which can be configured for any task in the graph.
+
 
 ### Append Stream Limitations
 
@@ -340,7 +371,7 @@ Prior to creating a task, it is helpful to test the SQL the task will execute to
 
 If development mode is set to false then Scheduling Options can be used to configure how and when the task will run.
 
-![image](https://github.com/coalesceio/Deferred-Merge/assets/169126315/08023b93-9506-447b-87e8-088696e356ba)
+<img width="436" height="596" alt="image" src="https://github.com/user-attachments/assets/30e1b229-6df1-447b-9b22-8bc42ea78d8c" />
 
 | **Option** | **Description** |
 |------------|----------------|
@@ -348,9 +379,39 @@ If development mode is set to false then Scheduling Options can be used to confi
 | **When Source Stream has Data Flag** | True/False toggle to check for stream data<br/>**True** - Only run task if source stream has capture change data<br/>**False** -  Run task on schedule regardless of whether the source stream has data. If the source is not a stream should set this to false. |
 | **Select Warehouse** | Visible if Scheduling Mode is set to Warehouse Task. Enter the name of the warehouse you want the task to run on without quotes.|
 | **Select initial serverless size** | Visible when Scheduling Mode is set to Serverless Task.<br/> Select the initial compute size on which to run the task. Snowflake will adjust size from there based on target schedule and task run times. |
+| **Enable Size Bounds** | Toggle to set explicit limits on serverless scaling. (Visible if **Serverless Task** is selected).<br/>**Validation Rules:**<br/>- Min size must be ≤ Initial size<br/>- Max size must be ≥ Initial size<br/>- Min size must be ≤ Max size |
+| **Minimum Warehouse Size** | The smallest compute size allowed for the task (e.g., 1. XSMALL). |
+| **Maximum Warehouse Size** | The largest compute size allowed for the task (e.g., 6. XXLARGE). |
 | **Task Schedule** | Choose schedule type:<br/>- **Minutes** - Specify interval in minutes. Enter a whole number from 1 to 11520 which represents the number of minutes between task runs.<br/>- **Cron** - Uses [Cron expressions](https://docs.coalesce.io/docs/reference/cron-reference/). Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax.<br/>- **Predecessor** - Specify dependent tasks |
+| **Execution Time** | The specific duration for the task run limit. Supported ranges:<br/>- **SECONDS**: 10 - 691200<br/>- **MINUTES**: 1 - 11520<br/>- **HOURS**: 1 - 192 |
 | **Enter predecessor tasks separated by a comma**| Visible when Task Schedule is set to Predecessor. <br/>One or more task names that precede the task being created in the current node. Task names are case sensitive, should not be quoted and must exist in the same schema in which the current task is being created. If there are multiple predecessor task separate the task names using a comma and no spaces.|
 | **Root task name** | Visible when Task Schedule is set to Predecessor.<br/> Name of the root task that controls scheduling for the DAG of tasks. Task names are case sensitive, should not be quoted and must exist in the same schema in which the current task is being created. If there are multiple predecessor task separate the task names using a comma and no spaces.|
+
+#### Delta Stream Advanced Scheduling Options
+
+<img width="465" height="708" alt="image" src="https://github.com/user-attachments/assets/44c937fa-3827-4ab7-9480-8e23a8fb89e4" />
+
+| **Option** | **Description** |
+|------------|----------------|
+| **Execute As Specific User** | Toggle to run on behalf of another user. Requires `GRANT IMPERSONATE` privileges. |
+| **User Name** | The specific user account name used when **Execute As Specific User** is enabled. |
+| **Allow Overlapping Execution** | Allows a new instance of the task to start if the previous one is still running. |
+| **Enable Task Graph Config** | Enables a text box to provide **Configuration JSON** for the task graph. |
+| **Auto-Suspend After Failures** | Automatically suspends the task after a set number of consecutive failures. |
+| **Number of Consecutive Failures** | Set the threshold (0 - No Limit) before the task is automatically suspended. <br/>- When toggle is OFF: Parameter is not included (uses Snowflake default of 10).<br/>- When toggle is ON with value 0: **Disables** auto-suspension.<br/>- When toggle is ON with value > 0: **Suspends** after that many consecutive failures. |
+| **Enable Auto-Retry** | Toggle to automatically retry the task if it fails. |
+| **Retry Attempts** | Specify the number of retry attempts allowed (Range: 0 - 30). |
+
+#### Delta Stream Notification Options
+
+<img width="453" height="459" alt="image" src="https://github.com/user-attachments/assets/83b9dcfc-20c9-41c0-a459-a8706b3c885f" />
+
+| **Option** | **Description** |
+|------------|----------------|
+| **Enable Error Notifications** | Toggle to send alerts on failure. Requires an **Error Integration Name**. |
+| **Enable Success Notifications** | Toggle to send alerts on success. Requires a **Success Integration Name**. |
+
+> **Note:** Options under **Advanced Scheduling Options** and **Notification Options** (Execution Time, Overlapping Execution, Auto-Suspend, Auto-Retry, etc.) are only applicable to **Root** and **Independent** tasks. The only exception is **Execute As Specific User**, which can be configured for any task in the graph.
 
 ### Delta Stream Limitations
 
