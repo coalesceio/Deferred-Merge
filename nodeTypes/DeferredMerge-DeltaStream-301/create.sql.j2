@@ -601,12 +601,22 @@ A hybrid view is established to provide access to the most current data by combi
                 {% endif %}
                 {%-endif -%}
             {%- else -%}
-                {%- set taskType = 'USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = ' + desiredState.config.serverlessSize -%} 
+                {% set taskType = 'USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = ' + getServerSize(desiredState.config.serverlessSize) -%}
+                {%- if desiredState.config.sizeBoundToggle -%}
+                    {% set minSrvSize = 'SERVERLESS_TASK_MIN_STATEMENT_SIZE = ' + getServerSize(desiredState.config.minServerlessSize) -%}
+                    {% set maxSrvSize = 'SERVERLESS_TASK_MAX_STATEMENT_SIZE = ' + getServerSize(desiredState.config.maxServerlessSize) -%}
+                {%- endif -%} 
             {%- endif -%}
             
             {# Schedule Type #}
             {%- if desiredState.config.schedulePeriodOption == 'Minutes' -%} 
-                {%- set nsVariables.taskWhenRun = 'SCHEDULE = ' + "'" + desiredState.config.schedulePeriod + ' MINUTE' + "'" -%} 
+                {%- set execValue = desiredState.config.execTime.get('items')
+                                        | map(attribute='value')
+                                        | first %}
+                {%- set execPeriod = desiredState.config.execTime.get('items')
+                                        | map(attribute='period')
+                                        | first %}
+                {%- set nsVariables.taskWhenRun = 'SCHEDULE = ' + "'" + execValue | trim ~ ' ' ~ execPeriod | trim + "'" %}
             {% elif desiredState.config.schedulePeriodOption == 'CRON' %}
                 {%- set nsVariables.taskWhenRun = 'SCHEDULE = ' + "'" + 'USING CRON ' + desiredState.config.scheduleCRON + "'" %}
             {%- else -%}
@@ -620,6 +630,16 @@ A hybrid view is established to provide access to the most current data by combi
                     {%- endif %}
                 {% endfor %}    
             {%- endif -%}
+
+        {%- set nsTaskVar = namespace(nodeComment='',
+                                    userServiceAcct='',
+                                    suspendTask='',
+                                    autoTry='',
+                                    overLapExec='',
+                                    configJSON='',
+                                    errorIntegration='',
+                                    successIntegration='') %}
+        {{ getadvancedTaskOptions(nsTaskVar) }}
 
     {# When Stream has data logic #}
     {# Source Stream Location and Name #}
@@ -1055,8 +1075,34 @@ A hybrid view is established to provide access to the most current data by combi
     {{ stage('Create Task') }}
     CREATE OR REPLACE TASK
                 {{ fullyQualifiedTaskName }}
-                {{ taskType}}
+                {{ taskType }}
+                {% if desiredState.config.schedulingMode == 'Serverless Task' and desiredState.config.sizeBoundToggle -%}
+                    {{ minSrvSize }}
+                    {{ maxSrvSize }}
+                {% endif -%}
+                {{ nsTaskVar.nodeComment }}
                 {{ nsVariables.taskWhenRun }}
+                {%- if desiredState.config.schedulePeriodOption != 'Predecessor' %}
+                    {{ nsTaskVar.overLapExec }}
+                    {%- if desiredState.config.autoSuspendToggle %}
+                        {{ nsTaskVar.suspendTask }}
+                    {%- endif %}
+                    {%- if desiredState.config.autoRetryToggle %}
+                        {{ nsTaskVar.autoTry }}
+                    {%- endif %}
+                    {%- if desiredState.config.taskGraphToggle %}
+                        {{ nsTaskVar.configJSON }}
+                    {%- endif %}
+                    {%- if desiredState.config.errNotifyToggle %}
+                        {{ nsTaskVar.errorIntegration }}
+                    {%- endif %}
+                    {%- if desiredState.config.successNotifyToggle %}
+                        {{ nsTaskVar.successIntegration }}
+                    {%- endif %}
+                {%- endif %}
+                {%- if desiredState.config.spfcUserToggle %}
+                    {{ nsTaskVar.userServiceAcct }}
+                {%- endif %}
                 {% if nsVariables.poll != 'WHEN ' %} {{ nsVariables.poll }} {% endif %}
                
     AS

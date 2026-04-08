@@ -247,6 +247,7 @@ metadata:
 
      
     - groupName: Scheduling Options
+      enableIf: "{% if config.devMode == true %} false {% else %} true {% endif %}" 
       items:
       - displayName: Scheduling Options
         attributeName: schedulingMode
@@ -283,31 +284,98 @@ metadata:
       - displayName: Select initial serverless Warehouse size
         attributeName: serverlessSize
         type: dropdownSelector
-        default: 'MEDIUM'
+        default: '3. MEDIUM'
         options:
-          - XSMALL
-          - SMALL
-          - MEDIUM
-          - LARGE
-          - XLARGE
-          - XXLARGE
+          - 1. XSMALL
+          - 2. SMALL
+          - 3. MEDIUM
+          - 4. LARGE
+          - 5. XLARGE
+          - 6. XXLARGE
         isRequired: false
         enableIf: "{% if config.schedulingMode == 'Serverless Task' %} true {% else %} false {% endif %}"
 
+      - displayName: Enable Size Bounds
+        attributeName: sizeBoundToggle
+        type: toggleButton
+        default: false
+        isRequired: false
+        enableIf: "{% if config.schedulingMode == 'Serverless Task' %} true {% else %} false {% endif %}"
+
+      - type: label
+        attributeName: boundErr
+        displayName: "⚠️ Min size ≤ Initial size ≤ Max size"
+        enableIf: "{% if config.schedulingMode == 'Serverless Task'
+                      and config.sizeBoundToggle
+                      and 
+                      (
+                        config.minServerlessSize.split('.')[0] | int >= config.serverlessSize.split('.')[0] | int
+                        or config.maxServerlessSize.split('.')[0] | int <= config.serverlessSize.split('.')[0] | int
+                        or config.maxServerlessSize.split('.')[0] | int <= config.minServerlessSize.split('.')[0] | int
+                      )
+                    %} true {% else %} false {% endif %}"
+
+      - displayName: Minimum Warehouse Size
+        attributeName: minServerlessSize
+        type: dropdownSelector
+        default: '1. XSMALL'
+        options:
+          - 1. XSMALL
+          - 2. SMALL
+          - 3. MEDIUM
+          - 4. LARGE
+          - 5. XLARGE
+          - 6. XXLARGE
+        isRequired: false
+        enableIf: "{% if config.schedulingMode == 'Serverless Task' and config.sizeBoundToggle %} true {% else %} false {% endif %}"
+
+      - displayName: Maximum Warehouse Size
+        attributeName: maxServerlessSize
+        type: dropdownSelector
+        default: '6. XXLARGE'
+        options:
+          - 1. XSMALL
+          - 2. SMALL
+          - 3. MEDIUM
+          - 4. LARGE
+          - 5. XLARGE
+          - 6. XXLARGE
+        isRequired: false
+        enableIf: "{% if config.schedulingMode == 'Serverless Task' and config.sizeBoundToggle %} true {% else %} false {% endif %}"
+
+        # Way to schedule the task to run #
       - displayName: Task Schedule
         attributeName: schedulePeriodOption
         type: dropdownSelector
-        default: Minutes
+        default: Predecessor
         options:
           - Minutes
           - CRON
           - Predecessor
-        isRequired: TRUE
+        isRequired: true
 
-      - displayName: Enter task schedule using minutes
-        attributeName: schedulePeriod
-        type: textBox
-        default: '60'
+      - type: tabular
+        displayName: Execution Time [💡Seconds(10 - 691200), Minutes(1 - 11520), Hours(1 - 192)]
+        attributeName: execTime
+
+        columns:
+
+        -  type: textBox
+           displayName: ''
+           attributeName: value
+           default: 60
+           isRequired: false
+
+        -  type: dropdownSelector
+           displayName: ''
+           attributeName: period
+           default: "Minutes"
+           options:
+            - Seconds
+            - Minutes
+            - Hours
+           isRequired: false
+
         isRequired: false
         enableIf: "{% if config.schedulePeriodOption == 'Minutes' %} true {% else %} false {% endif %}"
 
@@ -318,20 +386,135 @@ metadata:
         isRequired: false
         enableIf: "{% if config.schedulePeriodOption == 'CRON' %} true {% else %} false {% endif %}"
 
-      - displayName: Enter predecessor task(s) seperated by a comma 
+      - displayName: Enter predecessor task(s) separated by a comma
         attributeName: predTask
         type: textBox
-        default: ""
+        default: 'DATA_TRANSFORMATION_ROOT_TASK'
         isRequired: false
         enableIf: "{% if config.schedulePeriodOption == 'Predecessor' %} true {% else %} false {% endif %}"
 
       - displayName: Enter root task name
         attributeName: rootTask
         type: textBox
-        default: ""
+        default: 'DATA_TRANSFORMATION_ROOT_TASK'
         isRequired: false
         enableIf: "{% if config.schedulePeriodOption == 'Predecessor' %} true {% else %} false {% endif %}"
-      enableIf: "{% if config.devMode == true %} false {% else %} true {% endif %}" 
+
+    - groupName: Advanced Scheduling Options
+      enableIf: "{% if config.devMode %} false {% else %} true {% endif %}"
+      items:
+
+      - displayName: Execute As Specific User
+        attributeName: spfcUserToggle
+        type: toggleButton
+        default: false
+        isRequired: false
+
+      - type: label
+        attributeName: userInfo
+        displayName: "ℹ️ Runs the task on behalf of a specified user account. Requires GRANT IMPERSONATE ON USER privilege."
+        enableIf: "{% if config.spfcUserToggle %} true {% else %} false {% endif %}"
+
+      - type: label
+        attributeName: warningSpfcUser
+        displayName: "⚠️ Warning: targetTaskExecuteAsUser parameter is not provided."
+        enableIf: "{% if config.spfcUserToggle and parameters.targetTaskExecuteAsUser | trim | default('') == '' %} true {% else %} false {% endif %}"
+
+      - displayName: User Name
+        attributeName: userName
+        type: textBox
+        default: ''
+        isRequired: false
+        enableIf: "{% if config.spfcUserToggle %} true {% else %} false {% endif %}"
+
+      - displayName: Allow Overlapping Execution
+        attributeName: overlapExecToggle
+        type: toggleButton
+        default: false
+        isRequired: false
+        enableIf: "{% if config.schedulePeriodOption not in ['Predecessor'] %} true {% else %} false {% endif %}"
+
+      - displayName: Enable Task Graph Config
+        attributeName: taskGraphToggle
+        type: toggleButton
+        default: false
+        isRequired: false
+        enableIf: "{% if config.schedulePeriodOption not in ['Predecessor'] %} true {% else %} false {% endif %}"
+
+      - displayName: Configuration JSON
+        attributeName: configJSON
+        type: textBox
+        default: ''
+        isRequired: false
+        enableIf: "{% if config.schedulePeriodOption not in ['Predecessor'] and config.taskGraphToggle %} true {% else %} false {% endif %}"
+
+      - displayName: Auto-Suspend After Failures
+        attributeName: autoSuspendToggle
+        type: toggleButton
+        default: false
+        isRequired: false
+        enableIf: "{% if config.schedulePeriodOption not in ['Predecessor'] %} true {% else %} false {% endif %}"
+
+      - displayName: Number of Consecutive Failures (💡Range. 0 - No Limit)
+        attributeName: numFailures
+        type: textBox
+        default: '10'
+        isRequired: false
+        enableIf: "{% if config.schedulePeriodOption not in ['Predecessor'] and config.autoSuspendToggle %} true {% else %} false {% endif %}"
+
+      - displayName: Enable Auto-Retry
+        attributeName: autoRetryToggle
+        type: toggleButton
+        default: false
+        isRequired: false
+        enableIf: "{% if config.schedulePeriodOption not in ['Predecessor'] %} true {% else %} false {% endif %}"
+
+      - displayName: Retry Attempts (💡Range. 0 - 30)
+        attributeName: retryAttmpt
+        type: textBox
+        default: '0'
+        isRequired: false
+        enableIf: "{% if config.schedulePeriodOption not in ['Predecessor'] and config.autoSuspendToggle %} true {% else %} false {% endif %}"
+
+    - groupName: Notification Options
+      enableIf: "{% if config.devMode or config.schedulePeriodOption in ['Predecessor'] %} false {% else %} true {% endif %}"
+      items:
+
+      - displayName: Enable Error Notifications
+        attributeName: errNotifyToggle
+        type: toggleButton
+        default: false
+        isRequired: false
+
+      - type: label
+        attributeName: warningErrIntName
+        displayName: "⚠️ Warning: targetTaskErrorIntegration parameter is not provided."
+        enableIf: "{% if config.errNotifyToggle and parameters.targetTaskErrorIntegration | trim | default('') == '' %} true {% else %} false {% endif %}"
+
+      - displayName: Error Integration Name
+        attributeName: errIntName
+        type: textBox
+        default: ''
+        isRequired: false
+        enableIf: "{% if config.errNotifyToggle %} true {% else %} false {% endif %}"
+
+      - displayName: Enable Success Notifications
+        attributeName: successNotifyToggle
+        type: toggleButton
+        default: false
+        isRequired: false
+
+      - type: label
+        attributeName: warningSuccIntName
+        displayName: "⚠️ Warning: targetTaskSuccessIntegration parameter is not provided."
+        enableIf: "{% if config.successNotifyToggle and parameters.targetTaskSuccessIntegration | trim | default('') == '' %} true {% else %} false {% endif %}"
+
+      - displayName: Success Integration Name
+        attributeName: succIntName
+        type: textBox
+        default: ''
+        isRequired: false
+        enableIf: "{% if config.successNotifyToggle %} true {% else %} false {% endif %}"
 
     systemColumns:
     - displayName: 'DM_UPDATE_TIMESTAMP'
