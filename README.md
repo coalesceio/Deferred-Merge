@@ -1,11 +1,11 @@
 ## Snowflake - Deferred Merge - Brief Summary
 
 - **Deferred Merge - Append Stream** Streamlines high-frequency data ingestion by capturing incremental changes (CDC) from source tables or views. These nodes efficiently stage new records, updates, and deletes into a buffer, providing the necessary agility for real-time pipelines while shielding large base tables from the performance overhead of constant micro-partition rewrites.
-- **Deferred Merge - Delta Stream** Manages the intermediate delta layer by processing change streams into a queryable, state-aware buffer. By handling record versioning and complex DML logic natively, these nodes ensure that the most recent record states are immediately available via hybrid views, maintaining a "single source of truth" while deferring heavy-duty merge operations to optimized, lower-frequency schedules.
+- **Deferred Merge - Delta Stream** Manages the intermediate delta layer by processing change streams into a queryable, state-aware buffer. By handling record versioning and complex DML logic natively, these nodes ensure that the most recent record states are immediately available through hybrid views, maintaining a "single source of truth" while deferring heavy-duty merge operations to optimized, lower-frequency schedules.
 
 ----
 
-## Nodetypes Config Matrix
+## Node Types Config Matrix
 
 | Category | Feature | Append Stream | Delta Stream |
 | :--- | :--- | :---: | :---: |
@@ -123,7 +123,7 @@ Prior to creating a task, it is helpful to test the SQL the task will execute to
 | **Option** | **Description** |
 |------------|----------------|
 | **Cluster key** | **True**: Specify clustering column and allow expressions<br/>**False**: No clustering implemented |
-| **Allow Expressions Cluster Key**| Aadd an expression to the specified cluster key|
+| **Allow Expressions Cluster Key**| Add an expression to the specified cluster key|
 
 #### Append Stream Scheduling Options
 
@@ -138,8 +138,8 @@ If development mode is set to false then Scheduling Options can be used to confi
 | **Select Warehouse** | Visible if Scheduling Mode is set to Warehouse Task. Enter the name of the warehouse you want the task to run on without quotes.|
 | **Select initial serverless size** | Visible when Scheduling Mode is set to Serverless Task.<br/> Select the initial compute size on which to run the task. Snowflake will adjust size from there based on target schedule and task run times. |
 | **Enable Size Bounds** | Toggle to set explicit limits on serverless scaling. (Visible if **Serverless Task** is selected).<br/>**Validation Rules:**<br/>- Min size must be ≤ Initial size<br/>- Max size must be ≥ Initial size<br/>- Min size must be ≤ Max size |
-| **Minimum Warehouse Size** | The smallest compute size allowed for the task (e.g., 1. XSMALL). |
-| **Maximum Warehouse Size** | The largest compute size allowed for the task (e.g., 6. XXLARGE). |
+| **Minimum Warehouse Size** | The smallest compute size allowed for the task (for example, 1. XSMALL). |
+| **Maximum Warehouse Size** | The largest compute size allowed for the task (for example, 6. XXLARGE). |
 | **Task Schedule** | Choose schedule type:<br/>- **Minutes** - Specify interval in minutes. Enter a whole number from 1 to 11520 which represents the number of minutes between task runs.<br/>- **Cron** - Uses [Cron expressions](https://docs.coalesce.io/docs/reference/cron-reference/). Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax.<br/>- **Predecessor** - Specify dependent tasks |
 | **Execution Time** | The specific duration for the task run limit. Supported ranges:<br/>- **SECONDS**: 10 - 691200<br/>- **MINUTES**: 1 - 11520<br/>- **HOURS**: 1 - 192 |
 | **Enter predecessor tasks separated by a comma**| Visible when Task Schedule is set to Predecessor. <br/>One or more task names that precede the task being created in the current node. Task names are case sensitive, should not be quoted and must exist in the same schema in which the current task is being created. If there are multiple predecessor task separate the task names using a comma and no spaces.|
@@ -174,7 +174,7 @@ If development mode is set to false then Scheduling Options can be used to confi
 
 ### Append Stream Limitations
 
-> 🚧 **Appyling Transformation**
+> 🚧 **Applying Transformation**
 > This node can't apply transformations to the columns for this node type.
 
 ### Append Stream Deployment
@@ -263,7 +263,7 @@ Stream or table changes trigger:
 
 > 🚧 Redeployment Behavior
 >
-> Redeployment with changes in Stream/Table/Task properties will result in execution of all steps mentioned in inital deployment.
+> Redeployment with changes in Stream/Table/Task properties will result in execution of all steps mentioned in initial deployment.
 
 #### Node Type Switching
 
@@ -271,7 +271,7 @@ Node Type switching is supported starting from Coalesce version **7.28+**.
 
 From this version onward, a node’s materialization type can be switched from one supported type to another, subject to certain limitations.
 
-For more info click here - [Node Type Switching Logic and Limitations](#node-type-switching-logic)
+For more information, see [Node Type Switching Logic and Limitations](#node-type-switching-logic)
 
 ### Append Stream Undeployment
 
@@ -365,7 +365,7 @@ Prior to creating a task, it is helpful to test the SQL the task will execute to
 | **Option** | **Description** |
 |------------|----------------|
 | **Cluster key** | **True**: Specify clustering column and allow expressions<br/>**False**: No clustering implemented |
-| **Allow Expressions Cluster Key**| Aadd an expression to the specified cluster key|
+| **Allow Expressions Cluster Key**| Add an expression to the specified cluster key|
 
 #### Delta Stream Scheduling Options
 
@@ -380,8 +380,8 @@ If development mode is set to false then Scheduling Options can be used to confi
 | **Select Warehouse** | Visible if Scheduling Mode is set to Warehouse Task. Enter the name of the warehouse you want the task to run on without quotes.|
 | **Select initial serverless size** | Visible when Scheduling Mode is set to Serverless Task.<br/> Select the initial compute size on which to run the task. Snowflake will adjust size from there based on target schedule and task run times. |
 | **Enable Size Bounds** | Toggle to set explicit limits on serverless scaling. (Visible if **Serverless Task** is selected).<br/>**Validation Rules:**<br/>- Min size must be ≤ Initial size<br/>- Max size must be ≥ Initial size<br/>- Min size must be ≤ Max size |
-| **Minimum Warehouse Size** | The smallest compute size allowed for the task (e.g., 1. XSMALL). |
-| **Maximum Warehouse Size** | The largest compute size allowed for the task (e.g., 6. XXLARGE). |
+| **Minimum Warehouse Size** | The smallest compute size allowed for the task (for example, 1. XSMALL). |
+| **Maximum Warehouse Size** | The largest compute size allowed for the task (for example, 6. XXLARGE). |
 | **Task Schedule** | Choose schedule type:<br/>- **Minutes** - Specify interval in minutes. Enter a whole number from 1 to 11520 which represents the number of minutes between task runs.<br/>- **Cron** - Uses [Cron expressions](https://docs.coalesce.io/docs/reference/cron-reference/). Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax.<br/>- **Predecessor** - Specify dependent tasks |
 | **Execution Time** | The specific duration for the task run limit. Supported ranges:<br/>- **SECONDS**: 10 - 691200<br/>- **MINUTES**: 1 - 11520<br/>- **HOURS**: 1 - 192 |
 | **Enter predecessor tasks separated by a comma**| Visible when Task Schedule is set to Predecessor. <br/>One or more task names that precede the task being created in the current node. Task names are case sensitive, should not be quoted and must exist in the same schema in which the current task is being created. If there are multiple predecessor task separate the task names using a comma and no spaces.|
@@ -415,7 +415,7 @@ If development mode is set to false then Scheduling Options can be used to confi
 
 ### Delta Stream Limitations
 
-> 🚧 **Appyling Transformation**
+> 🚧 **Applying Transformation**
 > This node can't apply transformations to the columns for this node type.
 
 ### Delta Stream Deployment
@@ -503,7 +503,7 @@ Stream or table changes trigger:
 
 > 🚧 Redeployment Behavior
 >
-> Redeployment with changes in Stream/Table/Task properties will result in execution of all steps mentioned in inital deployment.
+> Redeployment with changes in Stream/Table/Task properties will result in execution of all steps mentioned in initial deployment.
 
 #### Node Type Switching
 
@@ -511,7 +511,7 @@ Node Type switching is supported starting from Coalesce version **7.28+**.
 
 From this version onward, a node’s materialization type can be switched from one supported type to another, subject to certain limitations.
 
-For more info click here - [Node Type Switching Logic and Limitations](#node-type-switching-logic)
+For more information, see [Node Type Switching Logic and Limitations](#node-type-switching-logic)
 
 ### Delta Stream Undeployment
 
@@ -522,7 +522,7 @@ When node is deleted, executes:
 * Drop View
 * Drop Current Task
 * 
-### Redeployment with no changes
+### Redeployment With No Changes
  
 If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
@@ -538,7 +538,7 @@ If the nodes are redeployed with no changes compared to previous deployment, the
 
 **Note:** SIM and DSM nodes contain a **Create Target As** configuration similar to **Deferred Merge - Append** and **Delta Stream**. When switching from SIM/DSM, the system performs an **Alter** if this configuration matches the desired state, or a **Drop and Create** if it differs. For all other task or table types, this configuration is absent and is treated as "blank" in the current state, triggering a mandatory **Drop and Create** to correctly initialize the Deferred Merge table properties.
 
-Please review the documented limitations before performing a node type switch to ensure compatibility and avoid unintended deployment issues.
+Review the documented limitations before performing a node type switch to ensure compatibility and avoid unintended deployment issues.
 
 #### ⚠ Limitations of Node Type Switching (Current)
 
@@ -553,7 +553,7 @@ Please review the documented limitations before performing a node type switch to
 | 7 | Any | Any Other | After performing node switching, the `Create/Run` in Workspace browser may not work as expected due to changes in the node’s materialization type. |
 | 8 | Table(Data Profiling) | Table | This may result in ALTER failure unless latest package is used(with system column removal support)**(Pending Release)** |
 | 9 | Any | Any Stream-based Node (Stream, Stream & I/M, Delta Merge, or Directory Stream) | When switching to a Stream-based node, do not select **'Create At Existing Stream'** from the Redeployment Behavior; this causes deployment errors. Use **'Create or Replace'** or **'Create If Not Exists'**. |
-| 10 | Stream | Stream for Directory Table (and vice versa) | Metadata columns are not automatically synchronized. Specific directory columns (e.g., `relative_path`, `size`, `md5`) are not added when switching to Directory Table, nor are they removed when switching back to a standard Stream. |
+| 10 | Stream | Stream for Directory Table (and vice versa) | Metadata columns are not automatically synchronized. Specific directory columns (for example, `relative_path`, `size`, `md5`) are not added when switching to Directory Table, nor are they removed when switching back to a standard Stream. |
 | 11 | Stream | Any Other (and vice versa) | Snowflake CDC metadata columns (`METADATA$ACTION`, `METADATA$ISUPDATE`, `METADATA$ROW_ID`) are not automatically managed. They are neither removed nor added when there's a node type switch |
 | 12 | Deferred Merge - Append and Delta Stream | Any Other(and vice versa) | System columns are not automatically managed, They are neither removed nor added when there's a node type switch. These must be manually dropped or added before redeployment. |
 
