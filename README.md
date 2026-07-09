@@ -83,7 +83,7 @@ Prior to creating a task, it is helpful to test the SQL the task will execute to
 
 | **Redeployment Behavior** | **Stage Executed** |
 |---|---|
-| **Create Stream if not exists**| Re-Create Stream at existing offset|
+| **Create Stream if not exists**| Create Stream if not exists |
 | **Create or Replace** | Create Stream|
 | **Create at existing stream**|  Re-Create Stream at existing offset |
 
@@ -229,7 +229,7 @@ When deploying with predecessor tasks, executes:
 
 | **Redeployment Behavior** | **Stage Executed** |
 |--------------------------|-------------------|
-| **Create Stream if not exists** | Re-Create Stream at existing offset |
+| **Create Stream if not exists** | Create Stream if not exists |
 | **Create or Replace** | Create Stream |
 | **Create at existing stream** | Re-Create Stream at existing offset |
 
@@ -325,7 +325,7 @@ Prior to creating a task, it is helpful to test the SQL the task will execute to
 
 | **Redeployment Behavior** | **Stage Executed** |
 |---|---|
-| **Create Stream if not exists**| Re-Create Stream at existing offset|
+| **Create Stream if not exists**| Create Stream if not exists|
 | **Create or Replace** | Create Stream|
 | **Create at existing stream**|  Re-Create Stream at existing offset |
 
@@ -470,7 +470,7 @@ When deploying with predecessor tasks, executes:
 
 | **Redeployment Behavior** | **Stage Executed** |
 |--------------------------|-------------------|
-| **Create Stream if not exists** | Re-Create Stream at existing offset |
+| **Create Stream if not exists** | Create Stream if not exists |
 | **Create or Replace** | Create Stream |
 | **Create at existing stream** | Re-Create Stream at existing offset |
 
